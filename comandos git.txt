@@ -12,5 +12,3 @@ git pull
 
 
 ESTO AGREGO NICO
-
-ESTO AGREGO LEA
