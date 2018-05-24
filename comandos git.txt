@@ -1,4 +1,4 @@
-nico re putaso come gordas
+ale re putaso come gordas y lea vos tambien 
 
 git init
 git clone
@@ -8,5 +8,5 @@ git commit -m "..."
 git push
 git pull
 
-
 bfhsjabhjasbjkahjka
+
