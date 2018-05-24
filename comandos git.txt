@@ -1,0 +1,9 @@
+nico re putaso come gordas
+
+git init
+git clone
+git status
+git add *
+git commit -m "..."
+git push
+git pull
