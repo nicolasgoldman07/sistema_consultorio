@@ -1,4 +1,4 @@
-ale re putaso come gordas y lea vos tambien 
+Nikün re putaso come gordas y lea vos tambien 
 
 git init
 git clone
