@@ -1,20 +1,24 @@
 
 public class Paciente {
 	
-	int dni;
-	int obraSocialNum;
-	String obraSocial;
-	String nombre;
-	String apellido;
-	//Odontograma historiaC;
+	private String dni;
+	private String obraSocialNum;
+	private String obraSocial;
+	private String nombre;
+	private String apellido;
+	//private Odontograma historiaC;
 	
-	public Paciente(int id, int osn, String os, String name, String surename){
+	public Paciente(String id, String osn, String os, String name, String surename){
 		this.dni = id;
 		this.obraSocialNum = osn;
 		this.obraSocial = os;
 		this.nombre = name;
 		this.apellido = surename;
 		//this.Odontograma;
+	}
+	
+	public Paciente(){
+		
 	}
 	
 	//Getters
@@ -27,10 +31,10 @@ public class Paciente {
 	public String getNombreCompleto(){
 		return apellido+", "+nombre;
 	}
-	public int getDni(){
+	public String getDni(){
 		return dni;
 	}
-	public int getNumeroObraSocial(){
+	public String getNumeroObraSocial(){
 		return obraSocialNum;
 	}
 	public String getObraSocial(){
@@ -42,11 +46,11 @@ public class Paciente {
 		this.nombre = nom;
 		this.apellido = ape;
 	}
-	public void setObraSocial(int num, String nom){
+	public void setObraSocial(String num, String nom){
 		this.obraSocial = nom;
 		this.obraSocialNum = num;
 	}
-	public void setDni(int num){
+	public void setDni(String num){
 		this.dni = num;
 	}
 	
