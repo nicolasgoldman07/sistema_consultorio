@@ -28,6 +28,7 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.ImageIcon;
 import javax.swing.JTextPane;
+import java.awt.Toolkit;
 
 public class loginView extends JFrame {
 
@@ -56,6 +57,9 @@ public class loginView extends JFrame {
 	 * Create the frame.
 	 */
 	public loginView() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(loginView.class.getResource("/images/dientesin200.png")));
+		setResizable(false);
+		setTitle("Odontolog");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(600, 300, 650, 400);								// los primeros dos son de ubicacion en pantalla
 		contentPane = new JPanel();
@@ -63,7 +67,6 @@ public class loginView extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
-		setResizable(false);
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(SystemColor.inactiveCaption);
