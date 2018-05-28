@@ -19,6 +19,7 @@ import javax.swing.UIManager;
 
 import java.awt.Color;
 import java.awt.SystemColor;
+import java.awt.Font;
 
 public class principalView extends JFrame {
 
@@ -48,7 +49,7 @@ public class principalView extends JFrame {
 		setSize(650, 400);
 		setLocationByPlatform(true);
 		contentPane = new JPanel();
-		contentPane.setBackground(SystemColor.inactiveCaption);
+		contentPane.setBackground(SystemColor.activeCaption);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
@@ -116,12 +117,15 @@ public class principalView extends JFrame {
 		contentPane.add(btnAdmin, gbc_btnAdmin);
 		
 		JButton btnLogOut = new JButton("Log Out");
+		btnLogOut.setBackground(SystemColor.inactiveCaption);
+		btnLogOut.setFont(new Font("Yu Gothic UI Semilight", Font.PLAIN, 16));
 		btnLogOut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
 		
 		JLabel lblNewLabel = new JLabel("Agenda de Turnos");
+		lblNewLabel.setFont(new Font("Yu Gothic UI Semilight", Font.PLAIN, 16));
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
 		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel.gridx = 1;
@@ -129,6 +133,7 @@ public class principalView extends JFrame {
 		contentPane.add(lblNewLabel, gbc_lblNewLabel);
 		
 		JLabel lblHistoriaClinica = new JLabel("Historia Clinica");
+		lblHistoriaClinica.setFont(new Font("Yu Gothic UI Semilight", Font.PLAIN, 16));
 		GridBagConstraints gbc_lblHistoriaClinica = new GridBagConstraints();
 		gbc_lblHistoriaClinica.insets = new Insets(0, 0, 5, 5);
 		gbc_lblHistoriaClinica.gridx = 2;
@@ -136,6 +141,7 @@ public class principalView extends JFrame {
 		contentPane.add(lblHistoriaClinica, gbc_lblHistoriaClinica);
 		
 		JLabel lblAdministracion = new JLabel("Administracion");
+		lblAdministracion.setFont(new Font("Yu Gothic UI Semilight", Font.PLAIN, 16));
 		GridBagConstraints gbc_lblAdministracion = new GridBagConstraints();
 		gbc_lblAdministracion.insets = new Insets(0, 0, 5, 0);
 		gbc_lblAdministracion.gridx = 3;

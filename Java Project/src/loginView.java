@@ -28,6 +28,8 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.ImageIcon;
 import javax.swing.JTextPane;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class loginView extends JFrame {
 
@@ -135,6 +137,10 @@ public class loginView extends JFrame {
 		panel_2.setLayout(gbl_panel_2);
 		
 		JButton btnNewButton = new JButton("Log In");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		btnNewButton.setBackground(SystemColor.inactiveCaption);
 		btnNewButton.setFont(new Font("Yu Gothic UI Semilight", Font.PLAIN, 16));
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
