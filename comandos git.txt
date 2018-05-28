@@ -7,5 +7,7 @@ git add *
 git commit -m "..."
 git push
 git pull
+git checkout -b "nombre_del_branch" -> crear nuevo branch
+git checkout nombre_del_branch	    -> moverse a un branch ya existente
 
 agregar
