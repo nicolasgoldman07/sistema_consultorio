@@ -3,21 +3,21 @@ import java.util.Vector;
 
 public class Diente {
 	
-	private ArrayList<String> caraSup;
-	private ArrayList<String> caraInf;
-	private ArrayList<String> caraDer;
-	private ArrayList<String> caraIzq;
-	private ArrayList<String> caraC;
-	private Vector<ArrayList<String>> caras;
+	private Tratamiento caraSup;
+	private Tratamiento caraInf;
+	private Tratamiento caraDer;
+	private Tratamiento caraIzq;
+	private Tratamiento caraC;
+	private Vector<Tratamiento> caras;
 	
 	public Diente(){
 		
-		caras = new Vector<ArrayList<String>>();
-		caraSup = new ArrayList<String>();
-		caraInf = new ArrayList<String>();
-		caraDer = new ArrayList<String>();
-		caraIzq = new ArrayList<String>();
-		caraC = new ArrayList<String>();
+		caras = new Vector<Tratamiento>();
+		caraSup = new Tratamiento();
+		caraInf = new Tratamiento();
+		caraDer = new Tratamiento();
+		caraIzq = new Tratamiento();
+		caraC = new Tratamiento();
 		
 		caras.addElement(caraSup);
 		caras.addElement(caraInf);
@@ -26,23 +26,12 @@ public class Diente {
 		caras.addElement(caraC);
 	}
 	
-	public void addCondicion(ArrayList<String> cara, String cond){
-		cara.add(cond);
+	public void addCondicion(Tratamiento cara, String cond){
+		cara.setTratamiento(cond);
 	}
 	
-	public ArrayList<String> getCara(int num){
+	public Tratamiento getCara(int num){
 		return caras.get(num);
-	}
-	
-	public void printDiente(){
-	
-	for(int j=0; j<caras.size(); j++){
-		System.out.println("Cara: " + j);
-		for(int i=0; i < caras.get(j).size(); i++ ){
-			System.out.println(caras.get(j).get(i));
-		}
-	}
-		
 	}
 	
 	
