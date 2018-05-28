@@ -194,6 +194,13 @@ public class loginView extends JFrame {
 	
 	void addLoginListener(ActionListener listenLogin){
 		loginButton.addActionListener(listenLogin);
+		passwordField.addActionListener(listenLogin);
+		userField.addActionListener(listenLogin);
+	}
+	
+	void clearLogin(){
+		userField.setText("");
+		passwordField.setText("");
 	}
 	
 	void displayErrorMessage(String msg){

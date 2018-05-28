@@ -27,12 +27,23 @@ public class Controller {
 			password =  String.copyValueOf(mView.login.getPass());
 			
 			if(mModel.checkLogin(userName, password)){
+				mView.login.setVisible(false);
+				mView.login.clearLogin();
+				mView.newMenu();
+				mView.menu.addLogoutListener(new LogoutListener());
 				
 			}
+		}
+	}
+	
+	class LogoutListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			mView.menu.setVisible(false);
+			mView.login.setVisible(true);
 			
 		}
-		
-		
 		
 	}
 }

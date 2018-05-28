@@ -20,15 +20,16 @@ import javax.swing.UIManager;
 import java.awt.Color;
 import java.awt.SystemColor;
 import java.awt.Font;
+import java.awt.Toolkit;
 
 public class principalView extends JFrame {
 
 	private JPanel contentPane;
-
+	private JButton logoutButton;
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -39,15 +40,16 @@ public class principalView extends JFrame {
 				}
 			}
 		});
-	}
+	}*/
 
 	/**
 	 * Create the frame.
 	 */
 	public principalView() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(principalView.class.getResource("/images/dientesin200.png")));
+		setTitle("Odontolog");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(650, 400);
-		setLocationByPlatform(true);
+		setBounds(600, 300, 650, 400);
 		contentPane = new JPanel();
 		contentPane.setBackground(SystemColor.activeCaption);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -116,10 +118,10 @@ public class principalView extends JFrame {
 		gbc_btnAdmin.gridy = 1;
 		contentPane.add(btnAdmin, gbc_btnAdmin);
 		
-		JButton btnLogOut = new JButton("Log Out");
-		btnLogOut.setBackground(SystemColor.inactiveCaption);
-		btnLogOut.setFont(new Font("Yu Gothic UI Semilight", Font.PLAIN, 16));
-		btnLogOut.addActionListener(new ActionListener() {
+		logoutButton = new JButton("Log Out");
+		logoutButton.setBackground(SystemColor.inactiveCaption);
+		logoutButton.setFont(new Font("Yu Gothic UI Semilight", Font.PLAIN, 16));
+		logoutButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
@@ -147,10 +149,14 @@ public class principalView extends JFrame {
 		gbc_lblAdministracion.gridx = 3;
 		gbc_lblAdministracion.gridy = 2;
 		contentPane.add(lblAdministracion, gbc_lblAdministracion);
-		GridBagConstraints gbc_btnLogOut = new GridBagConstraints();
-		gbc_btnLogOut.insets = new Insets(0, 0, 0, 5);
-		gbc_btnLogOut.gridx = 2;
-		gbc_btnLogOut.gridy = 4;
-		contentPane.add(btnLogOut, gbc_btnLogOut);
+		GridBagConstraints gbc_logoutButton = new GridBagConstraints();
+		gbc_logoutButton.insets = new Insets(0, 0, 0, 5);
+		gbc_logoutButton.gridx = 2;
+		gbc_logoutButton.gridy = 4;
+		contentPane.add(logoutButton, gbc_logoutButton);
+	}
+	
+	void addLogoutListener(ActionListener listenLogout){
+		logoutButton.addActionListener(listenLogout);
 	}
 }
