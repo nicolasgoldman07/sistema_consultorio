@@ -14,31 +14,34 @@ import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import com.toedter.calendar.JCalendar;
-import com.toedter.calendar.JDayChooser;
-import com.toedter.components.JSpinField;
-import com.toedter.components.JLocaleChooser;
-import java.util.Calendar;
-import javax.swing.JTable;
-import javax.swing.JTextArea;
-import java.awt.Canvas;
 import java.awt.Color;
-import javax.swing.JEditorPane;
-import java.awt.List;
-import javax.swing.JList;
-import javax.swing.AbstractListModel;
-import javax.swing.ListSelectionModel;
-import java.awt.Panel;
-import java.awt.FlowLayout;
-import javax.swing.Box;
-import javax.swing.JScrollPane;
-import javax.swing.JDesktopPane;
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 import java.awt.Component;
 import javax.swing.border.LineBorder;
+import java.awt.GridLayout;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Calendar;
+import com.toedter.calendar.JDayChooser;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+
+import java.awt.FlowLayout;
+import java.awt.BorderLayout;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import javax.swing.BoxLayout;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.layout.RowSpec;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
 
 public class AgendaDeTurnos extends JFrame {
 
 	private JPanel contentPane;
+	private JTable table;
 
 	/**
 	 * Launch the application.
@@ -117,6 +120,67 @@ public class AgendaDeTurnos extends JFrame {
 		panel_5.setBackground(SystemColor.inactiveCaption);
 		panel_5.setBounds(916, 0, 1032, 1038);
 		contentPane.add(panel_5);
+		panel_5.setLayout(null);
+		
+		JPanel panel_7 = new JPanel();
+		panel_7.setBackground(SystemColor.inactiveCaption);
+		panel_7.setBounds(21, 56, 956, 434);
+		panel_5.add(panel_7);
+		
+		table = new JTable();
+		table.setFont(new Font("Yu Gothic UI Semilight", Font.PLAIN, 16));
+		table.setBackground(SystemColor.activeCaption);
+		table.setColumnSelectionAllowed(true);
+		table.setCellSelectionEnabled(true);
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+			},
+			new String[] {
+				"Horario", "Paciente", "Arreglo", "Diente", "Observaciones"
+			}
+		) {
+			boolean[] columnEditables = new boolean[] {
+				true, true, true, true, false
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
+		JTableHeader header = table.getTableHeader();
+		table.getColumnModel().getColumn(0).setPreferredWidth(30);
+		table.getColumnModel().getColumn(1).setPreferredWidth(100);
+		table.getColumnModel().getColumn(2).setPreferredWidth(100);
+		table.getColumnModel().getColumn(3).setPreferredWidth(100);
+		table.getColumnModel().getColumn(4).setPreferredWidth(100);
+		panel_7.setLayout(new BorderLayout(0, 0));
+		panel_7.add(table, BorderLayout.SOUTH);
+		panel_7.add(header, BorderLayout.NORTH);
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBackground(SystemColor.inactiveCaption);
@@ -125,6 +189,8 @@ public class AgendaDeTurnos extends JFrame {
 		panel_2.setLayout(null);
 		
 		JCalendar calendar = new JCalendar();
+		GridLayout gridLayout = (GridLayout) calendar.getDayChooser().getDayPanel().getLayout();
+		calendar.getDayChooser().setAlwaysFireDayProperty(false);
 		calendar.setDecorationBackgroundColor(new Color(153, 204, 255));
 		calendar.getDayChooser().getDayPanel().setBorder(null);
 		calendar.setWeekOfYearVisible(false);
@@ -137,6 +203,10 @@ public class AgendaDeTurnos extends JFrame {
 		calendar.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{calendar.getMonthChooser(), calendar.getMonthChooser().getSpinner(), calendar.getMonthChooser().getComboBox(), calendar.getYearChooser(), calendar.getYearChooser().getSpinner(), calendar.getDayChooser(), calendar.getDayChooser().getDayPanel()}));
 		
 		JCalendar calendar_1 = new JCalendar();
+		Calendar calendario1 = new GregorianCalendar();
+		Date mesSiguiente = new Date();
+		calendario1.set(2018, mesSiguiente.getMonth()+1, mesSiguiente.getDay());
+		calendar_1.setDate(calendario1.getTime());
 		calendar_1.getDayChooser().getDayPanel().setBackground(SystemColor.inactiveCaption);
 		calendar_1.setBounds(10, 679, 267, 223);
 		panel_2.add(calendar_1);
@@ -165,14 +235,14 @@ public class AgendaDeTurnos extends JFrame {
 		
 		JLabel lblNewLabel_1 = new JLabel("Rojo: D\u00EDas sin disponibilidad");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblNewLabel_1.setBounds(27, 0, 279, 49);
+		lblNewLabel_1.setBounds(27, 2, 279, 49);
 		panel_4.add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_2 = new JLabel("\u00B7");
 		lblNewLabel_2.setForeground(Color.RED);
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 48));
 		lblNewLabel_2.setToolTipText("");
-		lblNewLabel_2.setBounds(10, 21, 17, 14);
+		lblNewLabel_2.setBounds(10, 23, 17, 14);
 		panel_4.add(lblNewLabel_2);
 		
 		JLabel lblVerdesDasCon = new JLabel("Verdes: D\u00EDas con disponibilidad amplia");
@@ -189,14 +259,14 @@ public class AgendaDeTurnos extends JFrame {
 		
 		JLabel lblNaranjaDasCon = new JLabel("Naranja: D\u00EDas con disponibilidad limitada");
 		lblNaranjaDasCon.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblNaranjaDasCon.setBounds(27, 87, 323, 49);
+		lblNaranjaDasCon.setBounds(27, 77, 323, 49);
 		panel_4.add(lblNaranjaDasCon);
 		
 		JLabel label_3 = new JLabel("\u00B7");
 		label_3.setForeground(Color.ORANGE);
 		label_3.setToolTipText("");
 		label_3.setFont(new Font("Tahoma", Font.PLAIN, 48));
-		label_3.setBounds(10, 111, 17, 14);
+		label_3.setBounds(10, 101, 17, 14);
 		panel_4.add(label_3);
 		
 		JPanel panel_6 = new JPanel();
