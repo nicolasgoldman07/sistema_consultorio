@@ -4,14 +4,17 @@ import java.awt.event.ActionListener;
 public class Controller {
 	private View mView;
 	private Model mModel;
+	private int id;
 	
 	public Controller(View v, Model m){
 		
 		this.mView = v;
 		this.mModel = m;
 		
-		mView.newLogin();
-		mView.login.addLoginListener(new LoginListener());
+		//mView.newLogin();
+		//mView.login.addLoginListener(new LoginListener());
+		mView.newOdontograma();
+		mView.odontograma.addDienteListener(new DienteListener());
 		
 	}
 	
@@ -42,6 +45,17 @@ public class Controller {
 		public void actionPerformed(ActionEvent arg0) {
 			mView.menu.setVisible(false);
 			mView.login.setVisible(true);
+		}
+		
+	}
+	
+	class DienteListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			//System.out.println(String.valueOf(id));
+			//System.out.println("Diente N: "+String.valueOf((int)(id/5)));
+			//System.out.println("Cara N: "+String.valueOf((int) id-(numD*5)));
 			
 		}
 		

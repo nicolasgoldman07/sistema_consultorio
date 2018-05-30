@@ -6,15 +6,15 @@ public class Paciente {
 	private String obraSocial;
 	private String nombre;
 	private String apellido;
-	//private Odontograma historiaC;
+	private Odontograma historiaC;
 	
-	public Paciente(String id, String osn, String os, String name, String surename){
+	public Paciente(String id, String osn, String os, String name, String surename, Odontograma hist){
 		this.dni = id;
 		this.obraSocialNum = osn;
 		this.obraSocial = os;
 		this.nombre = name;
 		this.apellido = surename;
-		//this.Odontograma;
+		this.historiaC = hist;
 	}
 	
 	public Paciente(){
@@ -40,6 +40,9 @@ public class Paciente {
 	public String getObraSocial(){
 		return obraSocial;
 	}
+	public Odontograma getHistoriaClinica(){
+		return historiaC;
+	}
 	
 	//Setters
 	public void setNombre(String nom, String ape){
@@ -52,6 +55,9 @@ public class Paciente {
 	}
 	public void setDni(String num){
 		this.dni = num;
+	}
+	public void setHistoriaClinica(Odontograma odonto){
+		this.historiaC = odonto;
 	}
 	
 }

@@ -13,7 +13,10 @@ import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import javax.swing.ImageIcon;
 import java.awt.Insets;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.HashMap;
+
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 
@@ -34,7 +37,9 @@ public class odontogramaView extends JFrame {
 	final int NENE = 5*3;
 	
 	private ArrayList<JLabel> esquinas;
-	ArrayList<JButton> botones;
+	private ArrayList<JButton> botones;
+	
+	private HashMap<String, ImageIcon> mapaIconos;
 	
 	/**
 	 * Launch the application.
@@ -56,6 +61,7 @@ public class odontogramaView extends JFrame {
 	 * Create the frame.
 	 */
 	public odontogramaView() {
+		setResizable(false);
 		
 		caraCentral = new ImageIcon(odontogramaView.class.getResource("/raw/CaraCentral.png"));
 		caraLateIzq = new ImageIcon(odontogramaView.class.getResource("/raw/BordeIzq.png"));
@@ -67,8 +73,21 @@ public class odontogramaView extends JFrame {
 		esquinaIR = new ImageIcon(odontogramaView.class.getResource("/raw/EsquinaInfR.png"));
 		esquinaIL = new ImageIcon(odontogramaView.class.getResource("/raw/EsquinaInfI.png"));
 		
+		ImageIcon[] arregloIconos = new ImageIcon[Tratamiento.getTipos().length];
+		
+		for(int i=0; i<Tratamiento.getTipos().length; i++){
+			arregloIconos[i] = new ImageIcon(odontogramaView.class.getResource("/raw/tratamiento.png"));
+		}
+		
+		mapaIconos = new HashMap<String, ImageIcon>();
+		
+		for(int i=0; i<Tratamiento.getTipos().length; i++){
+			mapaIconos.put(Tratamiento.getTipos()[i], arregloIconos[i]);
+		}
+		
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1280, 720);
+		setBounds(100, 100, 1680, 720);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -86,13 +105,6 @@ public class odontogramaView extends JFrame {
 		esquinas = new ArrayList<JLabel>();
 		
 		//Insets(Top, Left, Bottom, Right)
-		
-		/*JSeparator separator1 = new JSeparator();
-		GridBagConstraints gbc_separator1 = new GridBagConstraints();
-		gbc_separator1.insets = new Insets(0, 20, 50, 50);
-		gbc_separator1.gridx = 0;
-		gbc_separator1.gridy = 5;
-		contentPane.add(separator1, gbc_separator1);*/
 		
 		JSeparator separator5 = new JSeparator();
 		GridBagConstraints gbc_separator5 = new GridBagConstraints();
@@ -124,10 +136,18 @@ public class odontogramaView extends JFrame {
 		
 		generarDentadura(8, 5);
 		generarDentadura(5, 20);
-		
-		
-		
-		
+	}
+	
+	public void addDienteListener(ActionListener listenDiente){
+		for(int i=0; i<botones.size(); i++){
+			botones.get(i).addActionListener(listenDiente);
+		}
+	}
+	
+	public void refresh(String[] arreglo){
+		for(int i=0; i<arreglo.length; i++){
+			botones.get().setIcon(mapaIconos.get(arreglo[i]));
+		}
 	}
 	
 	private void generarDentadura(int x, int y){

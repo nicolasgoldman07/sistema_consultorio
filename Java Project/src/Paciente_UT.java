@@ -12,7 +12,7 @@ public class Paciente_UT {
 	@Before
 	public void setUp() throws Exception {
 		p1 = new Paciente();
-		p2 = new Paciente("32", "12", "X", "Y", "Z");
+		p2 = new Paciente("32", "12", "X", "Y", "Z", new Odontograma());
 	}
 
 	@Test

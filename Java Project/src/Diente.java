@@ -1,37 +1,45 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Vector;
 
 public class Diente {
 	
-	private Tratamiento caraSup;
-	private Tratamiento caraInf;
-	private Tratamiento caraDer;
-	private Tratamiento caraIzq;
-	private Tratamiento caraC;
-	private Vector<Tratamiento> caras;
+	private String caraSup;
+	private String caraInf;
+	private String caraDer;
+	private String caraIzq;
+	private String caraC;
+	private HashMap<String, String> caras;
+	private static String[] keys = {"cara derecha", "cara superior", "cara central", "cara inferior", "cara izquierda"};
 	
 	public Diente(){
 		
-		caras = new Vector<Tratamiento>();
-		caraSup = new Tratamiento();
-		caraInf = new Tratamiento();
-		caraDer = new Tratamiento();
-		caraIzq = new Tratamiento();
-		caraC = new Tratamiento();
 		
-		caras.addElement(caraSup);
-		caras.addElement(caraInf);
-		caras.addElement(caraDer);
-		caras.addElement(caraIzq);
-		caras.addElement(caraC);
+		caras = new HashMap<String, String>();
+		caraSup = new String();
+		caraInf = new String();
+		caraDer = new String();
+		caraIzq = new String();
+		caraC = new String();
+		
+		caras.put("cara superior", caraSup);
+		caras.put("cara inferior", caraInf);
+		caras.put("cara central", caraC);
+		caras.put("cara derecha", caraDer);
+		caras.put("cara izquierda", caraIzq);
+		
 	}
 	
-	public void addCondicion(Tratamiento cara, String cond){
-		cara.setTratamiento(cond);
+	public void addCondicion(String cara, String cond){
+		cara = cond;
 	}
 	
-	public Tratamiento getCara(int num){
-		return caras.get(num);
+	public String getCara(String c){
+		return caras.get(c);
+	}
+	
+	public static String getKey(int numero){
+		return keys[numero];
 	}
 	
 	
