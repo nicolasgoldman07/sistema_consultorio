@@ -3,6 +3,8 @@ public class View {
 	
 	public loginView login;
 	public principalView menu;
+	public odontogramaView odontograma;
+
 	
 	public View(){
 		
@@ -26,5 +28,13 @@ public class View {
 		}
 	}
 	
-	
+
+	public void newOdontograma(){
+		try {
+			odontograma = new odontogramaView();
+			odontograma.setVisible(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }

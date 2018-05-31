@@ -35,25 +35,6 @@ public class loginView extends JFrame {
 	private JTextField txtOdontolog;
 	private JButton loginButton;
 
-	/**
-	 * Launch the application.
-	 */
-	/*public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					loginView frame = new loginView();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}*/
-
-	/**
-	 * Create the frame.
-	 */
 	public loginView() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(loginView.class.getResource("/images/dientesin200.png")));
 		setResizable(false);
