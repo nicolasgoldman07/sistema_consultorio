@@ -13,13 +13,15 @@ public class Odontograma {
 		
 	}
 	
-	public void setDiente(int numd, int numc, String str){
-		dentadura.get(numd).addCondicion(dentadura.get(numd).getCara(numc), str);
+	public void setDiente(int numerodiente, String cara, String tratamiento){
+		dentadura.get(numerodiente).addCondicion(cara, tratamiento);
 	}
 	
+	public ArrayList<Diente> getDentadura(){
+		return dentadura;
+	}
 	
 	private void IniciarDent(){
-		
 		for(int i=0; i<52; i++){
 			dentadura.add(new Diente());
 		}
