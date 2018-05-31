@@ -145,8 +145,20 @@ public class adminView extends JFrame {
 		panel_4.add(lblNewLabel_3);
 		
 		JPanel panel_5 = new JPanel();
-		panel_5.setBounds(10, 135, 1095, 40);
+		panel_5.setBounds(10, 145, 1095, 40);
 		posCons.add(panel_5);
+		panel_5.setLayout(null);
+		
+		JLabel lblNewLabel_4 = new JLabel("Tratamiento");
+		lblNewLabel_4.setFont(new Font("Yu Gothic UI Semilight", Font.PLAIN, 20));
+		lblNewLabel_4.setBounds(0, 0, 925, 40);
+		panel_5.add(lblNewLabel_4);
+		
+		JLabel lblNewLabel_5 = new JLabel("Monto");
+		lblNewLabel_5.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_5.setFont(new Font("Yu Gothic UI Semilight", Font.PLAIN, 20));
+		lblNewLabel_5.setBounds(925, 0, 150, 40);
+		panel_5.add(lblNewLabel_5);
 		
 		
 		JPanel impr = new JPanel();
@@ -235,9 +247,9 @@ public class adminView extends JFrame {
 		table2.setBackground(SystemColor.activeCaption);
 		table2.setModel(new DefaultTableModel(
 			new Object[][] {
-				{new String ("Arce Giacobbe, Alejandro"), null},
-				{new String ("Drudi, Leandro"), null},
-				{new String ("Goldman, Nicolas"), null}, 
+				{new String ("Extracción Premolar"), new Integer(-2500)},
+				{new String ("Limpieza bucal"), new Integer(-500)},
+				{new String ("Depósito"), new Integer(10000)}, 
 				{null, null},
 				{null, null},
 				{null},
@@ -275,7 +287,7 @@ public class adminView extends JFrame {
 				{null},
 				
 			},
-			new String[] {"Tratamiento", "Cantidad"}
+			new String[] {"", ""}
 		) {
 			/**
 			 * 
@@ -291,12 +303,19 @@ public class adminView extends JFrame {
 				return columnEditables[column];
 			}
 		});
-		table.getColumnModel().getColumn(0).setPreferredWidth(100);
-		table.getColumnModel().getColumn(1).setPreferredWidth(30);
-		
+		table2.getColumnModel().getColumn(0).setPreferredWidth(850);
+				
+		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+		//DefaultTableCellRenderer leftRenderer = new DefaultTableCellRenderer();
+		centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+		//leftRenderer.setHorizontalAlignment(JLabel.LEFT);
+		//table2.getColumnModel().getColumn(0).setHeaderRenderer(leftRenderer);
+		//table2.getColumnModel().getColumn(1).setHeaderRenderer(leftRenderer);
+		table2.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
+				
 		
 		JScrollPane scrollPane_1 = new JScrollPane(table2);
-		scrollPane_1.setBounds(10, 186, 1095, 345);
+		scrollPane_1.setBounds(10, 185, 1095, 345);
 		posCons.add(scrollPane_1);
 		
 		
