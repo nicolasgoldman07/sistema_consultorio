@@ -284,6 +284,7 @@ public class adminView extends JFrame {
 		//Pestaña "Impresion"
 		JPanel impr = new JPanel();
 		tabbedPane.addTab("Impresion", null, impr, null);
+		impr.setLayout(null);
 		
 
 		//Tabla de Pacientes
