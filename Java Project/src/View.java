@@ -4,6 +4,7 @@ public class View {
 	public loginView login;
 	public principalView menu;
 	public odontogramaView odontograma;
+
 	
 	public View(){
 		
@@ -27,6 +28,7 @@ public class View {
 		}
 	}
 	
+
 	public void newOdontograma(){
 		try {
 			odontograma = new odontogramaView();
@@ -35,6 +37,4 @@ public class View {
 			e.printStackTrace();
 		}
 	}
-	
-	
 }

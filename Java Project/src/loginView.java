@@ -44,7 +44,6 @@ public class loginView extends JFrame {
 	private JTextField txtOdontolog;
 	private JButton loginButton;
 
-	
 	public loginView() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(loginView.class.getResource("/images/dientesin200.png")));
 		setResizable(false);

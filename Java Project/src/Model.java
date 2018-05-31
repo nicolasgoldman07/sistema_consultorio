@@ -53,5 +53,4 @@ public class Model {
 		Paciente p = new Paciente("32", "12", "X", "Ale", "Arce", new Odontograma());
 		return p;
 	}*/
-	
 }

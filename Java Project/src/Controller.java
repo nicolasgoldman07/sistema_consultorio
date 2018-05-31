@@ -6,6 +6,7 @@ public class Controller {
 	private Model mModel;
 	private int id;
 	private Paciente paciente = new Paciente();
+
 	
 	public Controller(View v, Model m){
 		
@@ -17,7 +18,6 @@ public class Controller {
 		//mView.newOdontograma();
 		//mView.odontograma.addDienteListener(new DienteListener());
 		//paciente = mModel.dummyPaciente();
-		
 	}
 	
 	class LoginListener implements ActionListener{
@@ -48,7 +48,6 @@ public class Controller {
 			mView.menu.setVisible(false);
 			mView.login.setVisible(true);
 		}
-		
 	}
 	
 	class DienteListener implements ActionListener{
