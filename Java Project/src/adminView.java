@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
@@ -11,6 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -240,6 +242,31 @@ public class adminView extends JFrame {
 		JScrollPane scrollPane_1 = new JScrollPane(table2);
 		scrollPane_1.setBounds(10, 185, 895, 345);
 		posCons.add(scrollPane_1);
+		
+		JButton btnAdd = new JButton("");
+		btnAdd.setBorder(null);
+		Color b = UIManager.getLookAndFeel().getDefaults().getColor( "Panel.background");
+		btnAdd.setBackground(new Color(b.getRed(), b.getGreen(), b.getBlue()));
+		btnAdd.setHorizontalAlignment(SwingConstants.LEADING);
+		btnAdd.setIcon(new ImageIcon(adminView.class.getResource("/images/add.png")));
+		btnAdd.setBounds(945, 211, 60, 60);
+		posCons.add(btnAdd);
+		
+		JButton btnSub = new JButton("");
+		btnSub.setIcon(new ImageIcon(adminView.class.getResource("/images/subtract.png")));
+		btnSub.setHorizontalAlignment(SwingConstants.LEADING);
+		btnSub.setBorder(null);
+		btnSub.setBackground(SystemColor.menu);
+		btnSub.setBounds(945, 330, 60, 60);
+		posCons.add(btnSub);
+		
+		JButton btnEdit = new JButton("");
+		btnEdit.setIcon(new ImageIcon(adminView.class.getResource("/images/edit.png")));
+		btnEdit.setHorizontalAlignment(SwingConstants.LEADING);
+		btnEdit.setBorder(null);
+		btnEdit.setBackground(SystemColor.menu);
+		btnEdit.setBounds(945, 417, 60, 60);
+		posCons.add(btnEdit);
 		
 		
 		
