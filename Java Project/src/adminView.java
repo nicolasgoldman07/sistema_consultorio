@@ -108,9 +108,10 @@ public class adminView extends JFrame {
 		tabbedPane.setBounds(240, 113, 1120, 576);
 		contentPane.add(tabbedPane);
 		
-		//Pestaña "Asistencia"
+		/*//Pestaña "Asistencia"
 		JPanel asist = new JPanel();
 		tabbedPane.addTab("Asistencia", null, asist, null);
+		*/
 		
 		//Pestaña "Posicion Consolidada"
 		JPanel posCons = new JPanel();
@@ -242,32 +243,41 @@ public class adminView extends JFrame {
 		JScrollPane scrollPane_1 = new JScrollPane(table2);
 		scrollPane_1.setBounds(10, 185, 895, 345);
 		posCons.add(scrollPane_1);
-		
-		JButton btnAdd = new JButton("");
-		btnAdd.setBorder(null);
 		Color b = UIManager.getLookAndFeel().getDefaults().getColor( "Panel.background");
+		
+		//Panel Botonera
+		JPanel panel_6 = new JPanel();
+		panel_6.setBounds(935, 481, 170, 50);
+		posCons.add(panel_6);
+		panel_6.setLayout(null);
+		
+		
+		//Boton Agregar
+		JButton btnAdd = new JButton("");
+		btnAdd.setBounds(0, 0, 50, 50);
+		panel_6.add(btnAdd);
+		btnAdd.setBorder(null);
 		btnAdd.setBackground(new Color(b.getRed(), b.getGreen(), b.getBlue()));
 		btnAdd.setHorizontalAlignment(SwingConstants.LEADING);
 		btnAdd.setIcon(new ImageIcon(adminView.class.getResource("/images/add.png")));
-		btnAdd.setBounds(945, 211, 60, 60);
-		posCons.add(btnAdd);
 		
+		//Boton Quitar
 		JButton btnSub = new JButton("");
+		btnSub.setBounds(120, 0, 50, 50);
+		panel_6.add(btnSub);
 		btnSub.setIcon(new ImageIcon(adminView.class.getResource("/images/subtract.png")));
 		btnSub.setHorizontalAlignment(SwingConstants.LEADING);
 		btnSub.setBorder(null);
 		btnSub.setBackground(SystemColor.menu);
-		btnSub.setBounds(945, 330, 60, 60);
-		posCons.add(btnSub);
 		
+		//Boton Edit
 		JButton btnEdit = new JButton("");
+		btnEdit.setBounds(60, 0, 50, 50);
+		panel_6.add(btnEdit);
 		btnEdit.setIcon(new ImageIcon(adminView.class.getResource("/images/edit.png")));
 		btnEdit.setHorizontalAlignment(SwingConstants.LEADING);
 		btnEdit.setBorder(null);
 		btnEdit.setBackground(SystemColor.menu);
-		btnEdit.setBounds(945, 417, 60, 60);
-		posCons.add(btnEdit);
-		
 		
 		
 		
@@ -361,6 +371,5 @@ public class adminView extends JFrame {
 		lblNewLabel_1.setFont(new Font("Yu Gothic UI Semilight", Font.PLAIN, 27));
 		lblNewLabel_1.setBounds(0, 0, 227, 37);
 		panel_2.add(lblNewLabel_1);
-		//scrollPane.setViewportView(table);
 	}
 }
