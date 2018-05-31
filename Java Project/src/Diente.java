@@ -10,37 +10,24 @@ public class Diente {
 	private String caraIzq;
 	private String caraC;
 	private HashMap<String, String> caras;
-	private static String[] keys = {"cara derecha", "cara superior", "cara central", "cara inferior", "cara izquierda"};
+	public static final String[] tratamientos = {"Caries", "Sida", "Obt. con Ionómero", "Obt.con Ionómero cav.simple", "Obt. con Ionómero"};
+	public static final String[] keys = {"cara derecha", "cara superior", "cara central", "cara inferior", "cara izquierda"};
+	public static final int CARAS  = keys.length;
 	
 	public Diente(){
 		
-		
 		caras = new HashMap<String, String>();
-		caraSup = new String();
-		caraInf = new String();
-		caraDer = new String();
-		caraIzq = new String();
-		caraC = new String();
 		
-		caras.put("cara superior", caraSup);
-		caras.put("cara inferior", caraInf);
-		caras.put("cara central", caraC);
-		caras.put("cara derecha", caraDer);
-		caras.put("cara izquierda", caraIzq);
-		
+		for(int i=0; i<keys.length; i++){
+			caras.put(keys[i], "na");
+		}
 	}
 	
 	public void addCondicion(String cara, String cond){
-		cara = cond;
+		caras.put(cara, cond);
 	}
 	
 	public String getCara(String c){
 		return caras.get(c);
 	}
-	
-	public static String getKey(int numero){
-		return keys[numero];
-	}
-	
-	
 }

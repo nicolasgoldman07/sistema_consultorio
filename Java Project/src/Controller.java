@@ -5,16 +5,18 @@ public class Controller {
 	private View mView;
 	private Model mModel;
 	private int id;
+	private Paciente paciente = new Paciente();
 	
 	public Controller(View v, Model m){
 		
 		this.mView = v;
 		this.mModel = m;
 		
-		//mView.newLogin();
-		//mView.login.addLoginListener(new LoginListener());
-		mView.newOdontograma();
-		mView.odontograma.addDienteListener(new DienteListener());
+		mView.newLogin();
+		mView.login.addLoginListener(new LoginListener());
+		//mView.newOdontograma();
+		//mView.odontograma.addDienteListener(new DienteListener());
+		//paciente = mModel.dummyPaciente();
 		
 	}
 	
@@ -53,10 +55,18 @@ public class Controller {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			id = mView.odontograma.getBotones().indexOf(e.getSource());
+			
+			try{
+				mModel.setDienteTratado(paciente, id, 1);
+				mView.odontograma.refresh(mModel.getTratamientosPaciente(paciente));
+			}catch(NullPointerException exc){
+				exc.printStackTrace();
+			}
+			
 			//System.out.println(String.valueOf(id));
 			//System.out.println("Diente N: "+String.valueOf((int)(id/5)));
 			//System.out.println("Cara N: "+String.valueOf((int) id-(numD*5)));
-			
 		}
 		
 	}

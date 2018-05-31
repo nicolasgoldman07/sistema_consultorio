@@ -16,6 +16,7 @@ import java.awt.Insets;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Vector;
 
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
@@ -40,29 +41,10 @@ public class odontogramaView extends JFrame {
 	private ArrayList<JButton> botones;
 	
 	private HashMap<String, ImageIcon> mapaIconos;
-	
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					odontogramaView frame = new odontogramaView();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
-	/**
-	 * Create the frame.
-	 */
 	public odontogramaView() {
-		setResizable(false);
 		
+		//ICONOS
 		caraCentral = new ImageIcon(odontogramaView.class.getResource("/raw/CaraCentral.png"));
 		caraLateIzq = new ImageIcon(odontogramaView.class.getResource("/raw/BordeIzq.png"));
 		caraLateDer = new ImageIcon(odontogramaView.class.getResource("/raw/BordeDer.png"));
@@ -73,19 +55,25 @@ public class odontogramaView extends JFrame {
 		esquinaIR = new ImageIcon(odontogramaView.class.getResource("/raw/EsquinaInfR.png"));
 		esquinaIL = new ImageIcon(odontogramaView.class.getResource("/raw/EsquinaInfI.png"));
 		
-		ImageIcon[] arregloIconos = new ImageIcon[Tratamiento.getTipos().length];
 		
-		for(int i=0; i<Tratamiento.getTipos().length; i++){
+		//PONER BIEN LOS ICONOS QUE CORRESPONDAN/////////////////////////////////
+		ImageIcon[] arregloIconos = new ImageIcon[Diente.tratamientos.length];
+		
+		for(int i=0; i<Diente.tratamientos.length; i++){
 			arregloIconos[i] = new ImageIcon(odontogramaView.class.getResource("/raw/tratamiento.png"));
 		}
 		
 		mapaIconos = new HashMap<String, ImageIcon>();
 		
-		for(int i=0; i<Tratamiento.getTipos().length; i++){
-			mapaIconos.put(Tratamiento.getTipos()[i], arregloIconos[i]);
+		mapaIconos.put("", esquinaSL);
+		
+		for(int i=0; i<Diente.tratamientos.length; i++){
+			mapaIconos.put(Diente.tratamientos[i], new ImageIcon(odontogramaView.class.getResource("/raw/tratamiento.png")));
 		}
+		////////////////////////////////////////////////////////////////////
 		
-		
+		//CONFIGURACION
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1680, 720);
 		contentPane = new JPanel();
@@ -98,14 +86,11 @@ public class odontogramaView extends JFrame {
 		//gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
-		
-		
-		
 		botones = new ArrayList<JButton>();
 		esquinas = new ArrayList<JLabel>();
 		
 		//Insets(Top, Left, Bottom, Right)
-		
+		//SEPARADORES
 		JSeparator separator5 = new JSeparator();
 		GridBagConstraints gbc_separator5 = new GridBagConstraints();
 		gbc_separator5.insets = new Insets(15, 0, 0, 15);
@@ -138,18 +123,27 @@ public class odontogramaView extends JFrame {
 		generarDentadura(5, 20);
 	}
 	
+	//Agrego los Listeners
 	public void addDienteListener(ActionListener listenDiente){
 		for(int i=0; i<botones.size(); i++){
 			botones.get(i).addActionListener(listenDiente);
 		}
 	}
 	
-	public void refresh(String[] arreglo){
-		for(int i=0; i<arreglo.length; i++){
-			botones.get().setIcon(mapaIconos.get(arreglo[i]));
+	//Cambio los iconos de acuerdo al tratamiento que recibió la cara del diente
+	public void refresh(Vector<String> arreglos){
+		for(int i=0; i<arreglos.size(); i++){
+			if(!arreglos.get(i).equals("na")){
+				botones.get(i).setIcon(mapaIconos.get(arreglos.get(i)));
+			}
 		}
 	}
 	
+	public ArrayList<JButton> getBotones(){
+		return botones;
+	}
+	
+	//Genero los Botones
 	private void generarDentadura(int x, int y){
 		
 		GridBagConstraints gbc_izq = new GridBagConstraints();
