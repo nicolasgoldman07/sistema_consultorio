@@ -6,6 +6,9 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.SystemColor;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
@@ -25,7 +28,7 @@ import java.awt.Toolkit;
 
 
 public class loginView extends JFrame {
-
+	
 	private JPanel contentPane;
 	private JPasswordField passwordField;
 	private JTextField userField;

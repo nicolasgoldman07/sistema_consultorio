@@ -6,6 +6,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -37,11 +41,19 @@ import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
+import com.toedter.calendar.JMonthChooser;
+import javax.swing.JTextField;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.ListSelectionModel;
 
-public class AgendaDeTurnos extends JFrame {
+public class AgendaDeTurnos extends JFrame{
 
 	private JPanel contentPane;
 	private JTable table;
+	private JTextField fecha;
 
 	/**
 	 * Launch the application.
@@ -118,7 +130,7 @@ public class AgendaDeTurnos extends JFrame {
 		
 		JPanel panel_5 = new JPanel();
 		panel_5.setBackground(SystemColor.inactiveCaption);
-		panel_5.setBounds(916, 0, 1032, 1038);
+		panel_5.setBounds(910, 0, 1032, 1038);
 		contentPane.add(panel_5);
 		panel_5.setLayout(null);
 		
@@ -128,9 +140,9 @@ public class AgendaDeTurnos extends JFrame {
 		panel_5.add(panel_7);
 		
 		table = new JTable();
+		table.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 		table.setFont(new Font("Yu Gothic UI Semilight", Font.PLAIN, 16));
 		table.setBackground(SystemColor.activeCaption);
-		table.setColumnSelectionAllowed(true);
 		table.setCellSelectionEnabled(true);
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
@@ -166,18 +178,23 @@ public class AgendaDeTurnos extends JFrame {
 			}
 		) {
 			boolean[] columnEditables = new boolean[] {
-				true, true, true, true, false
+				false, false, false, false, false
 			};
 			public boolean isCellEditable(int row, int column) {
 				return columnEditables[column];
 			}
 		});
-		JTableHeader header = table.getTableHeader();
+		table.getColumnModel().getColumn(0).setResizable(false);
 		table.getColumnModel().getColumn(0).setPreferredWidth(30);
+		table.getColumnModel().getColumn(1).setResizable(false);
 		table.getColumnModel().getColumn(1).setPreferredWidth(100);
+		table.getColumnModel().getColumn(2).setResizable(false);
 		table.getColumnModel().getColumn(2).setPreferredWidth(100);
+		table.getColumnModel().getColumn(3).setResizable(false);
 		table.getColumnModel().getColumn(3).setPreferredWidth(100);
+		table.getColumnModel().getColumn(4).setResizable(false);
 		table.getColumnModel().getColumn(4).setPreferredWidth(100);
+		JTableHeader header = table.getTableHeader();
 		panel_7.setLayout(new BorderLayout(0, 0));
 		panel_7.add(table, BorderLayout.SOUTH);
 		panel_7.add(header, BorderLayout.NORTH);
@@ -188,8 +205,16 @@ public class AgendaDeTurnos extends JFrame {
 		contentPane.add(panel_2);
 		panel_2.setLayout(null);
 		
+		JTextField fechaSeleccion = new JTextField();
+		fechaSeleccion.setEditable(false);
+		fechaSeleccion.setBackground(SystemColor.inactiveCaption);
+		fechaSeleccion.setFont(new Font("Yu Gothic UI Semilight", Font.BOLD, 16));
+		fechaSeleccion.setBounds(21, 28, 353, 28);
+		panel_5.add(fechaSeleccion);
+		fechaSeleccion.setColumns(10);
+		
 		JCalendar calendar = new JCalendar();
-		GridLayout gridLayout = (GridLayout) calendar.getDayChooser().getDayPanel().getLayout();
+		calendar.setToolTipText("");
 		calendar.getDayChooser().setAlwaysFireDayProperty(false);
 		calendar.setDecorationBackgroundColor(new Color(153, 204, 255));
 		calendar.getDayChooser().getDayPanel().setBorder(null);
@@ -202,7 +227,17 @@ public class AgendaDeTurnos extends JFrame {
 		panel_2.add(calendar);
 		calendar.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{calendar.getMonthChooser(), calendar.getMonthChooser().getSpinner(), calendar.getMonthChooser().getComboBox(), calendar.getYearChooser(), calendar.getYearChooser().getSpinner(), calendar.getDayChooser(), calendar.getDayChooser().getDayPanel()}));
 		
+		/*calendar.addPropertyChangeListener("jcal", new PropertyChangeListener() {
+			@Override
+			public void propertyChange(PropertyChangeEvent e) {
+				DateFormat df = new SimpleDateFormat("EE dd 'de' MMM 'de' yyyy");
+				fechaSeleccion.setText(df.format(calendar.getDate()));
+			}
+		});*/
+		
 		JCalendar calendar_1 = new JCalendar();
+		calendar_1.getDayChooser().setWeekOfYearVisible(false);
+		calendar_1.getDayChooser().setDecorationBordersVisible(true);
 		Calendar calendario1 = new GregorianCalendar();
 		Date mesSiguiente = new Date();
 		calendario1.set(2018, mesSiguiente.getMonth()+1, mesSiguiente.getDay());
@@ -273,8 +308,24 @@ public class AgendaDeTurnos extends JFrame {
 		panel_6.setBackground(SystemColor.activeCaption);
 		panel_6.setBounds(897, 0, 19, 1011);
 		contentPane.add(panel_6);
-	
-			
-	
+		
+		fecha = new JTextField();
+		fecha.setBackground(SystemColor.inactiveCaption);
+		fecha.setFont(new Font("Yu Gothic UI Semilight", Font.BOLD, 16));
+		fecha.setBounds(21, 28, 353, 28);
+		panel_5.add(fecha);
+		fecha.setColumns(10);
+		
+		/*JButton b = new JButton("New button");
+		b.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				DateFormat df = new SimpleDateFormat("EE dd 'de' MMM 'de' yyyy");
+				fecha.setText(df.format(calendar.getDate()));
+			}
+		});
+		b.setBounds(142, 598, 89, 23);
+		panel_5.add(b);*/
+		
+		
 	}
 }
