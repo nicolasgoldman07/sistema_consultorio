@@ -6,6 +6,21 @@ public class Model {
 	private String usertest = "ale";
 	private String passtest = "123";
 	
+	private String[] DummyNames = {"Ale", "Hueba", "Nico", "Lea", "Tortugo" };
+	private String[] DummySurenames = {"Arce", "Weda", "Goldman", "Drueta", "Weda"};
+	private int aux = 0;
+	private ListModelPaciente listaPacientes;
+	
+	public Model(){
+		listaPacientes = new ListModelPaciente();
+		for(int i=0; i<5; i++){
+			listaPacientes.addPaciente(this.dummyPaciente());
+		}
+		
+		listaPacientes.ordenarAlfa();
+	}
+	
+	
 	public boolean checkLogin(String usr, String pass){
 		if(usr.equals(usertest) && pass.equals(passtest)){
 			return true;
@@ -49,9 +64,17 @@ public class Model {
 		return dientes;
 	} 
 	
-	/*public Paciente dummyPaciente(){
-		Paciente p = new Paciente("32", "12", "X", "Ale", "Arce", new Odontograma());
+	public Paciente dummyPaciente(){
+		Paciente p = new Paciente("32", "12", "X", DummyNames[aux], DummySurenames[aux], new Odontograma());
+		aux++;
+		if(aux >= DummyNames.length){
+			aux = 0;
+		}
 		return p;
-	}*/
+	}
+	
+	public ListModelPaciente getListModelPaciente(){
+		return listaPacientes;
+	}
 	
 }

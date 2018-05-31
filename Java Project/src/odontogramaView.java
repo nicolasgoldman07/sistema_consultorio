@@ -148,7 +148,7 @@ public class odontogramaView extends JFrame {
 		
 		GridBagConstraints gbc_izq = new GridBagConstraints();
 		gbc_izq.ipady = -10;
-		gbc_izq.ipadx = -35;
+		gbc_izq.ipadx = -50;
 		gbc_izq.insets = new Insets(0, 0, 0, 0);
 		
 		GridBagConstraints gbc_esq = new GridBagConstraints();

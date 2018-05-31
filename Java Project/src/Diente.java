@@ -10,7 +10,7 @@ public class Diente {
 	private String caraIzq;
 	private String caraC;
 	private HashMap<String, String> caras;
-	public static final String[] tratamientos = {"Caries", "Sida", "Obt. con Ionómero", "Obt.con Ionómero cav.simple", "Obt. con Ionómero"};
+	public static final String[] tratamientos = {"Carie", "Piojos", "Obt. con Ionómero", "Obt.con Ionómero cav.simple", "Obt. con Ionómero"};
 	public static final String[] keys = {"cara derecha", "cara superior", "cara central", "cara inferior", "cara izquierda"};
 	public static final int CARAS  = keys.length;
 	

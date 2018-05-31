@@ -12,8 +12,8 @@ public class Paciente {
 		this.dni = id;
 		this.obraSocialNum = osn;
 		this.obraSocial = os;
-		this.nombre = name;
-		this.apellido = surename;
+		this.nombre = name.toUpperCase();
+		this.apellido = surename.toUpperCase();
 		this.historiaC = hist;
 	}
 	

@@ -1,9 +1,12 @@
 
 public class View {
 	
+	
+	
 	public loginView login;
 	public principalView menu;
 	public odontogramaView odontograma;
+	public historiaClinicaView	historia;
 	
 	public View(){
 		
@@ -30,10 +33,19 @@ public class View {
 	public void newOdontograma(){
 		try {
 			odontograma = new odontogramaView();
+			odontograma.setUndecorated(true);
+			odontograma.setBounds(410, 38, 1500, 520);
 			odontograma.setVisible(true);
+			odontograma.setAlwaysOnTop(true);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void newHistoriaClinica(){
+		historia = new historiaClinicaView();
+		historia.setVisible(true);
+		this.newOdontograma();
 	}
 	
 	

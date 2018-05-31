@@ -36,7 +36,7 @@ import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class loginView extends JFrame {
+public class loginView extends JFrame{
 
 	private JPanel contentPane;
 	private JPasswordField passwordField;
