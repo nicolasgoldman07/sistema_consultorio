@@ -6,8 +6,10 @@ public class View {
 	public loginView login;
 	public principalView menu;
 	public odontogramaView odontograma;
-	public historiaClinicaView	historia;
+
 	
+	public historiaClinicaView	historia;
+
 	public View(){
 		
 	}
@@ -30,6 +32,7 @@ public class View {
 		}
 	}
 	
+
 	public void newOdontograma(){
 		try {
 			odontograma = new odontogramaView();
@@ -41,6 +44,7 @@ public class View {
 			e.printStackTrace();
 		}
 	}
+
 	
 	public void newHistoriaClinica(){
 		historia = new historiaClinicaView();
@@ -48,5 +52,5 @@ public class View {
 		this.newOdontograma();
 	}
 	
-	
+
 }

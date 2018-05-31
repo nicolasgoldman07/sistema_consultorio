@@ -1,4 +1,4 @@
-import static org.junit.Assert.*;
+/*import static org.junit.Assert.*;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -33,4 +33,4 @@ public class Paciente_UT {
 		Assert.assertEquals("32", p2.getDni());
 	}
 
-}
+}*/

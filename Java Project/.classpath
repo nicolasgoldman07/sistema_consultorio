@@ -4,5 +4,14 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="jgoodies-forms-1.8.0.jar" sourcepath="jgoodies-forms-1.8.0-sources.jar"/>
+	<classpathentry kind="lib" path="miglayout15-swing.jar" sourcepath="miglayout-src.zip"/>
+	<classpathentry kind="lib" path="jdatepicker-2.0.3.jar"/>
+	<classpathentry kind="lib" path="jdatepicker-1.3.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Ale_2/Desktop/Cursada/Repos/sistema_consultorio/Java Project/jcalendar-1.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Ale_2/Desktop/Cursada/Repos/sistema_consultorio/Java Project/jdatepicker-1.3.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Ale_2/Desktop/Cursada/Repos/sistema_consultorio/Java Project/jdatepicker-2.0.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Ale_2/Desktop/Cursada/Repos/sistema_consultorio/Java Project/jgoodies-forms-1.8.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Ale_2/Desktop/Cursada/Repos/sistema_consultorio/Java Project/jgoodies-forms-1.8.0-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Ale_2/Desktop/Cursada/Repos/sistema_consultorio/Java Project/miglayout15-swing.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -9,6 +9,7 @@ public class Controller {
 	private Model mModel;
 	private int id;
 	private Paciente paciente = new Paciente();
+
 	
 	public Controller(View v, Model m){
 		
@@ -18,6 +19,7 @@ public class Controller {
 		//mView.newLogin();
 		//mView.login.addLoginListener(new LoginListener());
 		//mView.newOdontograma();
+
 		mView.newHistoriaClinica();
 		mView.odontograma.addDienteListener(new DienteListener());
 		
@@ -32,6 +34,10 @@ public class Controller {
 		
 		mView.historia.iniciarLista(mModel.getListModelPaciente());
 		mView.historia.addBusquedaListener(new BusquedaListener(), new EnterBusquedaListener());
+		
+		//mView.odontograma.addDienteListener(new DienteListener());
+		//paciente = mModel.dummyPaciente();
+
 	}
 	
 	class LoginListener implements ActionListener{
@@ -62,7 +68,6 @@ public class Controller {
 			mView.menu.setVisible(false);
 			mView.login.setVisible(true);
 		}
-		
 	}
 	
 	class DienteListener implements ActionListener{
