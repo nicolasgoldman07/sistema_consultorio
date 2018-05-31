@@ -1,38 +1,33 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Vector;
 
 public class Diente {
 	
-	private Tratamiento caraSup;
-	private Tratamiento caraInf;
-	private Tratamiento caraDer;
-	private Tratamiento caraIzq;
-	private Tratamiento caraC;
-	private Vector<Tratamiento> caras;
+	private String caraSup;
+	private String caraInf;
+	private String caraDer;
+	private String caraIzq;
+	private String caraC;
+	private HashMap<String, String> caras;
+	public static final String[] tratamientos = {"Caries", "Sida", "Obt. con Ionómero", "Obt.con Ionómero cav.simple", "Obt. con Ionómero"};
+	public static final String[] keys = {"cara derecha", "cara superior", "cara central", "cara inferior", "cara izquierda"};
+	public static final int CARAS  = keys.length;
 	
 	public Diente(){
 		
-		caras = new Vector<Tratamiento>();
-		caraSup = new Tratamiento();
-		caraInf = new Tratamiento();
-		caraDer = new Tratamiento();
-		caraIzq = new Tratamiento();
-		caraC = new Tratamiento();
+		caras = new HashMap<String, String>();
 		
-		caras.addElement(caraSup);
-		caras.addElement(caraInf);
-		caras.addElement(caraDer);
-		caras.addElement(caraIzq);
-		caras.addElement(caraC);
+		for(int i=0; i<keys.length; i++){
+			caras.put(keys[i], "na");
+		}
 	}
 	
-	public void addCondicion(Tratamiento cara, String cond){
-		cara.setTratamiento(cond);
+	public void addCondicion(String cara, String cond){
+		caras.put(cara, cond);
 	}
 	
-	public Tratamiento getCara(int num){
-		return caras.get(num);
+	public String getCara(String c){
+		return caras.get(c);
 	}
-	
-	
 }
