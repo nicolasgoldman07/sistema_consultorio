@@ -78,7 +78,7 @@ public class adminView extends JFrame {
 		panel.setLayout(null);
 		
 		//Etiqueta de titulo
-		JLabel lblNewLabel = new JLabel("Administración");
+		JLabel lblNewLabel = new JLabel("AdministraciÃ³n");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setBounds(10, 0, 502, 71);
 		panel.add(lblNewLabel);
@@ -111,24 +111,24 @@ public class adminView extends JFrame {
 		lblAtras.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		
-		//Panel de pestañas
+		//Panel de pestaÃ±as
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBackground(SystemColor.inactiveCaption);
 		tabbedPane.setFont(new Font("Yu Gothic UI Semilight", Font.PLAIN, 14));
 		tabbedPane.setBounds(240, 113, 1120, 576);
 		contentPane.add(tabbedPane);
 		
-		/*//Pestaña "Asistencia"
+		/*//PestaÃ±a "Asistencia"
 		JPanel asist = new JPanel();
 		tabbedPane.addTab("Asistencia", null, asist, null);
 		*/
 		
-		//Pestaña "Posicion Consolidada"
+		//PestaÃ±a "Posicion Consolidada"
 		JPanel posCons = new JPanel();
 		tabbedPane.addTab("Posicion Consolidada", null, posCons, null);
 		posCons.setLayout(null);
 		
-		//Panel general de la pestaña "Posicion Consolidada"
+		//Panel general de la pestaÃ±a "Posicion Consolidada"
 		JPanel panel_3 = new JPanel();
 		panel_3.setBounds(10, 40, 1095, 95);
 		posCons.add(panel_3);
@@ -284,9 +284,9 @@ public class adminView extends JFrame {
 		table2.setBackground(SystemColor.activeCaption);
 		table2.setModel(new DefaultTableModel(
 			new Object[][] {
-				{new String ("Extracción Premolar"), new Integer(-2500)},
+				{new String ("ExtracciÃ³n Premolar"), new Integer(-2500)},
 				{new String ("Limpieza bucal"), new Integer(-500)},
-				{new String ("Depósito"), new Integer(10000)}, 
+				{new String ("DepÃ³sito"), new Integer(10000)}, 
 				{null, null},
 				{null, null},
 				{null},
@@ -326,7 +326,7 @@ public class adminView extends JFrame {
 			},
 			new String[] {"", ""}
 		) {
-			 
+      
 			private static final long serialVersionUID = 1L;
 			
 			
