@@ -7,7 +7,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.Font;
 import java.awt.GraphicsEnvironment;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -17,17 +16,25 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
-
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JComboBox;
 import javax.swing.ListSelectionModel;
+import javax.swing.ImageIcon;
+import javax.swing.border.LineBorder;
+import java.awt.Color;
+import java.awt.ComponentOrientation;
 
 public class adminView extends JFrame {
 
 	private JPanel contentPane;
+	private JButton backButton;
+	private JPanel panel_1;
+	private JScrollPane scrollPacientes;
+	private DefaultTableModel tableDModel;
+	private JTable tablePacientes;
 
 	/**
 	 * Launch the application.
@@ -50,13 +57,6 @@ public class adminView extends JFrame {
 	 */
 	public adminView() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		//setBounds(600, 300, 650, 400);
-		
-		/*Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		Insets scnMax = Toolkit.getDefaultToolkit().getScreenInsets(getGraphicsConfiguration());
-		int taskBarSize = scnMax.bottom;
-		setSize(screenSize.width - getWidth(), screenSize.height - taskBarSize - getHeight());*/
-		
 		GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		this.setMaximizedBounds(env.getMaximumWindowBounds());
         this.setExtendedState(this.getExtendedState() | this.MAXIMIZED_BOTH);
@@ -78,23 +78,20 @@ public class adminView extends JFrame {
 		panel.add(lblNewLabel);
 		lblNewLabel.setFont(new Font("Yu Gothic UI Semilight", Font.BOLD, 48));
 		
-		JPanel panel_1 = new JPanel();
+		panel_1 = new JPanel();
 		panel_1.setBounds(0, 0, 84, 77);
 		panel_1.setBackground(SystemColor.activeCaption);
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
 		
-		JButton backButton = new JButton("ATRAS");
+		backButton = new JButton("ATRAS");
+		backButton.setIcon(new ImageIcon(adminView.class.getResource("/images/espalda.png")));
 		backButton.setFont(new Font("Yu Gothic UI Semilight", Font.BOLD, 11));
 		backButton.setForeground(SystemColor.activeCaptionText);
 		backButton.setBackground(SystemColor.activeCaption);
 	    backButton.setVerticalTextPosition(SwingConstants.BOTTOM);
 	    backButton.setHorizontalTextPosition(SwingConstants.CENTER);
 		//backButton.setIcon(new ImageIcon(AgendaDeTurnos.class.getResource("/images/espalda.png")));
-		backButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 		backButton.setBounds(0, 0, 84, 77);
 		panel_1.add(backButton);
 		
@@ -164,8 +161,21 @@ public class adminView extends JFrame {
 		JPanel impr = new JPanel();
 		tabbedPane.addTab("Impresion", null, impr, null);
 		
-	
-		JTable table = new JTable();
+		tableDModel = new DefaultTableModel();// definimos el objeto tableModel
+		tablePacientes = new JTable();
+		tablePacientes.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		tablePacientes.setRowHeight(25);
+		tablePacientes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		tablePacientes.setSelectionBackground(SystemColor.menu);
+		tablePacientes.setBackground(SystemColor.inactiveCaption);
+		tablePacientes.setFont(new Font("Yu Gothic UI Semilight", Font.PLAIN, 16));
+		tablePacientes.setModel(tableDModel);
+		tableDModel.addColumn("Nombre");
+		tableDModel.addColumn("Apellido");
+		tablePacientes.setAutoResizeMode(JTable.AUTO_RESIZE_NEXT_COLUMN);
+		tablePacientes.getTableHeader().setReorderingAllowed(false);
+		
+		/*JTable table = new JTable();
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		table.setRowSelectionAllowed(false);
 		table.setFont(new Font("Yu Gothic UI Semilight", Font.PLAIN, 16));
@@ -216,7 +226,7 @@ public class adminView extends JFrame {
 		) {
 			/**
 			 * 
-			 */
+			 
 			private static final long serialVersionUID = 1L;
 			
 			
@@ -237,7 +247,13 @@ public class adminView extends JFrame {
 		JScrollPane scrollPane = new JScrollPane(table);
 		scrollPane.setBounds(10, 144, 227, 545);
 		contentPane.add(scrollPane);
+		*/
 		
+		scrollPacientes = new JScrollPane();
+		scrollPacientes.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPacientes.setBounds(10, 164, 220, 525);
+		mostrarNombre();// mostramos la tabla
+		getContentPane().add(scrollPacientes);
 		
 		
 		JTable table2 = new JTable();
@@ -330,4 +346,16 @@ public class adminView extends JFrame {
 		panel_2.add(lblNewLabel_1);
 		//scrollPane.setViewportView(table);
 	}
+	
+	void addBackListener (ActionListener backListener) {
+		backButton.addActionListener(backListener);
+	}
+	
+	
+	private void mostrarNombre() {
+		PacienteDAO pacienteDao = new PacienteDAO();
+		pacienteDao.buscarNombreUsuarios(tableDModel);
+		scrollPacientes.setViewportView(tablePacientes);
+	}
+	
 }

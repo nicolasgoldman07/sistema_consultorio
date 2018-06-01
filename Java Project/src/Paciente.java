@@ -18,7 +18,6 @@ public class Paciente {
 	}
 	
 	public Paciente(){
-		
 	}
 	
 	//Getters
