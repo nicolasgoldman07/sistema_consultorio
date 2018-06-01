@@ -3,13 +3,13 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="lib" path="miglayout15-swing.jar" sourcepath="miglayout-src.zip"/>
-	<classpathentry kind="lib" path="C:/Users/nicol/Documents/GitHub/sistema_consultorio/Java Project/jcalendar-1.4/lib/jcalendar-1.4.jar"/>
-	<classpathentry kind="lib" path="C:/Users/nicol/Documents/GitHub/sistema_consultorio/Java Project/jcalendar-1.4/lib/jgoodies-common-1.2.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/nicol/Documents/GitHub/sistema_consultorio/Java Project/jcalendar-1.4/lib/jgoodies-looks-2.4.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/nicol/Documents/GitHub/sistema_consultorio/Java Project/jcalendar-1.4/lib/junit-4.6.jar"/>
-	<classpathentry kind="lib" path="C:/Program Files (x86)/MySQL/Connector J 8.0/mysql-connector-java-8.0.11.jar"/>
+	<classpathentry kind="lib" path="C:/Users/nicol/Documents/GitHub/sistema_consultorio/Java Project/jcalendar-1.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/nicol/Documents/GitHub/sistema_consultorio/Java Project/jdatepicker-1.3.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/nicol/Documents/GitHub/sistema_consultorio/Java Project/jdatepicker-2.0.3.jar"/>
 	<classpathentry kind="lib" path="C:/Users/nicol/Documents/GitHub/sistema_consultorio/Java Project/jgoodies-common-1.8.0.jar"/>
 	<classpathentry kind="lib" path="C:/Users/nicol/Documents/GitHub/sistema_consultorio/Java Project/jgoodies-forms-1.8.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/nicol/Documents/GitHub/sistema_consultorio/Java Project/jgoodies-forms-1.8.0-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/nicol/Documents/GitHub/sistema_consultorio/Java Project/miglayout15-swing.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/MySQL/Connector J 8.0/mysql-connector-java-8.0.11.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
