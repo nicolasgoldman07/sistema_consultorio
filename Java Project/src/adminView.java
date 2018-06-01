@@ -305,9 +305,7 @@ public class adminView extends JFrame {
 			},
 			new String[] {"", ""}
 		) {
-			/**
-			 * 
-			 */
+
 			private static final long serialVersionUID = 1L;
 			
 			
