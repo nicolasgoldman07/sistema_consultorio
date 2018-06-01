@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="imprimirFactura" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4eedbb89-b4f6-4469-9ab6-f642a1688cf7">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
+	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true"/>
+	<style name="Detail" mode="Transparent" fontName="Times New Roman"/>
+	<style name="Row" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#EEEFF0"/>
+		</conditionalStyle>
+	</style>
+	<style name="Table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+			<topPen lineWidth="1.0" lineColor="#000000"/>
+			<leftPen lineWidth="1.0" lineColor="#000000"/>
+			<bottomPen lineWidth="1.0" lineColor="#000000"/>
+			<rightPen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_TH" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_CH" mode="Opaque" backcolor="#CACED0">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style backcolor="#D8D8D8"/>
+		</conditionalStyle>
+	</style>
+	<style name="Table 1_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table 1_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="tableDataset" uuid="f13e6d36-5148-4ecc-bbe3-3035def80980">
+		<queryString>
+			<![CDATA[]]>
+		</queryString>
+	</subDataset>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<title>
+		<band height="162" splitType="Stretch">
+			<rectangle radius="10">
+				<reportElement x="0" y="92" width="555" height="70" uuid="dfb6b448-3871-4268-a669-b2ca1a01dbb4"/>
+			</rectangle>
+			<line>
+				<reportElement x="0" y="86" width="556" height="1" uuid="806ce5df-1219-4876-ae0c-ca7405b1f246">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+			</line>
+			<staticText>
+				<reportElement x="415" y="10" width="44" height="20" uuid="67cec1c0-9f59-4300-9eb7-e5dc290a4e4e"/>
+				<box rightPadding="4"/>
+				<textElement textAlignment="Left"/>
+				<text><![CDATA[Fecha:]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="450" y="10" width="84" height="20" uuid="d4204403-4b9f-4f38-9e4d-1c2c607cea67"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="415" y="30" width="119" height="20" uuid="bad0c95a-c5c9-440b-a5e4-ed029ac4b978"/>
+				<box rightPadding="4"/>
+				<textElement textAlignment="Left"/>
+				<text><![CDATA[Factura Nº: 000001]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="95" y="0" width="124" height="25" uuid="b39bab8b-2f60-4712-bee2-becc2475a8c1">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="19" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Odontolog]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="95" y="70" width="124" height="15" uuid="04e6c572-2f63-4ca6-9deb-63c12dc3d8f9"/>
+				<text><![CDATA[0351 - 4804597]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="95" y="40" width="124" height="15" uuid="d4e9c747-1f37-4f85-bbcb-6329edf42696"/>
+				<text><![CDATA[MP: 3508]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="95" y="55" width="124" height="15" uuid="56bbf431-e23a-43e0-8211-9964159d50fe"/>
+				<text><![CDATA[Independencia 272]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="95" y="25" width="124" height="15" uuid="3891d78c-3405-4a5b-b094-b08c5f715f38"/>
+				<text><![CDATA[Javier Goldman]]></text>
+			</staticText>
+			<image>
+				<reportElement x="10" y="0" width="80" height="70" uuid="86179a27-be3a-4488-9f4e-16a0d82db5ee"/>
+				<imageExpression><![CDATA["/images/dientesin200.png"]]></imageExpression>
+			</image>
+			<rectangle>
+				<reportElement x="252" y="-3" width="51" height="51" backcolor="#FFFFFF" uuid="a063902c-b0ac-4a05-b43b-1eb810d31d0b"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="247" y="-5" width="60" height="50" uuid="139ebe8d-25b0-411e-986c-270015400874">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="37" isBold="true"/>
+				</textElement>
+				<text><![CDATA[B]]></text>
+			</staticText>
+			<line>
+				<reportElement x="277" y="48" width="1" height="39" uuid="b66eefee-220e-4703-a3b4-c0dac34389f2"/>
+			</line>
+			<staticText>
+				<reportElement x="5" y="98" width="84" height="25" uuid="75fb0724-f350-45d4-adb9-4afb803d8cae">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="16" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Señor(es):]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="95" y="103" width="120" height="15" uuid="32deff1d-0479-4997-b8be-ea421543ef56"/>
+				<text><![CDATA[Arce Giacobbe, Alejandro]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="95" y="136" width="120" height="15" uuid="75a47a79-7db4-4e17-b9f8-6940ac2a6c36"/>
+				<text><![CDATA[Jose Pillado 1079]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="382" y="136" width="120" height="15" uuid="96d9bdb5-ed2c-40b7-aeeb-0b4319ab4897"/>
+				<text><![CDATA[Córdoba]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="131" width="84" height="25" uuid="e9e12df8-3702-42fe-92c4-e386187cbac0">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="16" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Dirección:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="335" y="131" width="46" height="25" uuid="a6eafb78-aff9-4704-a347-2b7768bff280">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="16" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Loc:]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="479">
+			<rectangle radius="10">
+				<reportElement x="0" y="10" width="555" height="469" uuid="6ef16908-0fda-48a5-8ead-934d42bf858f"/>
+			</rectangle>
+		</band>
+	</detail>
+	<lastPageFooter>
+		<band height="112">
+			<rectangle radius="10">
+				<reportElement x="0" y="3" width="555" height="70" uuid="36bbdbd6-10f0-4da7-89c0-80a85eaa6cf1"/>
+			</rectangle>
+			<staticText>
+				<reportElement positionType="Float" mode="Opaque" x="0" y="82" width="556" height="30" backcolor="#E6E8E9" uuid="36aa233d-4305-48e6-974a-1bbf89bb3c8f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="9" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[GRACIAS POR CONFIAR EN NOSOTROS]]></text>
+			</staticText>
+			<componentElement>
+				<reportElement x="10" y="8" width="157" height="30" uuid="f8800800-edf6-460d-9915-0d77b3fa72f7"/>
+				<jr:barbecue xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" type="2of7" drawText="false" checksumRequired="false">
+					<jr:codeExpression><![CDATA["12345678910"]]></jr:codeExpression>
+				</jr:barbecue>
+			</componentElement>
+			<staticText>
+				<reportElement x="404" y="3" width="75" height="25" uuid="607086a9-0a13-4175-9200-c45ce4e10127">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="16" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Sub-Total:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="430" y="28" width="49" height="14" uuid="9e90a88b-d1b4-4398-8da7-2269014d9469"/>
+				<text><![CDATA[I.V.A. (%):]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="427" y="48" width="55" height="25" uuid="804977a9-f608-4e02-b867-b8a4f3a99046">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="19" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="480" y="3" width="1" height="70" uuid="1e42608e-91c3-4b22-a1b5-b3e2bdd23fa3"/>
+			</line>
+			<line>
+				<reportElement x="480" y="45" width="75" height="1" uuid="3d36d988-9150-4680-835b-02fc5403f56c"/>
+			</line>
+			<staticText>
+				<reportElement x="10" y="38" width="157" height="14" uuid="da8229d0-2906-45f4-93f7-a1a9361c1ad9"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[1564984951384915318416]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="55" width="180" height="14" uuid="1edc88f6-cd78-4313-9841-57c12e69939d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[ORIGINAL BLANCO - DUPLICADO COLOR]]></text>
+			</staticText>
+		</band>
+	</lastPageFooter>
+</jasperReport>
