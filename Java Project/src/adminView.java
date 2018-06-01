@@ -270,8 +270,7 @@ public class adminView extends JFrame {
 		contentPane.add(scrollPane);						*/
 		
 		scrollPacientes = new JScrollPane();
-		scrollPacientes.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		scrollPacientes.setBounds(10, 164, 220, 525);
+		scrollPacientes.setBounds(10, 164, 220, 368);
 		mostrarNombre();// mostramos la tabla
 		getContentPane().add(scrollPacientes);
 
