@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.awt.GraphicsEnvironment;
 
 import javax.swing.ImageIcon;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -16,14 +17,27 @@ import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+
+import javax.swing.table.JTableHeader;
+
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.ImageIcon;
+import javax.swing.border.LineBorder;
+import java.awt.Color;
+import java.awt.ComponentOrientation;
 
 public class adminView extends JFrame {
 
 	private JPanel contentPane;
+	private JButton backButton;
+	private JPanel panel_1;
+	private JScrollPane scrollPacientes;
+	private DefaultTableModel tableDModel;
+	private JTable tablePacientes;
 
 	/**
 	 * Launch the application.
@@ -46,12 +60,11 @@ public class adminView extends JFrame {
 	 */
 	public adminView() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
 		GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		this.setMaximizedBounds(env.getMaximumWindowBounds());
         this.setExtendedState(this.getExtendedState() | this.MAXIMIZED_BOTH);
 		
-        //Contenedor/Panel General
+        //Contenedor-Panel General
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -71,25 +84,22 @@ public class adminView extends JFrame {
 		panel.add(lblNewLabel);
 		lblNewLabel.setFont(new Font("Yu Gothic UI Semilight", Font.BOLD, 48));
 		
+
 		//Panel boton "Atras"
-		JPanel panel_1 = new JPanel();
+		panel_1 = new JPanel();
 		panel_1.setBounds(0, 0, 84, 77);
 		panel_1.setBackground(SystemColor.activeCaption);
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
 		
 		//Boton "Atras"
-		JButton backButton = new JButton("ATRAS");
+		backButton = new JButton("ATRAS");
+		backButton.setIcon(new ImageIcon(adminView.class.getResource("/images/espalda.png")));
 		backButton.setFont(new Font("Yu Gothic UI Semilight", Font.BOLD, 11));
 		backButton.setForeground(SystemColor.activeCaptionText);
 		backButton.setBackground(SystemColor.activeCaption);
 	    backButton.setVerticalTextPosition(SwingConstants.BOTTOM);
 	    backButton.setHorizontalTextPosition(SwingConstants.CENTER);
-		backButton.setIcon(new ImageIcon(adminView.class.getResource("/images/espalda.png")));
-		backButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 		backButton.setBounds(0, 0, 84, 77);
 		panel_1.add(backButton);
 		
@@ -169,125 +179,25 @@ public class adminView extends JFrame {
 		lblNewLabel_5.setBounds(725, 0, 150, 40);
 		panel_5.add(lblNewLabel_5);
 		
-		//Tabla para tratamiento e importe
-		JTable table2 = new JTable();
-		table2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		table2.setRowSelectionAllowed(false);
-		table2.setFont(new Font("Yu Gothic UI Semilight", Font.PLAIN, 16));
-		table2.setBackground(SystemColor.activeCaption);
-		table2.setModel(new DefaultTableModel(
-			new Object[][] {
-				{new String ("Extracción Premolar"), new Integer(-2500)},
-				{new String ("Limpieza bucal"), new Integer(-500)},
-				{new String ("Depósito"), new Integer(10000)}, 
-				{null, null},
-				{null, null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				
-			},
-			new String[] {"", ""}
-		) {
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
-			
-			
-			boolean[] columnEditables = new boolean[] {
-				false
-				};
-			
-			public boolean isCellEditable(int row, int column) {
-				return columnEditables[column];
-			}
-		});
-		table2.getColumnModel().getColumn(0).setPreferredWidth(650);
-				
-		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-		centerRenderer.setHorizontalAlignment(JLabel.CENTER);
-		table2.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
-				
-		//Panel con scroll para la tabla de tratamientos e importe
-		JScrollPane scrollPane_1 = new JScrollPane(table2);
-		scrollPane_1.setBounds(10, 185, 895, 345);
-		posCons.add(scrollPane_1);
-		Color b = UIManager.getLookAndFeel().getDefaults().getColor( "Panel.background");
 		
-		//Panel Botonera
-		JPanel panel_6 = new JPanel();
-		panel_6.setBounds(935, 481, 170, 50);
-		posCons.add(panel_6);
-		panel_6.setLayout(null);
-		
-		
-		//Boton Agregar
-		JButton btnAdd = new JButton("");
-		btnAdd.setBounds(0, 0, 50, 50);
-		panel_6.add(btnAdd);
-		btnAdd.setBorder(null);
-		btnAdd.setBackground(new Color(b.getRed(), b.getGreen(), b.getBlue()));
-		btnAdd.setHorizontalAlignment(SwingConstants.LEADING);
-		btnAdd.setIcon(new ImageIcon(adminView.class.getResource("/images/add.png")));
-		
-		//Boton Quitar
-		JButton btnSub = new JButton("");
-		btnSub.setBounds(120, 0, 50, 50);
-		panel_6.add(btnSub);
-		btnSub.setIcon(new ImageIcon(adminView.class.getResource("/images/subtract.png")));
-		btnSub.setHorizontalAlignment(SwingConstants.LEADING);
-		btnSub.setBorder(null);
-		btnSub.setBackground(SystemColor.menu);
-		
-		//Boton Edit
-		JButton btnEdit = new JButton("");
-		btnEdit.setBounds(60, 0, 50, 50);
-		panel_6.add(btnEdit);
-		btnEdit.setIcon(new ImageIcon(adminView.class.getResource("/images/edit.png")));
-		btnEdit.setHorizontalAlignment(SwingConstants.LEADING);
-		btnEdit.setBorder(null);
-		btnEdit.setBackground(SystemColor.menu);
-		
-		
-		
-		//Pestaña "Impresion"
 		JPanel impr = new JPanel();
 		tabbedPane.addTab("Impresion", null, impr, null);
-		impr.setLayout(null);
 		
-
-		//Tabla de Pacientes
+		tableDModel = new DefaultTableModel();// definimos el objeto tableModel
+		tablePacientes = new JTable();
+		tablePacientes.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		tablePacientes.setRowHeight(25);
+		tablePacientes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		tablePacientes.setSelectionBackground(SystemColor.menu);
+		tablePacientes.setBackground(SystemColor.inactiveCaption);
+		tablePacientes.setFont(new Font("Yu Gothic UI Semilight", Font.PLAIN, 16));
+		tablePacientes.setModel(tableDModel);
+		tableDModel.addColumn("Nombre");
+		tableDModel.addColumn("Apellido");
+		tablePacientes.setAutoResizeMode(JTable.AUTO_RESIZE_NEXT_COLUMN);
+		tablePacientes.getTableHeader().setReorderingAllowed(false);
+		
+		/*		//Tabla de Pacientes
 		JTable table = new JTable();
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		table.setRowSelectionAllowed(false);
@@ -337,9 +247,7 @@ public class adminView extends JFrame {
 			},
 			new String[] {""}
 		) {
-			/**
-			 * 
-			 */
+			
 			private static final long serialVersionUID = 1L;
 			
 			
@@ -354,23 +262,150 @@ public class adminView extends JFrame {
 		table.getColumnModel().getColumn(0).setPreferredWidth(100);
 		DefaultTableCellRenderer rendere = new DefaultTableCellRenderer();
 		rendere.setToolTipText("Doble click para seleccionar paciente");
-		table.getColumnModel().getColumn(0).setCellRenderer(rendere);
-
+		table.getColumnModel().getColumn(0).setCellRenderer(rendere);    
+		
 		//Panel con scroll para Pacientes
 		JScrollPane scrollPane = new JScrollPane(table);
 		scrollPane.setBounds(10, 144, 227, 545);
-		contentPane.add(scrollPane);
+		contentPane.add(scrollPane);						*/
+		
+		scrollPacientes = new JScrollPane();
+		scrollPacientes.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPacientes.setBounds(10, 164, 220, 525);
+		mostrarNombre();// mostramos la tabla
+		getContentPane().add(scrollPacientes);
+
+		
+		//Tabla2 para tratamiento e importe
+		JTable table2 = new JTable();
+		table2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		table2.setRowSelectionAllowed(false);
+		table2.setFont(new Font("Yu Gothic UI Semilight", Font.PLAIN, 16));
+		table2.setBackground(SystemColor.activeCaption);
+		table2.setModel(new DefaultTableModel(
+			new Object[][] {
+				{new String ("Extracción Premolar"), new Integer(-2500)},
+				{new String ("Limpieza bucal"), new Integer(-500)},
+				{new String ("Depósito"), new Integer(10000)}, 
+				{null, null},
+				{null, null},
+				{null},
+				{null},
+				{null},
+				{null},
+				{null},
+				{null},
+				{null},
+				{null},
+				{null},
+				{null},
+				{null},
+				{null},
+				{null},
+				{null},
+				{null},
+				{null},
+				{null},
+				{null},
+				{null},
+				{null},
+				{null},
+				{null},
+				{null},
+				{null},
+				{null},
+				{null},
+				{null},
+				{null},
+				{null},
+				{null},
+				{null},
+				{null},
+				{null},
+				
+			},
+			new String[] {"", ""}
+		) {
+			 
+			private static final long serialVersionUID = 1L;
+			
+			
+			boolean[] columnEditables = new boolean[] {
+				false
+				};
+			
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
+		table2.getColumnModel().getColumn(0).setPreferredWidth(650);
+				
+		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+		centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+		table2.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
+				
+		//Panel con scroll para la tabla de tratamientos e importe
+		JScrollPane scrollPane_1 = new JScrollPane(table2);
+		scrollPane_1.setBounds(10, 185, 895, 345);
+		posCons.add(scrollPane_1);		
 		
 		//Panel para etiqueta Pacientes		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBounds(10, 101, 227, 37);
 		contentPane.add(panel_2);
 		panel_2.setLayout(null);
-		
+				
 		//Etiqueta "Pacientes"
 		JLabel lblNewLabel_1 = new JLabel("Pacientes");
 		lblNewLabel_1.setFont(new Font("Yu Gothic UI Semilight", Font.PLAIN, 27));
 		lblNewLabel_1.setBounds(0, 0, 227, 37);
 		panel_2.add(lblNewLabel_1);
+		
+		
+		//Panel Botonera
+		JPanel panel_6 = new JPanel();
+		panel_6.setBounds(935, 481, 170, 50);
+		posCons.add(panel_6);
+		panel_6.setLayout(null);
+		
+		//Boton Agregar
+		JButton btnAdd = new JButton("");
+		btnAdd.setBounds(0, 0, 50, 50);
+		panel_6.add(btnAdd);
+		btnAdd.setBorder(null);
+		btnAdd.setHorizontalAlignment(SwingConstants.LEADING);
+		btnAdd.setIcon(new ImageIcon(adminView.class.getResource("/images/add.png")));
+		btnAdd.setBackground(SystemColor.menu);
+		
+		//Boton Quitar
+		JButton btnSub = new JButton("");
+		btnSub.setBounds(120, 0, 50, 50);
+		panel_6.add(btnSub);
+		btnSub.setIcon(new ImageIcon(adminView.class.getResource("/images/subtract.png")));
+		btnSub.setHorizontalAlignment(SwingConstants.LEADING);
+		btnSub.setBorder(null);
+		btnSub.setBackground(SystemColor.menu);
+		
+		//Boton Edit
+		JButton btnEdit = new JButton("");
+		btnEdit.setBounds(60, 0, 50, 50);
+		panel_6.add(btnEdit);
+		btnEdit.setIcon(new ImageIcon(adminView.class.getResource("/images/edit.png")));
+		btnEdit.setHorizontalAlignment(SwingConstants.LEADING);
+		btnEdit.setBorder(null);
+		btnEdit.setBackground(SystemColor.menu);
+		
 	}
+	
+	void addBackListener (ActionListener backListener) {
+		backButton.addActionListener(backListener);
+	}
+	
+	
+	private void mostrarNombre() {
+		PacienteDAO pacienteDao = new PacienteDAO();
+		pacienteDao.buscarNombreUsuarios(tableDModel);
+		scrollPacientes.setViewportView(tablePacientes);
+	}
+	
 }

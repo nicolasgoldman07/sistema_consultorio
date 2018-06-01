@@ -21,11 +21,24 @@ import java.awt.Color;
 import java.awt.SystemColor;
 import java.awt.Font;
 import java.awt.Toolkit;
+import java.awt.FlowLayout;
+import java.awt.CardLayout;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.layout.RowSpec;
+import com.jgoodies.forms.layout.FormSpecs;
+import net.miginfocom.swing.MigLayout;
+import javax.swing.SpringLayout;
+import javax.swing.border.LineBorder;
 
 public class principalView extends JFrame {
 
 	private JPanel contentPane;
 	private JButton logoutButton;
+	private JButton btnAgenda;
+	private JPanel	panel;
+	private JButton btnAdmin;
+	private JPanel panel_2;
 	/**
 	 * Launch the application.
 	 */
@@ -54,109 +67,98 @@ public class principalView extends JFrame {
 		contentPane.setBackground(SystemColor.activeCaption);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		GridBagLayout gbl_contentPane = new GridBagLayout();
-		gbl_contentPane.columnWidths = new int[]{43, 130, 214, 130, 0};
-		gbl_contentPane.rowHeights = new int[]{0, 86, 0, 73, 0, 0};
-		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		contentPane.setLayout(gbl_contentPane);
 		setResizable(false);
-		
-		
-		JButton btnAdmin = new JButton("");
-		btnAdmin.setOpaque(true);
-		btnAdmin.setBorder(null);
-		btnAdmin.setPressedIcon(new ImageIcon(principalView.class.getResource("/images/adminPress.png")));
 		Color c = UIManager.getLookAndFeel().getDefaults().getColor( "Panel.background");
-		btnAdmin.setBackground(new Color(c.getRed(), c.getGreen(), c.getBlue()));
-		btnAdmin.setIcon(new ImageIcon(principalView.class.getResource("/images/admin.png")));
-		btnAdmin.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		
-		JButton btnHistoria = new JButton("");
-		btnHistoria.setOpaque(true);
-		btnHistoria.setBorder(null);
-		btnHistoria.setPressedIcon(new ImageIcon(principalView.class.getResource("/images/historiaPress.png")));
 		Color b = UIManager.getLookAndFeel().getDefaults().getColor( "Panel.background");
-		btnHistoria.setBackground(new Color(b.getRed(), b.getGreen(), b.getBlue()));
-		btnHistoria.setHorizontalAlignment(SwingConstants.LEADING);
-		btnHistoria.setIcon(new ImageIcon(principalView.class.getResource("/images/historia.png")));
-		btnHistoria.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
-		
-		JButton btnAgenda = new JButton("");
-		btnAgenda.setOpaque(true);
-		btnAgenda.setBorder(null);
-		btnAgenda.setPressedIcon(new ImageIcon(principalView.class.getResource("/images/agendaPress.png")));
 		Color a = UIManager.getLookAndFeel().getDefaults().getColor( "Panel.background");
-		btnAdmin.setBackground(new Color(a.getRed(), a.getGreen(), a.getBlue()));
-		btnAgenda.setBackground(new Color(255, 255, 255));
-		btnAgenda.setIcon(new ImageIcon(principalView.class.getResource("/images/agenda.png")));
-		btnAgenda.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		GridBagConstraints gbc_btnAgenda = new GridBagConstraints();
-		gbc_btnAgenda.fill = GridBagConstraints.BOTH;
-		gbc_btnAgenda.insets = new Insets(0, 0, 5, 5);
-		gbc_btnAgenda.gridx = 1;
-		gbc_btnAgenda.gridy = 1;
-		contentPane.add(btnAgenda, gbc_btnAgenda);
-		GridBagConstraints gbc_btnHistoria = new GridBagConstraints();
-		gbc_btnHistoria.insets = new Insets(0, 0, 5, 5);
-		gbc_btnHistoria.gridx = 2;
-		gbc_btnHistoria.gridy = 1;
-		contentPane.add(btnHistoria, gbc_btnHistoria);
-		GridBagConstraints gbc_btnAdmin = new GridBagConstraints();
-		gbc_btnAdmin.fill = GridBagConstraints.BOTH;
-		gbc_btnAdmin.insets = new Insets(0, 0, 5, 0);
-		gbc_btnAdmin.gridx = 3;
-		gbc_btnAdmin.gridy = 1;
-		contentPane.add(btnAdmin, gbc_btnAdmin);
+		contentPane.setLayout(null);
 		
-		logoutButton = new JButton("Log Out");
-		logoutButton.setBackground(SystemColor.inactiveCaption);
-		logoutButton.setFont(new Font("Yu Gothic UI Semilight", Font.PLAIN, 16));
-		logoutButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
+		panel = new JPanel();
+		panel.setBackground(SystemColor.activeCaption);
+		panel.setBounds(0, 0, 215, 371);
+		contentPane.add(panel);
+		panel.setLayout(null);
+		
+		btnAgenda = new JButton("");
+		btnAgenda.setBounds(32, 96, 151, 151);
+		panel.add(btnAgenda);
+		btnAgenda.setOpaque(true);
+		btnAgenda.setBorder(new LineBorder(new Color(51, 51, 204), 6, true));
+		btnAgenda.setPressedIcon(new ImageIcon(principalView.class.getResource("/images/agendaPress.png")));
+		btnAgenda.setBackground(Color.WHITE);
+		btnAgenda.setIcon(new ImageIcon(principalView.class.getResource("/images/agenda.png")));
+
 		
 		JLabel lblNewLabel = new JLabel("Agenda de Turnos");
-		lblNewLabel.setFont(new Font("Yu Gothic UI Semilight", Font.PLAIN, 16));
-		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
-		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel.gridx = 1;
-		gbc_lblNewLabel.gridy = 2;
-		contentPane.add(lblNewLabel, gbc_lblNewLabel);
+		lblNewLabel.setBounds(0, 258, 215, 22);
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		panel.add(lblNewLabel);
+		lblNewLabel.setFont(new Font("Yu Gothic UI Semilight", Font.BOLD, 16));
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(SystemColor.activeCaption);
+		panel_1.setBounds(215, 0, 215, 296);
+		contentPane.add(panel_1);
+		panel_1.setLayout(null);
+		
+		JButton btnHistoria = new JButton("");
+		btnHistoria.setForeground(SystemColor.activeCaption);
+		btnHistoria.setBounds(32, 96, 151, 151);
+		panel_1.add(btnHistoria);
+		btnHistoria.setOpaque(true);
+		btnHistoria.setBorder(new LineBorder(new Color(255, 51, 0), 6, true));
+		btnHistoria.setPressedIcon(new ImageIcon(principalView.class.getResource("/images/historiaPress.png")));
+		btnHistoria.setBackground(new Color(255, 51, 0));
+		btnHistoria.setHorizontalAlignment(SwingConstants.LEADING);
+		btnHistoria.setIcon(new ImageIcon(principalView.class.getResource("/images/historia.png")));
 		
 		JLabel lblHistoriaClinica = new JLabel("Historia Clinica");
-		lblHistoriaClinica.setFont(new Font("Yu Gothic UI Semilight", Font.PLAIN, 16));
-		GridBagConstraints gbc_lblHistoriaClinica = new GridBagConstraints();
-		gbc_lblHistoriaClinica.insets = new Insets(0, 0, 5, 5);
-		gbc_lblHistoriaClinica.gridx = 2;
-		gbc_lblHistoriaClinica.gridy = 2;
-		contentPane.add(lblHistoriaClinica, gbc_lblHistoriaClinica);
+		lblHistoriaClinica.setHorizontalAlignment(SwingConstants.CENTER);
+		lblHistoriaClinica.setBounds(0, 258, 215, 22);
+		panel_1.add(lblHistoriaClinica);
+		lblHistoriaClinica.setFont(new Font("Yu Gothic UI Semilight", Font.BOLD, 16));
+		
+		JPanel panel_2 = new JPanel();
+		panel_2.setBackground(SystemColor.activeCaption);
+		panel_2.setBounds(432, 0, 215, 371);
+		contentPane.add(panel_2);
+		panel_2.setLayout(null);
+		
+		
+		btnAdmin = new JButton("");
+		btnAdmin.setForeground(SystemColor.activeCaption);
+		btnAdmin.setBounds(32, 96, 151, 151);
+		panel_2.add(btnAdmin);
+		btnAdmin.setOpaque(true);
+		btnAdmin.setBorder(new LineBorder(new Color(102, 204, 102), 6, true));
+		btnAdmin.setPressedIcon(new ImageIcon(principalView.class.getResource("/images/adminPress.png")));
+		btnAdmin.setBackground(new Color(c.getRed(), c.getGreen(), c.getBlue()));
+		btnAdmin.setIcon(new ImageIcon(principalView.class.getResource("/images/admin.png")));
+		btnAdmin.setBackground(new Color(a.getRed(), a.getGreen(), a.getBlue()));
 		
 		JLabel lblAdministracion = new JLabel("Administracion");
-		lblAdministracion.setFont(new Font("Yu Gothic UI Semilight", Font.PLAIN, 16));
-		GridBagConstraints gbc_lblAdministracion = new GridBagConstraints();
-		gbc_lblAdministracion.insets = new Insets(0, 0, 5, 0);
-		gbc_lblAdministracion.gridx = 3;
-		gbc_lblAdministracion.gridy = 2;
-		contentPane.add(lblAdministracion, gbc_lblAdministracion);
-		GridBagConstraints gbc_logoutButton = new GridBagConstraints();
-		gbc_logoutButton.insets = new Insets(0, 0, 0, 5);
-		gbc_logoutButton.gridx = 2;
-		gbc_logoutButton.gridy = 4;
-		contentPane.add(logoutButton, gbc_logoutButton);
+		lblAdministracion.setHorizontalAlignment(SwingConstants.CENTER);
+		lblAdministracion.setBounds(0, 258, 215, 22);
+		panel_2.add(lblAdministracion);
+		lblAdministracion.setFont(new Font("Yu Gothic UI Semilight", Font.BOLD, 16));
+		
+		logoutButton = new JButton("Log Out");
+		logoutButton.setBounds(251, 317, 144, 31);
+		contentPane.add(logoutButton);
+		logoutButton.setBackground(SystemColor.inactiveCaption);
+		logoutButton.setFont(new Font("Yu Gothic UI Semilight", Font.PLAIN, 16));
 	}
+	
 	
 	void addLogoutListener(ActionListener listenLogout){
 		logoutButton.addActionListener(listenLogout);
+	}
+	
+	void addAgendaListener(ActionListener listenAgenda) {
+		btnAgenda.addActionListener(listenAgenda);
+	}
+	
+	void addAdministracionListener (ActionListener listenAdmin) {
+		btnAdmin.addActionListener(listenAdmin);
 	}
 }
