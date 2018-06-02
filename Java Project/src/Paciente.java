@@ -19,7 +19,6 @@ public class Paciente {
 		this.dni = id;
 		this.nombre = name.toUpperCase();
 		this.apellido = surename.toUpperCase();
-		
 	}
 	
 	public Paciente(String id, String name, String surename, Odontograma hist){

@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.text.DateFormat;
@@ -13,6 +14,7 @@ import java.text.SimpleDateFormat;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.GraphicsEnvironment;
 import java.awt.SystemColor;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
@@ -54,7 +56,16 @@ public class AgendaDeTurnos extends JFrame{
 	private JPanel contentPane;
 	private JTable table;
 	private JTextField fecha;
+	private JButton backButton;
+	private JPanel panel_1;
+	private JCalendar calendar;
+	private JPanel panel_2;
+	private JCalendar calendar_1;
+	private Date mesSiguiente;
+	private Calendar calendario1;
+	private Calendar calendario;
 
+	
 	/**
 	 * Launch the application.
 	 */
@@ -75,15 +86,10 @@ public class AgendaDeTurnos extends JFrame{
 	 * Create the frame.
 	 */
 	public AgendaDeTurnos() {
-		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		//setBounds(100, 100, 450, 300);
-		
-		
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		Insets scnMax = Toolkit.getDefaultToolkit().getScreenInsets(getGraphicsConfiguration());
-		int taskBarSize = scnMax.bottom;
-		setSize(screenSize.width - getWidth(), screenSize.height - taskBarSize - getHeight());
+		GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+		this.setMaximizedBounds(env.getMaximumWindowBounds());
+        this.setExtendedState(this.getExtendedState() | this.MAXIMIZED_BOTH);
 		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -102,23 +108,19 @@ public class AgendaDeTurnos extends JFrame{
 		panel.add(lblNewLabel);
 		lblNewLabel.setFont(new Font("Yu Gothic UI Semilight", Font.BOLD, 48));
 		
-		JPanel panel_1 = new JPanel();
+		panel_1 = new JPanel();
 		panel_1.setBounds(0, 0, 84, 77);
 		panel_1.setBackground(SystemColor.activeCaption);
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
 		
-		JButton backButton = new JButton("ATRAS");
+		backButton = new JButton("ATRAS");
 		backButton.setFont(new Font("Yu Gothic UI Semilight", Font.BOLD, 11));
 		backButton.setForeground(SystemColor.activeCaptionText);
 		backButton.setBackground(SystemColor.activeCaption);
 	    backButton.setVerticalTextPosition(SwingConstants.BOTTOM);
 	    backButton.setHorizontalTextPosition(SwingConstants.CENTER);
 		backButton.setIcon(new ImageIcon(AgendaDeTurnos.class.getResource("/images/espalda.png")));
-		backButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 		backButton.setBounds(0, 0, 84, 77);
 		panel_1.add(backButton);
 		
@@ -199,7 +201,7 @@ public class AgendaDeTurnos extends JFrame{
 		panel_7.add(table, BorderLayout.SOUTH);
 		panel_7.add(header, BorderLayout.NORTH);
 		
-		JPanel panel_2 = new JPanel();
+		panel_2 = new JPanel();
 		panel_2.setBackground(SystemColor.inactiveCaption);
 		panel_2.setBounds(0, 77, 900, 961);
 		contentPane.add(panel_2);
@@ -213,7 +215,13 @@ public class AgendaDeTurnos extends JFrame{
 		panel_5.add(fechaSeleccion);
 		fechaSeleccion.setColumns(10);
 		
-		JCalendar calendar = new JCalendar();
+		calendar = new JCalendar();
+		calendar.getDayChooser().addPropertyChangeListener(new PropertyChangeListener() {
+			public void propertyChange(PropertyChangeEvent arg0) {
+				DateFormat df = new SimpleDateFormat("EE dd 'de' MMM 'de' yyyy");
+				fechaSeleccion.setText(df.format(calendar.getDate()));
+			}
+		});
 		calendar.setToolTipText("");
 		calendar.getDayChooser().setAlwaysFireDayProperty(false);
 		calendar.setDecorationBackgroundColor(new Color(153, 204, 255));
@@ -227,20 +235,15 @@ public class AgendaDeTurnos extends JFrame{
 		panel_2.add(calendar);
 		calendar.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{calendar.getMonthChooser(), calendar.getMonthChooser().getSpinner(), calendar.getMonthChooser().getComboBox(), calendar.getYearChooser(), calendar.getYearChooser().getSpinner(), calendar.getDayChooser(), calendar.getDayChooser().getDayPanel()}));
 		
-		/*calendar.addPropertyChangeListener("jcal", new PropertyChangeListener() {
-			@Override
-			public void propertyChange(PropertyChangeEvent e) {
-				DateFormat df = new SimpleDateFormat("EE dd 'de' MMM 'de' yyyy");
-				fechaSeleccion.setText(df.format(calendar.getDate()));
-			}
-		});*/
-		
-		JCalendar calendar_1 = new JCalendar();
+		calendar_1 = new JCalendar();
+		calendar_1.getDayChooser().setDayBordersVisible(true);
+		calendar_1.getDayChooser().setAlwaysFireDayProperty(false);
+		calendar_1.getDayChooser().setDecorationBackgroundVisible(false);
 		calendar_1.getDayChooser().setWeekOfYearVisible(false);
-		calendar_1.getDayChooser().setDecorationBordersVisible(true);
-		Calendar calendario1 = new GregorianCalendar();
-		Date mesSiguiente = new Date();
-		calendario1.set(2018, mesSiguiente.getMonth()+1, mesSiguiente.getDay());
+		calendario1 = new GregorianCalendar();
+		mesSiguiente = new Date();
+		System.out.println(mesSiguiente);
+		calendario1.set(mesSiguiente.getYear()+1900, mesSiguiente.getMonth()+1, mesSiguiente.getDay());
 		calendar_1.setDate(calendario1.getTime());
 		calendar_1.getDayChooser().getDayPanel().setBackground(SystemColor.inactiveCaption);
 		calendar_1.setBounds(10, 679, 267, 223);
@@ -325,7 +328,10 @@ public class AgendaDeTurnos extends JFrame{
 		});
 		b.setBounds(142, 598, 89, 23);
 		panel_5.add(b);*/
-		
-		
 	}
+	
+	void addBackListener(ActionListener listenBack) {
+		backButton.addActionListener(listenBack);
+	}	
+	
 }

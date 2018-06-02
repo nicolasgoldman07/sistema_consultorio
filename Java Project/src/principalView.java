@@ -35,6 +35,10 @@ public class principalView extends JFrame {
 
 	private JPanel contentPane;
 	private JButton logoutButton;
+	private JButton btnAgenda;
+	private JPanel	panel;
+	private JButton btnAdmin;
+	private JPanel panel_2;
 	/**
 	 * Launch the application.
 	 */
@@ -69,13 +73,13 @@ public class principalView extends JFrame {
 		Color a = UIManager.getLookAndFeel().getDefaults().getColor( "Panel.background");
 		contentPane.setLayout(null);
 		
-		JPanel panel = new JPanel();
+		panel = new JPanel();
 		panel.setBackground(SystemColor.activeCaption);
 		panel.setBounds(0, 0, 215, 371);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
-		JButton btnAgenda = new JButton("");
+		btnAgenda = new JButton("");
 		btnAgenda.setBounds(32, 96, 151, 151);
 		panel.add(btnAgenda);
 		btnAgenda.setOpaque(true);
@@ -83,10 +87,7 @@ public class principalView extends JFrame {
 		btnAgenda.setPressedIcon(new ImageIcon(principalView.class.getResource("/images/agendaPress.png")));
 		btnAgenda.setBackground(Color.WHITE);
 		btnAgenda.setIcon(new ImageIcon(principalView.class.getResource("/images/agenda.png")));
-		btnAgenda.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
+
 		
 		JLabel lblNewLabel = new JLabel("Agenda de Turnos");
 		lblNewLabel.setBounds(0, 258, 215, 22);
@@ -110,10 +111,6 @@ public class principalView extends JFrame {
 		btnHistoria.setBackground(new Color(255, 51, 0));
 		btnHistoria.setHorizontalAlignment(SwingConstants.LEADING);
 		btnHistoria.setIcon(new ImageIcon(principalView.class.getResource("/images/historia.png")));
-		btnHistoria.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
 		
 		JLabel lblHistoriaClinica = new JLabel("Historia Clinica");
 		lblHistoriaClinica.setHorizontalAlignment(SwingConstants.CENTER);
@@ -128,7 +125,7 @@ public class principalView extends JFrame {
 		panel_2.setLayout(null);
 		
 		
-		JButton btnAdmin = new JButton("");
+		btnAdmin = new JButton("");
 		btnAdmin.setForeground(SystemColor.activeCaption);
 		btnAdmin.setBounds(32, 96, 151, 151);
 		panel_2.add(btnAdmin);
@@ -137,10 +134,6 @@ public class principalView extends JFrame {
 		btnAdmin.setPressedIcon(new ImageIcon(principalView.class.getResource("/images/adminPress.png")));
 		btnAdmin.setBackground(new Color(c.getRed(), c.getGreen(), c.getBlue()));
 		btnAdmin.setIcon(new ImageIcon(principalView.class.getResource("/images/admin.png")));
-		btnAdmin.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 		btnAdmin.setBackground(new Color(a.getRed(), a.getGreen(), a.getBlue()));
 		
 		JLabel lblAdministracion = new JLabel("Administracion");
@@ -154,13 +147,18 @@ public class principalView extends JFrame {
 		contentPane.add(logoutButton);
 		logoutButton.setBackground(SystemColor.inactiveCaption);
 		logoutButton.setFont(new Font("Yu Gothic UI Semilight", Font.PLAIN, 16));
-		logoutButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 	}
+	
 	
 	void addLogoutListener(ActionListener listenLogout){
 		logoutButton.addActionListener(listenLogout);
+	}
+	
+	void addAgendaListener(ActionListener listenAgenda) {
+		btnAgenda.addActionListener(listenAgenda);
+	}
+	
+	void addAdministracionListener (ActionListener listenAdmin) {
+		btnAdmin.addActionListener(listenAdmin);
 	}
 }
