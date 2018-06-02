@@ -8,6 +8,27 @@ public class Paciente {
 	private String apellido;
 	private Odontograma historiaC;
 	
+	public Paciente(){	}
+	
+	public Paciente(String name, String surename){
+		this.nombre = name;
+		this.apellido = surename;
+	}
+	
+	public Paciente(String id, String name, String surename){
+		this.dni = id;
+		this.nombre = name.toUpperCase();
+		this.apellido = surename.toUpperCase();
+		
+	}
+	
+	public Paciente(String id, String name, String surename, Odontograma hist){
+		this.dni = id;
+		this.nombre = name.toUpperCase();
+		this.apellido = surename.toUpperCase();
+		this.historiaC = hist;
+	}
+	
 	public Paciente(String id, String osn, String os, String name, String surename, Odontograma hist){
 		this.dni = id;
 		this.obraSocialNum = osn;
@@ -15,10 +36,6 @@ public class Paciente {
 		this.nombre = name.toUpperCase();
 		this.apellido = surename.toUpperCase();
 		this.historiaC = hist;
-	}
-	
-	public Paciente(){
-		
 	}
 	
 	//Getters

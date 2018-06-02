@@ -23,20 +23,10 @@ public class Controller {
 		mView.newHistoriaClinica();
 		mView.odontograma.addDienteListener(new DienteListener());
 		
-		//ListModelPaciente listaPacientes = new ListModelPaciente();
-		
-		
-		
-		/*for(int i=0; i<5; i++){
-			paciente = mModel.dummyPaciente();
-			listaPacientes.addPaciente(paciente);
-		}*/
-		
 		mView.historia.iniciarLista(mModel.getListModelPaciente());
 		mView.historia.addBusquedaListener(new BusquedaListener(), new EnterBusquedaListener());
 		
 		//mView.odontograma.addDienteListener(new DienteListener());
-		//paciente = mModel.dummyPaciente();
 
 	}
 	
@@ -118,7 +108,6 @@ public class Controller {
 			int index = list_aux.getPacientePorNombre(aux);
 			mView.historia.getListaDeNombres().setSelectedValue(list_aux.getElementAt(index), false);
 			mView.historia.getListaDeNombres().setSelectionBackground(Color.GREEN);
-			//mView.historia.getListaDeNombres().updateUI();
 		}
 	}
 }
