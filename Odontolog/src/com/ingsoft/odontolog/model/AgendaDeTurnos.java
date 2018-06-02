@@ -1,3 +1,4 @@
+package com.ingsoft.odontolog.model;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Insets;
@@ -330,7 +331,7 @@ public class AgendaDeTurnos extends JFrame{
 		panel_5.add(b);*/
 	}
 	
-	void addBackListener(ActionListener listenBack) {
+	public void addBackListener(ActionListener listenBack) {
 		backButton.addActionListener(listenBack);
 	}	
 	

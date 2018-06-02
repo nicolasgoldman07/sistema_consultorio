@@ -1,3 +1,4 @@
+package com.ingsoft.odontolog.view;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -22,6 +23,9 @@ import javax.swing.JInternalFrame;
 import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.border.LineBorder;
+
+import com.ingsoft.odontolog.model.ListModelPaciente;
+
 import java.awt.Color;
 
 public class historiaClinicaView extends JFrame {

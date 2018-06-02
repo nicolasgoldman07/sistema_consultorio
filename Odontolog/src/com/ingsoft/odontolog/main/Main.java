@@ -1,3 +1,7 @@
+package com.ingsoft.odontolog.main;
+import com.ingsoft.odontolog.controller.Controller;
+import com.ingsoft.odontolog.model.Model;
+import com.ingsoft.odontolog.view.View;
 
 public class Main {
 

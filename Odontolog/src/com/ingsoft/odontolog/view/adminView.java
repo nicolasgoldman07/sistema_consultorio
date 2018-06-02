@@ -1,3 +1,4 @@
+package com.ingsoft.odontolog.view;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.SystemColor;
@@ -19,6 +20,8 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import javax.swing.table.JTableHeader;
+
+import com.ingsoft.odontolog.model.sql.PacienteDAO;
 
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
@@ -396,7 +399,7 @@ public class adminView extends JFrame {
 		
 	}
 	
-	void addBackListener (ActionListener backListener) {
+	public void addBackListener (ActionListener backListener) {
 		backButton.addActionListener(backListener);
 	}
 	

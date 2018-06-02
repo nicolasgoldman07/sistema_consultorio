@@ -1,3 +1,4 @@
+package com.ingsoft.odontolog.model;
 
 import java.util.ArrayList;
 import java.util.Vector;
@@ -8,6 +9,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+
+import com.ingsoft.odontolog.model.sql.Conexion;
 
 
 public class Model {

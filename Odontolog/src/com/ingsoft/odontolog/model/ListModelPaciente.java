@@ -1,3 +1,4 @@
+package com.ingsoft.odontolog.model;
 import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Collection;

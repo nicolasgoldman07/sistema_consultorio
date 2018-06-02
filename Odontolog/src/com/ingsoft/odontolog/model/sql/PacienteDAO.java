@@ -1,3 +1,4 @@
+package com.ingsoft.odontolog.model.sql;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,6 +10,8 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+
+import com.ingsoft.odontolog.model.Paciente;
 
 
 /**

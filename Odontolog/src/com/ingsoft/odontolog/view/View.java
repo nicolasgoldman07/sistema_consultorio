@@ -1,3 +1,5 @@
+package com.ingsoft.odontolog.view;
+import com.ingsoft.odontolog.model.AgendaDeTurnos;
 
 public class View {
 	

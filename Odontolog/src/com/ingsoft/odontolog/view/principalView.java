@@ -1,3 +1,4 @@
+package com.ingsoft.odontolog.view;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
@@ -150,15 +151,15 @@ public class principalView extends JFrame {
 	}
 	
 	
-	void addLogoutListener(ActionListener listenLogout){
+	public void addLogoutListener(ActionListener listenLogout){
 		logoutButton.addActionListener(listenLogout);
 	}
 	
-	void addAgendaListener(ActionListener listenAgenda) {
+	public void addAgendaListener(ActionListener listenAgenda) {
 		btnAgenda.addActionListener(listenAgenda);
 	}
 	
-	void addAdministracionListener (ActionListener listenAdmin) {
+	public void addAdministracionListener (ActionListener listenAdmin) {
 		btnAdmin.addActionListener(listenAdmin);
 	}
 }

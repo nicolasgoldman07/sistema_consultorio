@@ -1,3 +1,4 @@
+package com.ingsoft.odontolog.view;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
@@ -164,13 +165,13 @@ public class loginView extends JFrame {
 		return passwordField.getPassword();
 	}
 	
-	void addLoginListener(ActionListener listenLogin){
+	public void addLoginListener(ActionListener listenLogin){
 		loginButton.addActionListener(listenLogin);
 		passwordField.addActionListener(listenLogin);
 		userField.addActionListener(listenLogin);
 	}
 	
-	void clearLogin(){
+	public void clearLogin(){
 		userField.setText("");
 		passwordField.setText("");
 	}

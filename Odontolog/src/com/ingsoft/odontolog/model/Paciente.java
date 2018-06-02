@@ -1,3 +1,4 @@
+package com.ingsoft.odontolog.model;
 
 public class Paciente {
 	
