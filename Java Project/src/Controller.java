@@ -14,9 +14,9 @@ public class Controller {
 	public Controller(View v, Model m){
 		this.mView = v;
 		this.mModel = m;
-		//mView.newLogin();
+		mView.newLogin();
 		//mView.newMenu();
-		//mView.login.addLoginListener(new LoginListener());
+		mView.login.addLoginListener(new LoginListener());
 		//mView.menu.addAgendaListener(new AgendaListener());
 
 		//mView.newOdontograma();
