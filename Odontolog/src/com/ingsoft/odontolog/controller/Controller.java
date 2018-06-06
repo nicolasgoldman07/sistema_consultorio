@@ -16,28 +16,27 @@ public class Controller {
 	private int id;
 	private Paciente paciente = new Paciente();
 
-	
 	public Controller(View v, Model m){
 		this.mView = v;
 		this.mModel = m;
-		mView.newLogin();
+		//mView.newLogin();
 		//mView.newMenu();
-		mView.login.addLoginListener(new LoginListener());
+		//mView.login.addLoginListener(new LoginListener());
 		//mView.menu.addAgendaListener(new AgendaListener());
 
 		//mView.newOdontograma();
-
+			
 		mView.newHistoriaClinica();
-		mView.odontograma.addDienteListener(new DienteListener());
+		//mView.odontograma.addDienteListener(new DienteListener());
 		
-		mView.historia.iniciarLista(mModel.getListModelPaciente());
+		mView.historia.iniciarLista(ListModelPaciente.getInstance());
 		mView.historia.addBusquedaListener(new BusquedaListener(), new EnterBusquedaListener());
 		
 		//mView.odontograma.addDienteListener(new DienteListener());
+		
+		
 
 	}
-	
-	
 	
 	class LoginListener implements ActionListener{
 		@Override
@@ -57,8 +56,6 @@ public class Controller {
 		}
 	}
 	
-	
-	
 	class LogoutListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent evt) {
@@ -66,7 +63,6 @@ public class Controller {
 			mView.login.setVisible(true);
 		}
 	}
-	
 	
 	class AgendaListener implements ActionListener{
 		@Override
@@ -123,38 +119,34 @@ public class Controller {
 				mView.historia.getBusquedaField().setText("");
 			}
 		}
-
 		@Override
 		public void mouseEntered(MouseEvent arg0) {}
-
 		@Override
 		public void mouseExited(MouseEvent arg0) {}
-
 		@Override
 		public void mousePressed(MouseEvent arg0) {}
-
 		@Override
 		public void mouseReleased(MouseEvent arg0) {}
 	}
 	
 	class EnterBusquedaListener implements ActionListener{
-
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			String aux = mView.historia.getBusquedaField().getText();
-			ListModelPaciente list_aux = mModel.getListModelPaciente();
-			int index = list_aux.getPacientePorNombre(aux);
-			mView.historia.getListaDeNombres().setSelectedValue(list_aux.getElementAt(index), false);
-			mView.historia.getListaDeNombres().setSelectionBackground(Color.GREEN);
+			if(e.getSource().equals(mView.historia.getBusquedaField())){
+				String aux = mView.historia.getBusquedaField().getText();
+				int index = ListModelPaciente.getInstance().getPacientePorNombre(aux);
+				mView.historia.getListaDeNombres().setSelectedValue(ListModelPaciente.getInstance().getElementAt(index), false);
+				mView.historia.getListaDeNombres().setSelectionBackground(Color.GREEN);
+				
+				//Dejo el paciente seleccionado para ver el odontograma
+				//paciente = ListModelPaciente.getInstance().getPaciente(index);
+			}
+			if(e.getSource().equals(mView.historia.getOdontoButton())){
+				int index = ListModelPaciente.getInstance().getPacientePorNombre(mView.historia.getBusquedaField().getText());
+				paciente = ListModelPaciente.getInstance().getPaciente(index);
+				mView.newOdontograma(paciente.getNombreCompleto());
+				mView.odontograma.addDienteListener(new DienteListener());
+			}
 		}
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }

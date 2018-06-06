@@ -57,13 +57,14 @@ public class View {
 	}
 
 
-	public void newOdontograma(){
+	public void newOdontograma(String name){
 		try {
 			odontograma = new odontogramaView();
-			odontograma.setUndecorated(true);
+			//odontograma.setUndecorated(true);
 			odontograma.setBounds(410, 38, 1500, 520);
 			odontograma.setVisible(true);
 			odontograma.setAlwaysOnTop(true);
+			odontograma.setTitle("Odontograma - "+name);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -73,7 +74,7 @@ public class View {
 	public void newHistoriaClinica(){
 		historia = new historiaClinicaView();
 		historia.setVisible(true);
-		this.newOdontograma();
+		//this.newOdontograma();
 	}
 	
 

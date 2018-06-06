@@ -27,12 +27,14 @@ import javax.swing.border.LineBorder;
 import com.ingsoft.odontolog.model.ListModelPaciente;
 
 import java.awt.Color;
+import javax.swing.JDesktopPane;
 
 public class historiaClinicaView extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textsearch;
 	private JList listaNombres;
+	private JButton odontoButton;
 
 	public historiaClinicaView() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -61,30 +63,18 @@ public class historiaClinicaView extends JFrame {
 		contentPane.add(panel, gbc_panel);
 		GridBagLayout gbl_panel = new GridBagLayout();
 		gbl_panel.columnWidths = new int[] {1200};
-		gbl_panel.rowHeights = new int[] {600, 300, -124};
+		gbl_panel.rowHeights = new int[] {449};
 		gbl_panel.columnWeights = new double[]{0.0};
-		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.5};
+		gbl_panel.rowWeights = new double[]{0.0};
 		panel.setLayout(gbl_panel);
 		
-		JInternalFrame internalFrame = new JInternalFrame("Odontograma");
-		GridBagConstraints gbc_internalFrame = new GridBagConstraints();
-		internalFrame.setResizable(false);
-		internalFrame.setClosable(false);
-		gbc_internalFrame.anchor = GridBagConstraints.NORTH;
-		gbc_internalFrame.insets = new Insets(0, 0, 5, 0);
-		gbc_internalFrame.fill = GridBagConstraints.HORIZONTAL;
-		//gbc_internalFrame.ipady = 1;
-		gbc_internalFrame.gridx = 0;
-		gbc_internalFrame.gridy = 0;
-		panel.add(internalFrame, gbc_internalFrame);
-		internalFrame.setVisible(true);
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		GridBagConstraints gbc_tabbedPane = new GridBagConstraints();
 		gbc_tabbedPane.fill = GridBagConstraints.HORIZONTAL;
-		gbc_tabbedPane.anchor = GridBagConstraints.NORTHWEST;
+		gbc_tabbedPane.anchor = GridBagConstraints.NORTH;
 		gbc_tabbedPane.gridx = 0;
-		gbc_tabbedPane.gridy = 2;
+		gbc_tabbedPane.gridy = 0;
 		panel.add(tabbedPane, gbc_tabbedPane);
 		
 		JPanel fichaMed = new JPanel();
@@ -107,6 +97,13 @@ public class historiaClinicaView extends JFrame {
 		gbc_txtnombre.gridy = 2;
 		contentPane.add(textsearch, gbc_txtnombre);
 		//txtnombre.setColumns(1);
+		
+		odontoButton = new JButton("Ver Odontograma");
+		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
+		gbc_btnNewButton.insets = new Insets(0, 0, 5, 0);
+		gbc_btnNewButton.gridx = 3;
+		gbc_btnNewButton.gridy = 2;
+		contentPane.add(odontoButton, gbc_btnNewButton);
 		
 		listaNombres = new JList();
 		listaNombres.setBorder(new LineBorder(new Color(0, 0, 0), 2));
@@ -139,13 +136,22 @@ public class historiaClinicaView extends JFrame {
 		panel_1.add(button_1);
 	}
 	
-	public void iniciarLista(ListModelPaciente modelo){
+	public void iniciarLista(ListModel modelo){
 		listaNombres.setModel(modelo);
 	}
+	
+	/*public void	addOdontoListener(ActionListener listenOdonto){
+		odontoButton.addActionListener(listenOdonto);
+	}*/
 	
 	public void addBusquedaListener(MouseListener listenBusqueda, ActionListener listenEnterBusqueda){
 		textsearch.addMouseListener(listenBusqueda);
 		textsearch.addActionListener(listenEnterBusqueda);
+		odontoButton.addActionListener(listenEnterBusqueda);
+	}
+	
+	public JButton getOdontoButton(){
+		return odontoButton;
 	}
 	
 	public JList getListaDeNombres(){

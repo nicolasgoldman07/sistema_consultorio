@@ -8,13 +8,23 @@ import java.util.TreeSet;
 
 import javax.swing.AbstractListModel;
 
-public class ListModelPaciente extends AbstractListModel{
+
+public class ListModelPaciente extends AbstractListModel {
 	
 	private ArrayList<Paciente> listaPaciente = new ArrayList<Paciente>();
-	Collection<String> nombres =  new TreeSet<String>(Collator.getInstance());
+	private static final ListModelPaciente INSTANCE = new ListModelPaciente();
+	
+	public static ListModelPaciente getInstance() {
+        return INSTANCE;
+	}
+	
+	private ListModelPaciente(){};
 	
 	public void addPaciente(Paciente nuevoPaciente){
 		listaPaciente.add(nuevoPaciente);
+	}
+	public void removePacienet(Paciente rmPaciente){
+		listaPaciente.remove(rmPaciente);
 	}
 	
 	public Paciente getPaciente(int index){
@@ -22,23 +32,7 @@ public class ListModelPaciente extends AbstractListModel{
 	}
 	
 	public void ordenarAlfa(){
-		
-		ArrayList<Paciente> ordenado = new ArrayList<Paciente>();
-		nombres.clear();
-			
-		for(int i=0; i<5; i++){
-			nombres.add(listaPaciente.get(i).getNombreCompleto());
-		}	
-		ordenado.clear();
-			
-		for(int k=0; k<5; k++){
-			for(int j=0; j<5; j++){
-				if(listaPaciente.get(j).getNombreCompleto().equals(nombres.toArray()[k])){
-					ordenado.add(listaPaciente.get(j));
-				}
-			}
-		}
-		listaPaciente = ordenado;
+		listaPaciente.sort(null);
 	}
 	
 	public int getPacientePorNombre(String name){
@@ -48,7 +42,6 @@ public class ListModelPaciente extends AbstractListModel{
 				return i;
 			}
 		}
-		
 		return 0;
 	}
 	
@@ -57,5 +50,4 @@ public class ListModelPaciente extends AbstractListModel{
 
 	@Override
 	public int getSize() {return listaPaciente.size();}
-
 }

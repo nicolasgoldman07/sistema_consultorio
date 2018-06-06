@@ -1,6 +1,6 @@
 package com.ingsoft.odontolog.model;
 
-public class Paciente {
+public class Paciente implements Comparable {
 	
 	private String dni;
 	private String obraSocialNum;
@@ -75,6 +75,12 @@ public class Paciente {
 	}
 	public void setHistoriaClinica(Odontograma odonto){
 		this.historiaC = odonto;
+	}
+
+	@Override
+	public int compareTo(Object other) {
+		Paciente otherPacient = (Paciente) other;
+		return getNombreCompleto().compareToIgnoreCase(otherPacient.getNombreCompleto());
 	}
 	
 }

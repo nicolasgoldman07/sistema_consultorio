@@ -43,10 +43,12 @@ public class odontogramaView extends JFrame {
 	
 	private ArrayList<JLabel> esquinas;
 	private ArrayList<JButton> botones;
+	private JButton	exitButton;
 	
 	private HashMap<String, ImageIcon> mapaIconos;
 
 	public odontogramaView() {
+		setTitle("odontograma");
 		
 		//ICONOS
 		caraCentral = new ImageIcon(odontogramaView.class.getResource("/raw/CaraCentral.png"));
@@ -92,6 +94,14 @@ public class odontogramaView extends JFrame {
 		
 		botones = new ArrayList<JButton>();
 		esquinas = new ArrayList<JLabel>();
+		
+		exitButton = new JButton("EXIT");
+		GridBagConstraints gbc_exitButton = new GridBagConstraints();
+		gbc_exitButton.fill = GridBagConstraints.HORIZONTAL;
+		gbc_exitButton.insets = new Insets(30, 0, 0, 15);
+		gbc_exitButton.gridx = 26;
+		gbc_exitButton.gridy = 30;
+		contentPane.add(exitButton, gbc_exitButton);
 		
 		//Insets(Top, Left, Bottom, Right)
 		//SEPARADORES
