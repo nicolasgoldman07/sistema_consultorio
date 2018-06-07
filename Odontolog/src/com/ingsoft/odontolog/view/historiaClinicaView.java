@@ -144,10 +144,11 @@ public class historiaClinicaView extends JFrame {
 		odontoButton.addActionListener(listenOdonto);
 	}*/
 	
-	public void addBusquedaListener(MouseListener listenBusqueda, ActionListener listenEnterBusqueda){
-		textsearch.addMouseListener(listenBusqueda);
-		textsearch.addActionListener(listenEnterBusqueda);
-		odontoButton.addActionListener(listenEnterBusqueda);
+	public void addBusquedaListener(MouseListener listenMouse, ActionListener listenAction){
+		textsearch.addMouseListener(listenMouse);
+		textsearch.addActionListener(listenAction);
+		odontoButton.addActionListener(listenAction);
+		listaNombres.addMouseListener(listenMouse);
 	}
 	
 	public JButton getOdontoButton(){
@@ -161,5 +162,6 @@ public class historiaClinicaView extends JFrame {
 	public JTextField getBusquedaField(){
 		return textsearch;
 	}
+	
 
 }

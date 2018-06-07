@@ -40,25 +40,8 @@ public class principalView extends JFrame {
 	private JPanel	panel;
 	private JButton btnAdmin;
 	private JPanel panel_2;
-	/**
-	 * Launch the application.
-	 */
-	/*public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					principalView frame = new principalView();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}*/
 
-	/**
-	 * Create the frame.
-	 */
+	
 	public principalView() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(principalView.class.getResource("/images/dientesin200.png")));
 		setTitle("Odontolog");
@@ -151,15 +134,31 @@ public class principalView extends JFrame {
 	}
 	
 	
-	public void addLogoutListener(ActionListener listenLogout){
-		logoutButton.addActionListener(listenLogout);
+//	public void addLogoutListener(ActionListener listenLogout){
+//		logoutButton.addActionListener(listenLogout);
+//	}
+//	
+//	public void addAgendaListener(ActionListener listenAgenda) {
+//		btnAgenda.addActionListener(listenAgenda);
+//	}
+//	
+//	public void addAdministracionListener (ActionListener listenAdmin) {
+//		btnAdmin.addActionListener(listenAdmin);
+//	}
+//	
+	public void addMenuListeners(ActionListener listenMenu){
+		logoutButton.addActionListener(listenMenu);
+		btnAgenda.addActionListener(listenMenu);
+		btnAdmin.addActionListener(listenMenu);
 	}
 	
-	public void addAgendaListener(ActionListener listenAgenda) {
-		btnAgenda.addActionListener(listenAgenda);
+	public JButton getLougoutBttn(){
+		return logoutButton;
 	}
-	
-	public void addAdministracionListener (ActionListener listenAdmin) {
-		btnAdmin.addActionListener(listenAdmin);
+	public JButton getAgendaBttn(){
+		return btnAgenda;
+	}
+	public JButton getAdminBttn(){
+		return btnAdmin;
 	}
 }

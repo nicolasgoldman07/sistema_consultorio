@@ -25,7 +25,7 @@ import java.util.Vector;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 
-public class odontogramaView extends JFrame {
+public class odontogramaView extends JFrame{
 
 	private JPanel contentPane;
 	private ImageIcon caraCentral;
@@ -46,7 +46,7 @@ public class odontogramaView extends JFrame {
 	private JButton	exitButton;
 	
 	private HashMap<String, ImageIcon> mapaIconos;
-
+	
 	public odontogramaView() {
 		setTitle("odontograma");
 		
@@ -80,7 +80,7 @@ public class odontogramaView extends JFrame {
 		
 		//CONFIGURACION
 		setResizable(false);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 1680, 720);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
