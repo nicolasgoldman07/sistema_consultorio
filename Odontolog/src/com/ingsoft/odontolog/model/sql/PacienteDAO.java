@@ -42,6 +42,27 @@ public class PacienteDAO {
 					"Error", JOptionPane.ERROR_MESSAGE);
 		}
 	}
+	
+	public void getBaseDePacientes(ArrayList<Paciente> lista){
+		Conexion conex = new Conexion();
+		try {
+			Statement estatuto = conex.getConnection().createStatement();
+			ResultSet rs = estatuto.executeQuery("SELECT nombre, apellido FROM pacientes_db.pacientes_tabla");
+			int i = 0;
+			while (rs.next()) {
+				
+			}
+			rs.close();
+			estatuto.close();
+			conex.desconectar();
+
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			JOptionPane.showMessageDialog(null, "Error al consultar", "Error",
+					JOptionPane.ERROR_MESSAGE);
+
+		}
+	}
 
 
 	

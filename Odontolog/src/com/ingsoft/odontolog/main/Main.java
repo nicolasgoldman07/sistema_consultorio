@@ -4,7 +4,6 @@ import com.ingsoft.odontolog.model.Model;
 import com.ingsoft.odontolog.view.View;
 
 public class Main {
-
 	public static void main(String[] args) {
 		View theView = new View();
 		Model theModel = new Model();

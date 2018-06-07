@@ -7,7 +7,7 @@ public class View {
 	
 	public loginView login;
 	public principalView menu;
-	public odontogramaView odontograma;
+	public odontogramaView odontograma = null;
 	public AgendaDeTurnos agenda;
 	public adminView administracion;
 
@@ -57,13 +57,13 @@ public class View {
 	}
 
 
-	public void newOdontograma(){
+	public void newOdontograma(String name){
 		try {
 			odontograma = new odontogramaView();
-			odontograma.setUndecorated(true);
-			odontograma.setBounds(410, 38, 1500, 520);
+			odontograma.setBounds(200, 38, 1600, 700);
 			odontograma.setVisible(true);
 			odontograma.setAlwaysOnTop(true);
+			odontograma.setTitle("Odontograma - "+name);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -73,7 +73,7 @@ public class View {
 	public void newHistoriaClinica(){
 		historia = new historiaClinicaView();
 		historia.setVisible(true);
-		this.newOdontograma();
+		//this.newOdontograma();
 	}
 	
 
