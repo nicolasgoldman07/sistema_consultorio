@@ -207,7 +207,7 @@ public class adminView extends JFrame {
 		panel_tabs.setLayout(gbl_panel_tabs);
 		
 		
-		//Panel de pestaÃ±as
+		//Panel de pestanas
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		GridBagConstraints gbc_tabbedPane = new GridBagConstraints();
 		gbc_tabbedPane.fill = GridBagConstraints.BOTH;
@@ -217,7 +217,7 @@ public class adminView extends JFrame {
 		tabbedPane.setBackground(SystemColor.inactiveCaption);
 		tabbedPane.setFont(new Font("Yu Gothic UI Semilight", Font.PLAIN, 14));
 		
-		//PestaÃ±a "Posicion Consolidada"
+		//Pestana "Posicion Consolidada"
 		JPanel posCons = new JPanel();
 		tabbedPane.addTab("Posicion Consolidada", null, posCons, null);
 		GridBagLayout gbl_posCons = new GridBagLayout();

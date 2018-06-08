@@ -37,8 +37,8 @@ public class Controller {
 		
 		//mView.odontograma.addDienteListener(new DienteListener());
 		
-		mView.newAdministracion();
-		mView.administracion.iniciarLista(ListModelPaciente.getInstance());
+		//mView.newAdministracion();
+		//mView.administracion.iniciarLista(ListModelPaciente.getInstance());
 
 
 	}
