@@ -1,4 +1,4 @@
-package com.ingsoft.odontolog.model;
+package com.ingsoft.odontolog.view;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Insets;
@@ -52,7 +52,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.ListSelectionModel;
 
-public class AgendaDeTurnos extends JFrame{
+public class agendaTurnosView extends JFrame{
 
 	private JPanel contentPane;
 	private JTable table;
@@ -74,7 +74,7 @@ public class AgendaDeTurnos extends JFrame{
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					AgendaDeTurnos frame = new AgendaDeTurnos();
+					agendaTurnosView frame = new agendaTurnosView();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -86,7 +86,7 @@ public class AgendaDeTurnos extends JFrame{
 	/**
 	 * Create the frame.
 	 */
-	public AgendaDeTurnos() {
+	public agendaTurnosView() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		this.setMaximizedBounds(env.getMaximumWindowBounds());
@@ -121,7 +121,7 @@ public class AgendaDeTurnos extends JFrame{
 		backButton.setBackground(SystemColor.activeCaption);
 	    backButton.setVerticalTextPosition(SwingConstants.BOTTOM);
 	    backButton.setHorizontalTextPosition(SwingConstants.CENTER);
-		backButton.setIcon(new ImageIcon(AgendaDeTurnos.class.getResource("/images/espalda.png")));
+		backButton.setIcon(new ImageIcon(agendaTurnosView.class.getResource("/images/espalda.png")));
 		backButton.setBounds(0, 0, 84, 77);
 		panel_1.add(backButton);
 		

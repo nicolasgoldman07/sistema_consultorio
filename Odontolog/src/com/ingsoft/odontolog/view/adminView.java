@@ -47,6 +47,8 @@ public class adminView extends JFrame {
 	private DefaultTableModel tableDModel;
 	private JTable tablePacientes;
 	private JList listaPacientes;
+	private JButton btnAdd;
+
 
 //	/**
 //	 * Launch the application.
@@ -67,6 +69,8 @@ public class adminView extends JFrame {
 //	/**
 //	 * Create the frame.
 //	 */
+
+
 	public adminView() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -203,7 +207,7 @@ public class adminView extends JFrame {
 		panel_tabs.setLayout(gbl_panel_tabs);
 		
 		
-		//Panel de pestañas
+		//Panel de pestaÃ±as
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		GridBagConstraints gbc_tabbedPane = new GridBagConstraints();
 		gbc_tabbedPane.fill = GridBagConstraints.BOTH;
@@ -213,7 +217,7 @@ public class adminView extends JFrame {
 		tabbedPane.setBackground(SystemColor.inactiveCaption);
 		tabbedPane.setFont(new Font("Yu Gothic UI Semilight", Font.PLAIN, 14));
 		
-		//Pestaña "Posicion Consolidada"
+		//PestaÃ±a "Posicion Consolidada"
 		JPanel posCons = new JPanel();
 		tabbedPane.addTab("Posicion Consolidada", null, posCons, null);
 		GridBagLayout gbl_posCons = new GridBagLayout();
@@ -262,9 +266,9 @@ public class adminView extends JFrame {
 				table2.setBackground(SystemColor.activeCaption);
 				table2.setModel(new DefaultTableModel(
 					new Object[][] {
-						{new String ("Extracción Premolar"), new Integer(-2500)},
+						{new String ("ExtracciÃ³n Premolar"), new Integer(-2500)},
 						{new String ("Limpieza bucal"), new Integer(-500)},
-						{new String ("Depósito"), new Integer(10000)}, 
+						{new String ("DepÃ³sito"), new Integer(10000)}, 
 						{null, null},
 						{null, null},
 						{null},
@@ -397,7 +401,7 @@ public class adminView extends JFrame {
 		btnAdd.setIcon(new ImageIcon(adminView.class.getResource("/images/add.png")));
 		btnAdd.setBackground(SystemColor.menu);
 		
-		//Panel general de la pestaña "Posicion Consolidada"
+		//Panel general de la pestaÃ±a "Posicion Consolidada"
 		JPanel panel_3 = new JPanel();
 		GridBagConstraints gbc_panel_3 = new GridBagConstraints();
 		gbc_panel_3.fill = GridBagConstraints.BOTH;
@@ -424,7 +428,6 @@ public class adminView extends JFrame {
 				
 		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
 		centerRenderer.setHorizontalAlignment(JLabel.CENTER);
-		
 	}
 	
 	public void addBackListener (ActionListener backListener) {

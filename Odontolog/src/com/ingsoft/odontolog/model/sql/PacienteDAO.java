@@ -22,7 +22,7 @@ public class PacienteDAO {
 
 
 	public void registrarPersona(Paciente miPersona) {
-		Conexion conex = new Conexion();
+		ConexionLogin conex = new ConexionLogin();
 
 		try {
 			Statement estatuto = conex.getConnection().createStatement();
@@ -44,10 +44,10 @@ public class PacienteDAO {
 	}
 	
 	public void getBaseDePacientes(ArrayList<Paciente> lista){
-		Conexion conex = new Conexion();
+		ConexionLogin conex = new ConexionLogin();
 		try {
 			Statement estatuto = conex.getConnection().createStatement();
-			ResultSet rs = estatuto.executeQuery("SELECT nombre, apellido FROM pacientes_db.pacientes_tabla");
+			ResultSet rs = estatuto.executeQuery("SELECT nombre, apellido FROM odontologin.odontologin");
 			int i = 0;
 			while (rs.next()) {
 				
@@ -69,10 +69,10 @@ public class PacienteDAO {
 	
 	public void buscarNombreUsuarios(DefaultTableModel model) {
 
-		Conexion conex = new Conexion();
+		ConexionLogin conex = new ConexionLogin();
 		try {
 			Statement estatuto = conex.getConnection().createStatement();
-			ResultSet rs = estatuto.executeQuery("SELECT nombre, apellido FROM pacientes_db.pacientes_tabla");
+			ResultSet rs = estatuto.executeQuery("SELECT nombre, apellido FROM odontologin.pacientes");
 
 			while (rs.next()) {
 				Object[] fila = new Object[2];

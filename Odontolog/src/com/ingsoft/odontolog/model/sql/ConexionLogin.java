@@ -6,16 +6,16 @@ import java.sql.*;
  * Clase que permite conectar con la base de datos
 **/
 
-public class Conexion {
-   static String bd = "login_db";
-   static String login = "root";
-   static String password = "demoniofc";
-   static String url = "jdbc:mysql://localhost/login_db?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+public class ConexionLogin {
+   static String bd = "odontologin";
+   static String login = "odontologin";
+   static String password = "Sc7lcPgR-9-2";
+   static String url = "jdbc:mysql://den1.mysql6.gear.host/odontologin?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 
    private Connection conn = null;
 
    /** Constructor de DbConnection */
-   public Conexion() {
+   public ConexionLogin() {
       try{
          Class.forName("com.mysql.cj.jdbc.Driver");
          conn = DriverManager.getConnection(url,login,password);
