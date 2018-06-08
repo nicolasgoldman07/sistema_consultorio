@@ -21,27 +21,27 @@ import com.ingsoft.odontolog.model.Paciente;
 public class PacienteDAO {
 
 
-	public void registrarPersona(Paciente miPersona) {
-		ConexionLogin conex = new ConexionLogin();
-
-		try {
-			Statement estatuto = conex.getConnection().createStatement();
-			estatuto.executeUpdate("INSERT INTO persona VALUES ('"
-					+ miPersona.getNombre() + "', '"
-					+ miPersona.getApellido() + "')");
-			JOptionPane.showMessageDialog(null,
-					"Se ha registrado Exitosamente", "Información",
-					JOptionPane.INFORMATION_MESSAGE);
-			estatuto.close();
-			conex.desconectar();
-
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-			JOptionPane.showMessageDialog(null,
-					"No se Registro, verifique la consola para ver el error",
-					"Error", JOptionPane.ERROR_MESSAGE);
-		}
-	}
+//	public void registrarPersona(Paciente miPersona) {
+//		ConexionLogin conex = new ConexionLogin();
+//
+//		try {
+//			Statement estatuto = conex.getConnection().createStatement();
+//			estatuto.executeUpdate("INSERT INTO persona VALUES ('"
+//					+ miPersona.getNombre() + "', '"
+//					+ miPersona.getApellido() + "')");
+//			JOptionPane.showMessageDialog(null,
+//					"Se ha registrado Exitosamente", "Información",
+//					JOptionPane.INFORMATION_MESSAGE);
+//			estatuto.close();
+//			conex.desconectar();
+//
+//		} catch (SQLException e) {
+//			System.out.println(e.getMessage());
+//			JOptionPane.showMessageDialog(null,
+//					"No se Registro, verifique la consola para ver el error",
+//					"Error", JOptionPane.ERROR_MESSAGE);
+//		}
+//	}
 	
 	public void getBaseDePacientes(ArrayList<Paciente> lista){
 		ConexionLogin conex = new ConexionLogin();
@@ -60,7 +60,6 @@ public class PacienteDAO {
 			System.out.println(e.getMessage());
 			JOptionPane.showMessageDialog(null, "Error al consultar", "Error",
 					JOptionPane.ERROR_MESSAGE);
-
 		}
 	}
 

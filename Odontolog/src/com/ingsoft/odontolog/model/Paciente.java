@@ -7,6 +7,13 @@ public class Paciente implements Comparable {
 	private String obraSocial;
 	private String nombre;
 	private String apellido;
+	private String altura;
+	private String peso;
+	private String medico;
+	private String telefono;
+	private String mail;
+	private String direccion;
+	private String grupoSanguineo;
 	private Odontograma historiaC;
 	
 	public Paciente(){	}
@@ -75,6 +82,20 @@ public class Paciente implements Comparable {
 	}
 	public void setHistoriaClinica(Odontograma odonto){
 		this.historiaC = odonto;
+	}
+	public void setDatosCompletos(String nom, String ape, String dni, String tel, String mail, String direc, String med, String peso, String os, String osnum, String alt, String gs){
+		this.nombre = nom;
+		this.apellido = ape;
+		this.dni = dni;
+		this.altura = alt;
+		this.telefono = tel;
+		this.direccion = direc;
+		this.grupoSanguineo = gs;
+		this.medico = med;
+		this.mail = mail;
+		this.peso = peso;
+		this.obraSocial = os;
+		this.obraSocialNum = osnum;
 	}
 
 	@Override
