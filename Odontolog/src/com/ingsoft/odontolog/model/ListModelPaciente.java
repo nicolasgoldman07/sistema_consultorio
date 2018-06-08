@@ -22,6 +22,7 @@ public class ListModelPaciente extends AbstractListModel {
 	
 	public void addPaciente(Paciente nuevoPaciente){
 		listaPaciente.add(nuevoPaciente);
+		this.fireIntervalAdded(this, getSize(), getSize()+1);
 	}
 	public void removePacienet(Paciente rmPaciente){
 		listaPaciente.remove(rmPaciente);

@@ -19,21 +19,25 @@ public class Controller {
 	private Paciente paciente = new Paciente();
 
 	public Controller(View v, Model m){
+		
 		this.mView = v;
 		this.mModel = m;
-		mView.newLogin();
-		mView.login.addLoginListener(new LoginListener());
+		//mView.newLogin();
+		//mView.login.addLoginListener(new LoginListener());
+		
 		//mView.newMenu();
 		//mView.menu.addMenuListeners(new menuListener());
 
 		//mView.menu.addAgendaListener(new AgendaListener());
 		//mView.newOdontograma();
-  
-		//mView.newHistoriaClinica();
+		
+		mModel.llenarLista();
+		
+		mView.newHistoriaClinica();
 		//mView.odontograma.addDienteListener(new DienteListener());
 		
-		//mView.historia.iniciarLista(ListModelPaciente.getInstance());
-		//mView.historia.addBusquedaListener(new historiaMouseListener(), new historiaActionListener());
+		mView.historia.iniciarLista(ListModelPaciente.getInstance());
+		mView.historia.addBusquedaListener(new historiaMouseListener(), new historiaActionListener());
 		
 		//mView.odontograma.addDienteListener(new DienteListener());
 		
@@ -216,7 +220,7 @@ public class Controller {
 			numeroOS = mView.nuevoPaciente.getNumOSi();
 			altura = mView.nuevoPaciente.getAltura();
 			factorSanguineo = mView.nuevoPaciente.getFactor();
-			if (mModel.addPaciente(nombre, apellido, dni, telefono, mail, direccion, medicoCabecera, peso, obraSocial, numeroOS, altura, factorSanguineo)) {
+			if (mModel.addPacienteDB(nombre, apellido, dni, telefono, mail, direccion, medicoCabecera, peso, obraSocial, numeroOS, altura, factorSanguineo)) {
 				mView.nuevoPaciente.setVisible(false);
 			}
 		}
