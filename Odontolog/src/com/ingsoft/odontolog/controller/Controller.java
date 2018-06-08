@@ -27,16 +27,15 @@ public class Controller {
 
 		//mView.newOdontograma();
 
-		mView.newHistoriaClinica();
-		mView.odontograma.addDienteListener(new DienteListener());
+		//mView.newHistoriaClinica();
+		//mView.odontograma.addDienteListener(new DienteListener());
 		
-		mView.historia.iniciarLista(mModel.getListModelPaciente());
-		mView.historia.addBusquedaListener(new BusquedaListener(), new EnterBusquedaListener());
+		//mView.historia.iniciarLista(mModel.getListModelPaciente());
+		//mView.historia.addBusquedaListener(new BusquedaListener(), new EnterBusquedaListener());
 		
 		//mView.odontograma.addDienteListener(new DienteListener());
 
 	}
-	
 	
 	
 	class LoginListener implements ActionListener{
