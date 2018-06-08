@@ -71,7 +71,6 @@ public class View {
 			odontograma = new odontogramaView();
 			odontograma.setBounds(200, 38, 1600, 700);
 			odontograma.setVisible(true);
-			odontograma.setAlwaysOnTop(true);
 			odontograma.setTitle("Odontograma - "+name);
 		} catch (Exception e) {
 			e.printStackTrace();

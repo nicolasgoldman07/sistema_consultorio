@@ -8,7 +8,11 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 import com.ingsoft.odontolog.model.sql.ConexionLogin;
 import com.ingsoft.odontolog.model.sql.ConexionPacientes;
 
@@ -30,10 +34,10 @@ public class Model {
 	
 	public Model(){
 		listaPacientes = ListModelPaciente.getInstance();
-		for(int i=0; i<50; i++){
-			listaPacientes.addPaciente(this.dummyPaciente());
-		}
-		listaPacientes.ordenarAlfa();
+//		for(int i=0; i<50; i++){
+//			listaPacientes.addPaciente(this.dummyPaciente());
+//		}
+//		listaPacientes.ordenarAlfa();
 	}
 	
 	
@@ -86,7 +90,7 @@ public class Model {
 	} 
 	
 	
-	public boolean addPaciente(String nom, String ape, String id, String tel, String mai, String dir, String med, String pes, String obr, String num, String alt, String fac) {
+	public boolean addPacienteDB(String nom, String ape, String id, String tel, String mai, String dir, String med, String pes, String obr, String num, String alt, String fac) {
 		sqlAddingCommand = "INSERT INTO pacientes (nombre, apellido, dni, telefono, mail, direccion,"
 				+ " medicoCabecera, peso, obraSocial, numOS, altura, factorSang) "
 				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)" ;
@@ -117,6 +121,44 @@ public class Model {
 			return false;
 		}
 		
+	}
+	
+	public void llenarLista() {
+
+		ConexionLogin conex = new ConexionLogin();
+		
+		
+		try {
+			Statement estatuto = conex.getConnection().createStatement();
+			ResultSet rs = estatuto.executeQuery("SELECT * FROM odontologin.pacientes");
+			while (rs.next()) {
+				Vector<String> datos = new Vector<String>();
+				Paciente paciente = new Paciente();
+				for (int i = 1; i < 13; i++){
+					datos.addElement(String.valueOf(rs.getObject(i)).toUpperCase());
+					
+				}
+				paciente.setDatosCompletos(datos.get(0), datos.get(1), datos.get(2), 
+						datos.get(3), datos.get(4), datos.get(5), datos.get(6), datos.get(7),
+						datos.get(8), datos.get(9), datos.get(10), datos.get(11));
+				
+				System.out.println(paciente.getNombreCompleto());
+				
+				listaPacientes.addPaciente(paciente);
+			}
+			listaPacientes.ordenarAlfa();
+			
+			
+			rs.close();
+			estatuto.close();
+			conex.desconectar();
+
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			JOptionPane.showMessageDialog(null, "Error al consultar", "Error",
+					JOptionPane.ERROR_MESSAGE);
+
+		}
 	}
 	
 	
