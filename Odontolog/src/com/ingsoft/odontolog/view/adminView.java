@@ -173,10 +173,6 @@ public class adminView extends JFrame {
 		gbc_lblNewLabel_1.gridy = 0;
 		panel_pacientes.add(lblNewLabel_1, gbc_lblNewLabel_1);
 		
-		/*//Pestaña "Asistencia"
-		JPanel asist = new JPanel();
-		tabbedPane.addTab("Asistencia", null, asist, null);
-		*/
 		
 		tableDModel = new DefaultTableModel();// definimos el objeto tableModel
 		tablePacientes = new JTable();
@@ -192,77 +188,6 @@ public class adminView extends JFrame {
 		tablePacientes.setAutoResizeMode(JTable.AUTO_RESIZE_NEXT_COLUMN);
 		tablePacientes.getTableHeader().setReorderingAllowed(false);
 		
-		/*		//Tabla de Pacientes
-		JTable table = new JTable();
-		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		table.setRowSelectionAllowed(false);
-		table.setFont(new Font("Yu Gothic UI Semilight", Font.PLAIN, 16));
-		table.setBackground(SystemColor.activeCaption);
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{new String ("Arce Giacobbe, Alejandro")},
-				{new String ("Drudi, Leandro")},
-				{new String ("Goldman, Nicolas")},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				
-			},
-			new String[] {""}
-		) {
-			
-			private static final long serialVersionUID = 1L;
-			
-			
-			boolean[] columnEditables = new boolean[] {
-				false
-				};
-			
-			public boolean isCellEditable(int row, int column) {
-				return columnEditables[column];
-			}
-		});
-		table.getColumnModel().getColumn(0).setPreferredWidth(100);
-		DefaultTableCellRenderer rendere = new DefaultTableCellRenderer();
-		rendere.setToolTipText("Doble click para seleccionar paciente");
-		table.getColumnModel().getColumn(0).setCellRenderer(rendere);    
-		
-		//Panel con scroll para Pacientes
-		JScrollPane scrollPane = new JScrollPane(table);
-		scrollPane.setBounds(10, 144, 227, 545);
-		contentPane.add(scrollPane);						*/
 		
 		JPanel panel_tabs = new JPanel();
 		GridBagConstraints gbc_panel_tabs = new GridBagConstraints();
@@ -496,9 +421,6 @@ public class adminView extends JFrame {
 		lblNewLabel_2.setBounds(100, 0, 795, 95);
 		panel_3.add(lblNewLabel_2);
 		
-		
-		JPanel impr = new JPanel();
-		tabbedPane.addTab("Impresion", null, impr, null);
 				
 		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
 		centerRenderer.setHorizontalAlignment(JLabel.CENTER);
