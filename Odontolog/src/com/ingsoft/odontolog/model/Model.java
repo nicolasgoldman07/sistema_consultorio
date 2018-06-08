@@ -142,8 +142,6 @@ public class Model {
 						datos.get(3), datos.get(4), datos.get(5), datos.get(6), datos.get(7),
 						datos.get(8), datos.get(9), datos.get(10), datos.get(11));
 				
-				System.out.println(paciente.getNombreCompleto());
-				
 				listaPacientes.addPaciente(paciente);
 			}
 			listaPacientes.ordenarAlfa();
