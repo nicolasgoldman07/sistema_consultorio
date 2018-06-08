@@ -38,7 +38,7 @@ public class Model {
 	
 	
 	public boolean checkLogin(String usr, String pass){
-		sqlLoginCommand = "select * from login_table where username=? and password=?";
+		sqlLoginCommand = "select * from user where username=? and password=?";
 		con = new ConexionLogin();
 		try{
 			pst = con.getConnection().prepareStatement(sqlLoginCommand);
@@ -87,7 +87,7 @@ public class Model {
 	
 	
 	public boolean addPaciente(String nom, String ape, String id, String tel, String mai, String dir, String med, String pes, String obr, String num, String alt, String fac) {
-		sqlAddingCommand = "INSERT INTO pacientes_tabla (nombre, apellido, dni, telefono, mail, direccion,"
+		sqlAddingCommand = "INSERT INTO pacientes (nombre, apellido, dni, telefono, mail, direccion,"
 				+ " medicoCabecera, peso, obraSocial, numOS, altura, factorSang) "
 				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)" ;
 		conP = new ConexionPacientes();

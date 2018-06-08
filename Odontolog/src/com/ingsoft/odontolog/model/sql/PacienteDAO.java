@@ -47,7 +47,7 @@ public class PacienteDAO {
 		ConexionLogin conex = new ConexionLogin();
 		try {
 			Statement estatuto = conex.getConnection().createStatement();
-			ResultSet rs = estatuto.executeQuery("SELECT nombre, apellido FROM pacientes_db.pacientes_tabla");
+			ResultSet rs = estatuto.executeQuery("SELECT nombre, apellido FROM odontologin.odontologin");
 			int i = 0;
 			while (rs.next()) {
 				
@@ -72,7 +72,7 @@ public class PacienteDAO {
 		ConexionLogin conex = new ConexionLogin();
 		try {
 			Statement estatuto = conex.getConnection().createStatement();
-			ResultSet rs = estatuto.executeQuery("SELECT nombre, apellido FROM pacientes_db.pacientes_tabla");
+			ResultSet rs = estatuto.executeQuery("SELECT nombre, apellido FROM odontologin.pacientes");
 
 			while (rs.next()) {
 				Object[] fila = new Object[2];
