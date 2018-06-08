@@ -59,39 +59,10 @@ public class Controller {
 				mView.login.clearLogin();
 				mView.newMenu();
 				mView.menu.addMenuListeners(new menuListener());
-//				mView.menu.addAgendaListener(new AgendaListener());
-//				mView.menu.addLogoutListener(new LogoutListener());
-//				mView.menu.addAdministracionListener (new AdministracionListener());
 				
 			}
 		}
 	}
-	
-//	class LogoutListener implements ActionListener{
-//		@Override
-//		public void actionPerformed(ActionEvent evt) {
-//			mView.menu.setVisible(false);
-//			mView.login.setVisible(true);
-//		}
-//	}
-//	
-//	class AgendaListener implements ActionListener{
-//		@Override
-//		public void actionPerformed(ActionEvent e) {
-//			mView.newAgenda();
-//			mView.menu.setVisible(false);
-//			mView.agenda.addBackListener(new BackListener());
-//		}
-//	}
-//	
-//	class AdministracionListener implements ActionListener{
-//		@Override
-//		public void actionPerformed(ActionEvent e) {
-//			mView.newAdministracion();
-//			mView.menu.setVisible(false);
-//			mView.administracion.addBackListener(new BackListener());
-//		}
-//	}
 	
 	class menuListener implements ActionListener{
 		@Override
@@ -195,15 +166,6 @@ public class Controller {
 		}
 	}
 	
-	class AdministracionListener implements ActionListener{
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			mView.newAdministracion();
-			mView.menu.setVisible(false);
-			//mView.administracion.addAddListener(new AddListener());
-			//mView.administracion.addBackListener(new BackListener());
-		}
-	}
 	
 	class NuevoPacienteListener implements ActionListener{
 		public void actionPerformed (ActionEvent e) {
