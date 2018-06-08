@@ -22,8 +22,8 @@ public class Controller {
 		
 		this.mView = v;
 		this.mModel = m;
-		//mView.newLogin();
-		//mView.login.addLoginListener(new LoginListener());
+		mView.newLogin();
+		mView.login.addLoginListener(new LoginListener());
 		
 		//mView.newMenu();
 		//mView.menu.addMenuListeners(new menuListener());
@@ -33,16 +33,17 @@ public class Controller {
 		
 		mModel.llenarLista();
 		
-		mView.newHistoriaClinica();
+		//mView.newHistoriaClinica();
 		//mView.odontograma.addDienteListener(new DienteListener());
 		
-		mView.historia.iniciarLista(ListModelPaciente.getInstance());
-		mView.historia.addBusquedaListener(new historiaMouseListener(), new historiaActionListener());
+		//mView.historia.iniciarLista(ListModelPaciente.getInstance());
+		//mView.historia.addBusquedaListener(new historiaMouseListener(), new historiaActionListener());
 		
 		//mView.odontograma.addDienteListener(new DienteListener());
 		
 		//mView.newAdministracion();
 		//mView.administracion.iniciarLista(ListModelPaciente.getInstance());
+		//mView.administracion.addAdminListener(new AdminListener());
 
 
 	}
@@ -67,31 +68,7 @@ public class Controller {
 		}
 	}
 	
-//	class LogoutListener implements ActionListener{
-//		@Override
-//		public void actionPerformed(ActionEvent evt) {
-//			mView.menu.setVisible(false);
-//			mView.login.setVisible(true);
-//		}
-//	}
-//	
-//	class AgendaListener implements ActionListener{
-//		@Override
-//		public void actionPerformed(ActionEvent e) {
-//			mView.newAgenda();
-//			mView.menu.setVisible(false);
-//			mView.agenda.addBackListener(new BackListener());
-//		}
-//	}
-//	
-//	class AdministracionListener implements ActionListener{
-//		@Override
-//		public void actionPerformed(ActionEvent e) {
-//			mView.newAdministracion();
-//			mView.menu.setVisible(false);
-//			mView.administracion.addBackListener(new BackListener());
-//		}
-//	}
+
 	
 	class menuListener implements ActionListener{
 		@Override
@@ -103,8 +80,8 @@ public class Controller {
 			}
 			if(source.equals(mView.menu.getAdminBttn())){
 				mView.newAdministracion();
-				//mView.administracion.addAddListener (new AddListener());
-				//mView.administracion.addBackListener(new BackListener());
+				mView.administracion.addAdminListener(new AdminListener());
+			
 			}
 			if(source.equals(mView.menu.getAgendaBttn())){
 				mView.newAgenda();
@@ -121,13 +98,9 @@ public class Controller {
 			}catch(NullPointerException agenda_null) {
 				
 			}
-			try {
-				mView.administracion.setVisible(false);
-			}catch(NullPointerException admin_null){
-			
-			}
 			mView.menu.setVisible(true);
 		}
+		
 	}
 	
 	class DienteListener implements ActionListener{
@@ -195,15 +168,6 @@ public class Controller {
 		}
 	}
 	
-	class AdministracionListener implements ActionListener{
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			mView.newAdministracion();
-			mView.menu.setVisible(false);
-			//mView.administracion.addAddListener(new AddListener());
-			//mView.administracion.addBackListener(new BackListener());
-		}
-	}
 	
 	class NuevoPacienteListener implements ActionListener{
 		public void actionPerformed (ActionEvent e) {
@@ -240,9 +204,32 @@ public class Controller {
 		}
 	}
 	
-	
-	
-	
-	
-	
+	//BOTONES DE LA VISTA ADMINISTRACION
+	class AdminListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			Object source = e.getSource();
+			
+			//BOTON "ATRAS" (REGRESA AL MENU PRINCIPAL)
+			if (source.equals(mView.administracion.getBackButton())) {
+				try {
+					mView.administracion.setVisible(false);
+				}catch(NullPointerException admin_null){
+				
+				}
+				mView.menu.setVisible(true);
+			}
+
+			//BOTON AGREGAR TRATAMIENTO
+			/*if (source.equals(mView.administracion.getAddButton())) {
+				
+			}*/
+			
+			
+			
+		}	
+		
+	}	
+		
 }
