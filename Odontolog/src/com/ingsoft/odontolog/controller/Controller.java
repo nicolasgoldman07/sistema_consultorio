@@ -21,21 +21,19 @@ public class Controller {
 	public Controller(View v, Model m){
 		this.mView = v;
 		this.mModel = m;
-		//mView.newLogin();
+		mView.newLogin();
 		//mView.newMenu();
-		//mView.login.addLoginListener(new LoginListener());
+		mView.login.addLoginListener(new LoginListener());
 		//mView.menu.addAgendaListener(new AgendaListener());
 
 		//mView.newOdontograma();
-		
-		mView.newMenu();
-		mView.menu.addMenuListeners(new menuListener());
-			
-		mView.newHistoriaClinica();
+
+		//mView.newHistoriaClinica();
 		//mView.odontograma.addDienteListener(new DienteListener());
 		
-		mView.historia.iniciarLista(ListModelPaciente.getInstance());
-		mView.historia.addBusquedaListener(new historiaMouseListener(), new historiaActionListener());
+		//mView.historia.iniciarLista(mModel.getListModelPaciente());
+		//mView.historia.addBusquedaListener(new BusquedaListener(), new EnterBusquedaListener());
+
 		
 		//mView.odontograma.addDienteListener(new DienteListener());
 		

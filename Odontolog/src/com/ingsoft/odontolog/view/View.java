@@ -1,5 +1,4 @@
 package com.ingsoft.odontolog.view;
-import com.ingsoft.odontolog.model.AgendaDeTurnos;
 
 public class View {
 	
@@ -7,8 +6,8 @@ public class View {
 	
 	public loginView login;
 	public principalView menu;
+	public agendaTurnosView agenda;
 	public odontogramaView odontograma = null;
-	public AgendaDeTurnos agenda;
 	public adminView administracion;
 
 
@@ -39,7 +38,7 @@ public class View {
 	
 	public void newAgenda() {
 		try {
-			agenda = new AgendaDeTurnos();
+			agenda = new agendaTurnosView();
 			agenda.setVisible(true);
 		} catch(Exception e) {
 			e.printStackTrace();

@@ -41,6 +41,7 @@ public class adminView extends JFrame {
 	private JScrollPane scrollPacientes;
 	private DefaultTableModel tableDModel;
 	private JTable tablePacientes;
+	private JButton btnAdd;
 
 	/**
 	 * Launch the application.
@@ -371,7 +372,7 @@ public class adminView extends JFrame {
 		panel_6.setLayout(null);
 		
 		//Boton Agregar
-		JButton btnAdd = new JButton("");
+		btnAdd = new JButton("");
 		btnAdd.setBounds(0, 0, 50, 50);
 		panel_6.add(btnAdd);
 		btnAdd.setBorder(null);
@@ -401,6 +402,10 @@ public class adminView extends JFrame {
 	
 	public void addBackListener (ActionListener backListener) {
 		backButton.addActionListener(backListener);
+	}
+	
+	void addAddListener (ActionListener addListener) {
+		btnAdd.addActionListener(addListener);
 	}
 	
 	
