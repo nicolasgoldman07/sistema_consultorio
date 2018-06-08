@@ -6,7 +6,7 @@ import java.sql.*;
  * Clase que permite conectar con la base de datos
 **/
 
-public class Conexion {
+public class ConexionLogin {
    static String bd = "login_db";
    static String login = "root";
    static String password = "demoniofc";
@@ -15,7 +15,7 @@ public class Conexion {
    private Connection conn = null;
 
    /** Constructor de DbConnection */
-   public Conexion() {
+   public ConexionLogin() {
       try{
          Class.forName("com.mysql.cj.jdbc.Driver");
          conn = DriverManager.getConnection(url,login,password);

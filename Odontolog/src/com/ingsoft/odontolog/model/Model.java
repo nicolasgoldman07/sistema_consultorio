@@ -9,16 +9,18 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
-
-import com.ingsoft.odontolog.model.sql.Conexion;
+import com.ingsoft.odontolog.model.sql.ConexionLogin;
+import com.ingsoft.odontolog.model.sql.ConexionPacientes;
 
 
 public class Model {
 	
-	private Conexion con = null;
+	private ConexionLogin con = null;
 	private PreparedStatement pst = null;
 	private ResultSet rs = null;
 	private String sqlLoginCommand = "";
+	private String sqlAddingCommand;
+	private ConexionPacientes conP;
 	
 	
 	private String[] DummyNames = {"Ale", "Hueba", "Nico", "Lea", "Tortugo" };
@@ -37,7 +39,7 @@ public class Model {
 	
 	public boolean checkLogin(String usr, String pass){
 		sqlLoginCommand = "select * from login_table where username=? and password=?";
-		con = new Conexion();
+		con = new ConexionLogin();
 		try{
 			pst = con.getConnection().prepareStatement(sqlLoginCommand);
 			pst.setString(1, usr);
@@ -82,6 +84,41 @@ public class Model {
 		}
 		return dientes;
 	} 
+	
+	
+	public boolean addPaciente(String nom, String ape, String id, String tel, String mai, String dir, String med, String pes, String obr, String num, String alt, String fac) {
+		sqlAddingCommand = "INSERT INTO pacientes_tabla (nombre, apellido, dni, telefono, mail, direccion,"
+				+ " medicoCabecera, peso, obraSocial, numOS, altura, factorSang) "
+				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)" ;
+		conP = new ConexionPacientes();
+		try{
+			pst = conP.getConnection().prepareStatement(sqlAddingCommand);
+			pst.setString(1, nom);
+			pst.setString(2, ape);
+			pst.setString(3, id);
+			pst.setString(4, tel);
+			pst.setString(5, mai);
+			pst.setString(6, dir);
+			pst.setString(7, med);
+			pst.setString(8, pes);
+			pst.setString(9, obr);
+			pst.setString(10, num);
+			pst.setString(11, alt);
+			pst.setString(12, fac);
+			if(pst.executeUpdate() == 1) {
+				return true;
+			}
+			else {
+				JOptionPane.showMessageDialog(null, "Falta algun dato importante wacho");
+				return false;
+			}
+		} catch(SQLException | HeadlessException ex){
+			JOptionPane.showMessageDialog(null,ex);
+			return false;
+		}
+		
+	}
+	
 	
 	public Paciente dummyPaciente(){
 		Paciente p = new Paciente("32", "12", "X", DummyNames[aux], DummySurenames[aux], new Odontograma());

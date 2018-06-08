@@ -9,10 +9,10 @@ public class View {
 	public agendaTurnosView agenda;
 	public odontogramaView odontograma = null;
 	public adminView administracion;
-
-
-	
+	public nuevoPacienteView nuevoPaciente;
 	public historiaClinicaView	historia;
+	
+	
 
 	public View(){
 		
@@ -55,6 +55,16 @@ public class View {
 		}
 	}
 
+	
+	public void newAgregarPaciente() {
+		try {
+			nuevoPaciente = new nuevoPacienteView();
+			nuevoPaciente.setVisible(true);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 
 	public void newOdontograma(String name){
 		try {
