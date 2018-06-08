@@ -27,11 +27,10 @@ public class Model {
 	private ListModelPaciente listaPacientes;
 	
 	public Model(){
-		listaPacientes = new ListModelPaciente();
+		listaPacientes = ListModelPaciente.getInstance();
 		for(int i=0; i<5; i++){
 			listaPacientes.addPaciente(this.dummyPaciente());
 		}
-		
 		listaPacientes.ordenarAlfa();
 	}
 	
@@ -57,9 +56,6 @@ public class Model {
 		}
 	}
 	
-	
-	
-	
 	public void setDienteTratado(Paciente paciente, int id, int tratamiento){
 		Odontograma odonto;
 		try{
@@ -73,8 +69,6 @@ public class Model {
 		odonto.setDiente(numeroDiente, Diente.keys[numeroCara], Diente.tratamientos[tratamiento]);
 		paciente.setHistoriaClinica(odonto);
 	}
-	
-	
 	
 	public Vector<String> getTratamientosPaciente(Paciente paciente){
 		Vector<String> dientes = new Vector<String>();
@@ -96,9 +90,5 @@ public class Model {
 			aux = 0;
 		}
 		return p;
-	}
-	
-	public ListModelPaciente getListModelPaciente(){
-		return listaPacientes;
 	}
 }
