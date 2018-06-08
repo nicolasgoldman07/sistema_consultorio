@@ -61,21 +61,31 @@ public class odontogramaView extends JFrame{
 		esquinaIR = new ImageIcon(odontogramaView.class.getResource("/raw/EsquinaInfR.png"));
 		esquinaIL = new ImageIcon(odontogramaView.class.getResource("/raw/EsquinaInfI.png"));
 		
-		
-		//PONER BIEN LOS ICONOS QUE CORRESPONDAN/////////////////////////////////
-		ImageIcon[] arregloIconos = new ImageIcon[Diente.tratamientos.length];
-		
-		for(int i=0; i<Diente.tratamientos.length; i++){
-			arregloIconos[i] = new ImageIcon(odontogramaView.class.getResource("/raw/tratamiento.png"));
-		}
-		
 		mapaIconos = new HashMap<String, ImageIcon>();
 		
-		mapaIconos.put("", esquinaSL);
+		//PONER BIEN LOS ICONOS QUE CORRESPONDAN/////////////////////////////////
+		ImageIcon[] arregloIconos = new ImageIcon[(Diente.tratamientos.length)*(Diente.keys.length)];
+		arregloIconos[0] = new ImageIcon(odontogramaView.class.getResource("/raw/BordeDer_trat.png"));
+		arregloIconos[1] = new ImageIcon(odontogramaView.class.getResource("/raw/CaraSuperior_trat.png"));
+		arregloIconos[2] = new ImageIcon(odontogramaView.class.getResource("/raw/CaraCentral_trat.png"));
+		arregloIconos[3] = new ImageIcon(odontogramaView.class.getResource("/raw/CaraInfe_trat.png"));
+		arregloIconos[4] = new ImageIcon(odontogramaView.class.getResource("/raw/BordeIzq_trat.png"));
+		
+		mapaIconos.put(Diente.tratamientos[0]+Diente.keys[0], arregloIconos[0]);
+		mapaIconos.put(Diente.tratamientos[0]+Diente.keys[1], arregloIconos[1]);
+		mapaIconos.put(Diente.tratamientos[0]+Diente.keys[2], arregloIconos[2]);
+		mapaIconos.put(Diente.tratamientos[0]+Diente.keys[3], arregloIconos[3]);
+		mapaIconos.put(Diente.tratamientos[0]+Diente.keys[4], arregloIconos[4]);
+		/*for(int i=0; i<Diente.tratamientos.length; i++){
+			arregloIconos[i] = new ImageIcon(odontogramaView.class.getResource("/raw/tratamiento.png"));
+		}*/
+		
+		
+		/*mapaIconos.put("", esquinaSL);
 		
 		for(int i=0; i<Diente.tratamientos.length; i++){
 			mapaIconos.put(Diente.tratamientos[i], new ImageIcon(odontogramaView.class.getResource("/raw/tratamiento.png")));
-		}
+		}*/
 		////////////////////////////////////////////////////////////////////
 		
 		//CONFIGURACION
@@ -146,9 +156,14 @@ public class odontogramaView extends JFrame{
 	
 	//Cambio los iconos de acuerdo al tratamiento que recibió la cara del diente
 	public void refresh(Vector<String> arreglos){
+		int j=0;
 		for(int i=0; i<arreglos.size(); i++){
-			if(!arreglos.get(i).equals("na")){
+			if(!arreglos.get(i).equals("na"+Diente.keys[j])){
 				botones.get(i).setIcon(mapaIconos.get(arreglos.get(i)));
+			}
+			j++;
+			if(j == Diente.keys.length){
+				j = 0;
 			}
 		}
 	}

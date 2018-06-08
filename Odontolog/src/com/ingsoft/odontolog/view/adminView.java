@@ -12,6 +12,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
@@ -25,6 +26,7 @@ import com.ingsoft.odontolog.model.sql.PacienteDAO;
 
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
+import javax.swing.ListModel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
@@ -32,36 +34,70 @@ import javax.swing.ImageIcon;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
 import java.awt.ComponentOrientation;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
 
 public class adminView extends JFrame {
 
 	private JPanel contentPane;
 	private JButton backButton;
-	private JPanel panel_1;
+	private JPanel panel_atras;
 	private JScrollPane scrollPacientes;
 	private DefaultTableModel tableDModel;
 	private JTable tablePacientes;
+	private JList listaPacientes;
 	private JButton btnAdd;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					adminView frame = new adminView();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
-	/**
-	 * Create the frame.
-	 */
+//	/**
+//	 * Launch the application.
+//	 */
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					adminView frame = new adminView();
+//					frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
+//
+//	/**
+//	 * Create the frame.
+//	 */
+public class adminView extends JFrame {
+
+	private JPanel contentPane;
+	private JButton backButton;
+	private JPanel panel_atras;
+	private JScrollPane scrollPacientes;
+	private DefaultTableModel tableDModel;
+	private JTable tablePacientes;
+	private JList listaPacientes;
+
+//	/**
+//	 * Launch the application.
+//	 */
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					adminView frame = new adminView();
+//					frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
+//
+//	/**
+//	 * Create the frame.
+//	 */
 	public adminView() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -72,29 +108,25 @@ public class adminView extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(null);
-		
-		//Panel titulo
-		JPanel panel = new JPanel();
-		panel.setBounds(82, 0, 1288, 77);
-		panel.setBackground(SystemColor.inactiveCaption);
-		contentPane.add(panel);
-		panel.setLayout(null);
-		
-		//Etiqueta de titulo
-		JLabel lblNewLabel = new JLabel("Administraci\u00F3n");
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(10, 0, 502, 71);
-		panel.add(lblNewLabel);
-		lblNewLabel.setFont(new Font("Yu Gothic UI Semilight", Font.BOLD, 48));
+		GridBagLayout gbl_contentPane = new GridBagLayout();
+		gbl_contentPane.columnWidths = new int[]{0, 0};
+		gbl_contentPane.rowHeights = new int[]{77, 37, 0};
+		gbl_contentPane.columnWeights = new double[]{0.0, 0.0};
+		gbl_contentPane.rowWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
+		contentPane.setLayout(gbl_contentPane);
 		
 
 		//Panel boton "Atras"
-		panel_1 = new JPanel();
-		panel_1.setBounds(0, 0, 84, 77);
-		panel_1.setBackground(SystemColor.activeCaption);
-		contentPane.add(panel_1);
-		panel_1.setLayout(null);
+		panel_atras = new JPanel();
+		panel_atras.setBackground(SystemColor.activeCaption);
+		GridBagConstraints gbc_panel_atras = new GridBagConstraints();
+		gbc_panel_atras.weightx = 0.05;
+		gbc_panel_atras.fill = GridBagConstraints.BOTH;
+		gbc_panel_atras.insets = new Insets(0, 0, 5, 5);
+		gbc_panel_atras.gridx = 0;
+		gbc_panel_atras.gridy = 0;
+		contentPane.add(panel_atras, gbc_panel_atras);
+		panel_atras.setLayout(null);
 		
 		//Boton "Atras"
 		backButton = new JButton("ATRAS");
@@ -102,90 +134,80 @@ public class adminView extends JFrame {
 		backButton.setFont(new Font("Yu Gothic UI Semilight", Font.BOLD, 11));
 		backButton.setForeground(SystemColor.activeCaptionText);
 		backButton.setBackground(SystemColor.activeCaption);
-	    backButton.setVerticalTextPosition(SwingConstants.BOTTOM);
-	    backButton.setHorizontalTextPosition(SwingConstants.CENTER);
+		backButton.setVerticalTextPosition(SwingConstants.BOTTOM);
+		backButton.setHorizontalTextPosition(SwingConstants.CENTER);
 		backButton.setBounds(0, 0, 84, 77);
-		panel_1.add(backButton);
+		panel_atras.add(backButton);
 		
 		//Etiqueta "Atras"
 		JLabel lblAtras = new JLabel("ATRAS");
 		lblAtras.setBounds(0, 63, 62, 14);
-		panel_1.add(lblAtras);
+		panel_atras.add(lblAtras);
 		lblAtras.setForeground(SystemColor.desktop);
 		lblAtras.setHorizontalAlignment(SwingConstants.CENTER);
 		
+		//Panel titulo
+		JPanel panel_titulo = new JPanel();
+		panel_titulo.setBackground(SystemColor.inactiveCaption);
+		GridBagConstraints gbc_panel_titulo = new GridBagConstraints();
+		gbc_panel_titulo.weightx = 0.5;
+		gbc_panel_titulo.fill = GridBagConstraints.BOTH;
+		gbc_panel_titulo.insets = new Insets(0, 0, 5, 0);
+		gbc_panel_titulo.gridx = 1;
+		gbc_panel_titulo.gridy = 0;
+		contentPane.add(panel_titulo, gbc_panel_titulo);
+		panel_titulo.setLayout(null);
 		
-		//Panel de pestañas
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(240, 113, 1120, 576);
-		tabbedPane.setBackground(SystemColor.inactiveCaption);
-		tabbedPane.setFont(new Font("Yu Gothic UI Semilight", Font.PLAIN, 14));
-		contentPane.add(tabbedPane);
+		//Etiqueta de titulo
+		JLabel lblNewLabel = new JLabel("Administraci\u00F3n");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setBounds(10, 0, 502, 71);
+		panel_titulo.add(lblNewLabel);
+		lblNewLabel.setFont(new Font("Yu Gothic UI Semilight", Font.BOLD, 48));
 		
-		/*//Pestaña "Asistencia"
+		//Panel para etiqueta Pacientes		
+		JPanel panel_pacientes = new JPanel();
+		GridBagConstraints gbc_panel_pacientes = new GridBagConstraints();
+		gbc_panel_pacientes.insets = new Insets(0, 0, 0, 5);
+		gbc_panel_pacientes.fill = GridBagConstraints.BOTH;
+		gbc_panel_pacientes.gridx = 0;
+		gbc_panel_pacientes.gridy = 1;
+		contentPane.add(panel_pacientes, gbc_panel_pacientes);
+		GridBagLayout gbl_panel_pacientes = new GridBagLayout();
+		gbl_panel_pacientes.columnWidths = new int[]{0, 0};
+		gbl_panel_pacientes.rowHeights = new int[]{10, 652, 0};
+		gbl_panel_pacientes.columnWeights = new double[]{1.0, Double.MIN_VALUE};
+		gbl_panel_pacientes.rowWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
+		panel_pacientes.setLayout(gbl_panel_pacientes);
+		
+		scrollPacientes = new JScrollPane();
+		GridBagConstraints gbc_scrollPacientes = new GridBagConstraints();
+		gbc_scrollPacientes.insets = new Insets(0, 5, 10, 0);
+		gbc_scrollPacientes.anchor = GridBagConstraints.WEST;
+		gbc_scrollPacientes.fill = GridBagConstraints.BOTH;
+		gbc_scrollPacientes.gridx = 0;
+		gbc_scrollPacientes.gridy = 1;
+		panel_pacientes.add(scrollPacientes, gbc_scrollPacientes);
+		listaPacientes = new JList();
+		listaPacientes.setFont(new Font("Tahoma", Font.BOLD, 15));
+		listaPacientes.setBorder(new LineBorder(new Color(0, 0, 0)));
+		scrollPacientes.setViewportView(listaPacientes);
+		
+		//Etiqueta "Pacientes"
+		JLabel lblNewLabel_1 = new JLabel("Pacientes");
+		lblNewLabel_1.setFont(new Font("Yu Gothic UI Semilight", Font.PLAIN, 27));
+		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
+		gbc_lblNewLabel_1.insets = new Insets(0, 10, 5, 0);
+		gbc_lblNewLabel_1.anchor = GridBagConstraints.NORTH;
+		gbc_lblNewLabel_1.fill = GridBagConstraints.HORIZONTAL;
+		gbc_lblNewLabel_1.gridx = 0;
+		gbc_lblNewLabel_1.gridy = 0;
+		panel_pacientes.add(lblNewLabel_1, gbc_lblNewLabel_1);
+		
+		/*//PestaÃ±a "Asistencia"
 		JPanel asist = new JPanel();
 		tabbedPane.addTab("Asistencia", null, asist, null);
 		*/
-		
-		//Pestaña "Posicion Consolidada"
-		JPanel posCons = new JPanel();
-		tabbedPane.addTab("Posicion Consolidada", null, posCons, null);
-		posCons.setLayout(null);
-		
-		//Panel general de la pestaña "Posicion Consolidada"
-		JPanel panel_3 = new JPanel();
-		panel_3.setBounds(10, 40, 1095, 95);
-		posCons.add(panel_3);
-		panel_3.setLayout(null);
-		
-		//Etiqueta "$"
-		JLabel label = new JLabel("$");
-		label.setHorizontalAlignment(SwingConstants.CENTER);
-		label.setFont(new Font("Yu Gothic UI Semilight", Font.BOLD, 75));
-		label.setBounds(0, 0, 100, 95);
-		panel_3.add(label);
-		
-		//Texto de Saldo final
-		JLabel lblNewLabel_2 = new JLabel("16.000");
-		lblNewLabel_2.setFont(new Font("Yu Gothic UI Semilight", Font.BOLD, 75));
-		lblNewLabel_2.setHorizontalAlignment(SwingConstants.LEFT);
-		lblNewLabel_2.setBounds(100, 0, 795, 95);
-		panel_3.add(lblNewLabel_2);
-		
-		//Panel para etiqueta "Saldo"
-		JPanel panel_4 = new JPanel();
-		panel_4.setBounds(10, 0, 270, 40);
-		posCons.add(panel_4);
-		panel_4.setLayout(null);
-		
-		//Etiqueta "Saldo"
-		JLabel lblNewLabel_3 = new JLabel("Saldo");
-		lblNewLabel_3.setFont(new Font("Yu Gothic UI Semilight", Font.PLAIN, 35));
-		lblNewLabel_3.setBounds(25, 0, 245, 40);
-		panel_4.add(lblNewLabel_3);
-		
-		//Panel para Headers de la tabla
-		JPanel panel_5 = new JPanel();
-		panel_5.setBounds(10, 145, 895, 40);
-		posCons.add(panel_5);
-		panel_5.setLayout(null);
-		
-		//Header "Tratamiento"
-		JLabel lblNewLabel_4 = new JLabel("Tratamiento");
-		lblNewLabel_4.setFont(new Font("Yu Gothic UI Semilight", Font.PLAIN, 20));
-		lblNewLabel_4.setBounds(0, 0, 725, 40);
-		panel_5.add(lblNewLabel_4);
-		
-		//Header "Importe"
-		JLabel lblNewLabel_5 = new JLabel("Importe");
-		lblNewLabel_5.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_5.setFont(new Font("Yu Gothic UI Semilight", Font.PLAIN, 20));
-		lblNewLabel_5.setBounds(725, 0, 150, 40);
-		panel_5.add(lblNewLabel_5);
-		
-		
-		JPanel impr = new JPanel();
-		tabbedPane.addTab("Impresion", null, impr, null);
 		
 		tableDModel = new DefaultTableModel();// definimos el objeto tableModel
 		tablePacientes = new JTable();
@@ -273,130 +295,244 @@ public class adminView extends JFrame {
 		scrollPane.setBounds(10, 144, 227, 545);
 		contentPane.add(scrollPane);						*/
 		
-		scrollPacientes = new JScrollPane();
-		scrollPacientes.setBounds(10, 164, 220, 368);
-		mostrarNombre();// mostramos la tabla
-		getContentPane().add(scrollPacientes);
-
+		JPanel panel_tabs = new JPanel();
+		GridBagConstraints gbc_panel_tabs = new GridBagConstraints();
+		gbc_panel_tabs.fill = GridBagConstraints.BOTH;
+		gbc_panel_tabs.gridx = 1;
+		gbc_panel_tabs.gridy = 1;
+		contentPane.add(panel_tabs, gbc_panel_tabs);
+		GridBagLayout gbl_panel_tabs = new GridBagLayout();
+		gbl_panel_tabs.columnWidths = new int[]{623, 0};
+		gbl_panel_tabs.rowHeights = new int[]{713, 0};
+		gbl_panel_tabs.columnWeights = new double[]{1.0, Double.MIN_VALUE};
+		gbl_panel_tabs.rowWeights = new double[]{1.0, Double.MIN_VALUE};
+		panel_tabs.setLayout(gbl_panel_tabs);
 		
-		//Tabla2 para tratamiento e importe
-		JTable table2 = new JTable();
-		table2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		table2.setRowSelectionAllowed(false);
-		table2.setFont(new Font("Yu Gothic UI Semilight", Font.PLAIN, 16));
-		table2.setBackground(SystemColor.activeCaption);
-		table2.setModel(new DefaultTableModel(
-			new Object[][] {
-				{new String ("Extracción Premolar"), new Integer(-2500)},
-				{new String ("Limpieza bucal"), new Integer(-500)},
-				{new String ("Depósito"), new Integer(10000)}, 
-				{null, null},
-				{null, null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
-				{null},
+		
+		//Panel de pestaÃ±as
+		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		GridBagConstraints gbc_tabbedPane = new GridBagConstraints();
+		gbc_tabbedPane.fill = GridBagConstraints.BOTH;
+		gbc_tabbedPane.gridx = 0;
+		gbc_tabbedPane.gridy = 0;
+		panel_tabs.add(tabbedPane, gbc_tabbedPane);
+		tabbedPane.setBackground(SystemColor.inactiveCaption);
+		tabbedPane.setFont(new Font("Yu Gothic UI Semilight", Font.PLAIN, 14));
+		
+		//PestaÃ±a "Posicion Consolidada"
+		JPanel posCons = new JPanel();
+		tabbedPane.addTab("Posicion Consolidada", null, posCons, null);
+		GridBagLayout gbl_posCons = new GridBagLayout();
+		gbl_posCons.columnWidths = new int[]{0, 0};
+		gbl_posCons.rowHeights = new int[]{40, 95, 40, 346, 0};
+		gbl_posCons.columnWeights = new double[]{1.0, Double.MIN_VALUE};
+		gbl_posCons.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+		posCons.setLayout(gbl_posCons);
+		
+		//Panel para etiqueta "Saldo"
+		JPanel panel_4 = new JPanel();
+		GridBagConstraints gbc_panel_4 = new GridBagConstraints();
+		gbc_panel_4.fill = GridBagConstraints.BOTH;
+		gbc_panel_4.insets = new Insets(0, 0, 5, 0);
+		gbc_panel_4.gridx = 0;
+		gbc_panel_4.gridy = 0;
+		posCons.add(panel_4, gbc_panel_4);
+		panel_4.setLayout(null);
+		
+		//Etiqueta "Saldo"
+		JLabel lblNewLabel_3 = new JLabel("Saldo");
+		lblNewLabel_3.setFont(new Font("Yu Gothic UI Semilight", Font.PLAIN, 35));
+		lblNewLabel_3.setBounds(25, 0, 245, 40);
+		panel_4.add(lblNewLabel_3);
+		
+		JPanel panel_tabla = new JPanel();
+		GridBagConstraints gbc_panel_tabla = new GridBagConstraints();
+		gbc_panel_tabla.insets = new Insets(0, 0, 10, 0);
+		gbc_panel_tabla.fill = GridBagConstraints.BOTH;
+		gbc_panel_tabla.gridx = 0;
+		gbc_panel_tabla.gridy = 3;
+		posCons.add(panel_tabla, gbc_panel_tabla);
+		GridBagLayout gbl_panel_tabla = new GridBagLayout();
+		gbl_panel_tabla.columnWidths = new int[]{0, 0, 0};
+		gbl_panel_tabla.rowHeights = new int[]{0, 0};
+		gbl_panel_tabla.columnWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
+		gbl_panel_tabla.rowWeights = new double[]{1.0, Double.MIN_VALUE};
+		panel_tabla.setLayout(gbl_panel_tabla);
+		
 				
-			},
-			new String[] {"", ""}
-		) {
+				//Tabla2 para tratamiento e importe
+				JTable table2 = new JTable();
+				table2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+				table2.setRowSelectionAllowed(false);
+				table2.setFont(new Font("Yu Gothic UI Semilight", Font.PLAIN, 16));
+				table2.setBackground(SystemColor.activeCaption);
+				table2.setModel(new DefaultTableModel(
+					new Object[][] {
+						{new String ("ExtracciÃ³n Premolar"), new Integer(-2500)},
+						{new String ("Limpieza bucal"), new Integer(-500)},
+						{new String ("DepÃ³sito"), new Integer(10000)}, 
+						{null, null},
+						{null, null},
+						{null},
+						{null},
+						{null},
+						{null},
+						{null},
+						{null},
+						{null},
+						{null},
+						{null},
+						{null},
+						{null},
+						{null},
+						{null},
+						{null},
+						{null},
+						{null},
+						{null},
+						{null},
+						{null},
+						{null},
+						{null},
+						{null},
+						{null},
+						{null},
+						{null},
+						{null},
+						{null},
+						{null},
+						{null},
+						{null},
+						{null},
+						{null},
+						{null},
+						
+					},
+					new String[] {"Tratamiento", "Importe"}
+				) {
       
-			private static final long serialVersionUID = 1L;
-			
-			
-			boolean[] columnEditables = new boolean[] {
-				false
-				};
-			
-			public boolean isCellEditable(int row, int column) {
-				return columnEditables[column];
-			}
-		});
-		table2.getColumnModel().getColumn(0).setPreferredWidth(650);
-				
-		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-		centerRenderer.setHorizontalAlignment(JLabel.CENTER);
-		table2.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
+					private static final long serialVersionUID = 1L;
+					
+					
+					boolean[] columnEditables = new boolean[] {
+						false
+						};
+					
+					public boolean isCellEditable(int row, int column) {
+						return columnEditables[column];
+					}
+				});
+				table2.getColumnModel().getColumn(0).setPreferredWidth(650);
+				//table2.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
 				
 		//Panel con scroll para la tabla de tratamientos e importe
 		JScrollPane scrollPane_1 = new JScrollPane(table2);
-		scrollPane_1.setBounds(10, 185, 895, 345);
-		posCons.add(scrollPane_1);		
-		
-		//Panel para etiqueta Pacientes		
-		JPanel panel_2 = new JPanel();
-		panel_2.setBounds(10, 101, 227, 37);
-		contentPane.add(panel_2);
-		panel_2.setLayout(null);
-				
-		//Etiqueta "Pacientes"
-		JLabel lblNewLabel_1 = new JLabel("Pacientes");
-		lblNewLabel_1.setFont(new Font("Yu Gothic UI Semilight", Font.PLAIN, 27));
-		lblNewLabel_1.setBounds(0, 0, 227, 37);
-		panel_2.add(lblNewLabel_1);
+		GridBagConstraints gbc_scrollPane_1 = new GridBagConstraints();
+		gbc_scrollPane_1.fill = GridBagConstraints.BOTH;
+		gbc_scrollPane_1.insets = new Insets(0, 0, 0, 5);
+		gbc_scrollPane_1.gridx = 0;
+		gbc_scrollPane_1.gridy = 0;
+		panel_tabla.add(scrollPane_1, gbc_scrollPane_1);
 		
 		
 		//Panel Botonera
 		JPanel panel_6 = new JPanel();
-		panel_6.setBounds(935, 481, 170, 50);
-		posCons.add(panel_6);
-		panel_6.setLayout(null);
+		GridBagConstraints gbc_panel_6 = new GridBagConstraints();
+		gbc_panel_6.insets = new Insets(0, 0, 0, 10);
+		gbc_panel_6.anchor = GridBagConstraints.EAST;
+		gbc_panel_6.fill = GridBagConstraints.VERTICAL;
+		gbc_panel_6.gridx = 1;
+		gbc_panel_6.gridy = 0;
+		panel_tabla.add(panel_6, gbc_panel_6);
+		GridBagLayout gbl_panel_6 = new GridBagLayout();
+		gbl_panel_6.columnWidths = new int[]{51, 0, 0, 0, 0};
+		gbl_panel_6.rowHeights = new int[]{51, 0, 0};
+		gbl_panel_6.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel_6.rowWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
+		panel_6.setLayout(gbl_panel_6);
 		
-		//Boton Agregar
-		btnAdd = new JButton("");
-		btnAdd.setBounds(0, 0, 50, 50);
-		panel_6.add(btnAdd);
-		btnAdd.setBorder(null);
-		btnAdd.setHorizontalAlignment(SwingConstants.LEADING);
-		btnAdd.setIcon(new ImageIcon(adminView.class.getResource("/images/add.png")));
-		btnAdd.setBackground(SystemColor.menu);
+		//Boton Print
+		JButton btnPrint = new JButton("");
+		btnPrint.setIcon(new ImageIcon(adminView.class.getResource("/images/print.png")));
+		GridBagConstraints gbc_btnPrint = new GridBagConstraints();
+		gbc_btnPrint.gridx = 3;
+		gbc_btnPrint.gridy = 1;
+		btnPrint.setBorder(null);
+		btnPrint.setBackground(SystemColor.menu);
+		panel_6.add(btnPrint, gbc_btnPrint);
+		
+		//Boton Edit
+		JButton btnEdit = new JButton("");
+		GridBagConstraints gbc_btnEdit = new GridBagConstraints();
+		gbc_btnEdit.insets = new Insets(0, 0, 0, 5);
+		gbc_btnEdit.anchor = GridBagConstraints.SOUTHWEST;
+		gbc_btnEdit.gridx = 1;
+		gbc_btnEdit.gridy = 1;
+		panel_6.add(btnEdit, gbc_btnEdit);
+		btnEdit.setVerticalAlignment(SwingConstants.BOTTOM);
+		btnEdit.setIcon(new ImageIcon(adminView.class.getResource("/images/edit.png")));
+		btnEdit.setHorizontalAlignment(SwingConstants.LEADING);
+		btnEdit.setBorder(null);
+		btnEdit.setBackground(SystemColor.menu);
 		
 		//Boton Quitar
 		JButton btnSub = new JButton("");
-		btnSub.setBounds(120, 0, 50, 50);
-		panel_6.add(btnSub);
+		GridBagConstraints gbc_btnSub = new GridBagConstraints();
+		gbc_btnSub.insets = new Insets(0, 0, 0, 5);
+		gbc_btnSub.anchor = GridBagConstraints.SOUTHWEST;
+		gbc_btnSub.gridx = 2;
+		gbc_btnSub.gridy = 1;
+		panel_6.add(btnSub, gbc_btnSub);
+		btnSub.setVerticalAlignment(SwingConstants.BOTTOM);
 		btnSub.setIcon(new ImageIcon(adminView.class.getResource("/images/subtract.png")));
 		btnSub.setHorizontalAlignment(SwingConstants.LEADING);
 		btnSub.setBorder(null);
 		btnSub.setBackground(SystemColor.menu);
 		
-		//Boton Edit
-		JButton btnEdit = new JButton("");
-		btnEdit.setBounds(60, 0, 50, 50);
-		panel_6.add(btnEdit);
-		btnEdit.setIcon(new ImageIcon(adminView.class.getResource("/images/edit.png")));
-		btnEdit.setHorizontalAlignment(SwingConstants.LEADING);
-		btnEdit.setBorder(null);
-		btnEdit.setBackground(SystemColor.menu);
+		//Boton Agregar
+		JButton btnAdd = new JButton("");
+		GridBagConstraints gbc_btnAdd = new GridBagConstraints();
+		gbc_btnAdd.insets = new Insets(0, 0, 0, 5);
+		gbc_btnAdd.anchor = GridBagConstraints.SOUTHWEST;
+		gbc_btnAdd.gridx = 0;
+		gbc_btnAdd.gridy = 1;
+		panel_6.add(btnAdd, gbc_btnAdd);
+		btnAdd.setVerticalAlignment(SwingConstants.BOTTOM);
+		btnAdd.setBorder(null);
+		btnAdd.setHorizontalAlignment(SwingConstants.LEADING);
+		btnAdd.setIcon(new ImageIcon(adminView.class.getResource("/images/add.png")));
+		btnAdd.setBackground(SystemColor.menu);
+		
+		//Panel general de la pestaÃ±a "Posicion Consolidada"
+		JPanel panel_3 = new JPanel();
+		GridBagConstraints gbc_panel_3 = new GridBagConstraints();
+		gbc_panel_3.fill = GridBagConstraints.BOTH;
+		gbc_panel_3.insets = new Insets(0, 0, 5, 0);
+		gbc_panel_3.gridx = 0;
+		gbc_panel_3.gridy = 1;
+		posCons.add(panel_3, gbc_panel_3);
+		panel_3.setLayout(null);
+		
+		//Etiqueta "$"
+		JLabel label = new JLabel("$");
+		label.setHorizontalAlignment(SwingConstants.CENTER);
+		label.setFont(new Font("Yu Gothic UI Semilight", Font.BOLD, 75));
+		label.setBounds(0, 0, 100, 95);
+		panel_3.add(label);
+		
+		//Texto de Saldo final
+		JLabel lblNewLabel_2 = new JLabel("16.000");
+		lblNewLabel_2.setFont(new Font("Yu Gothic UI Semilight", Font.BOLD, 75));
+		lblNewLabel_2.setHorizontalAlignment(SwingConstants.LEFT);
+		lblNewLabel_2.setBounds(100, 0, 795, 95);
+		panel_3.add(lblNewLabel_2);
+		
+		
+		JPanel impr = new JPanel();
+		tabbedPane.addTab("Impresion", null, impr, null);
+				
+		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+		centerRenderer.setHorizontalAlignment(JLabel.CENTER);
 		
 	}
 	
@@ -404,15 +540,7 @@ public class adminView extends JFrame {
 		backButton.addActionListener(backListener);
 	}
 	
-	public void addAddListener (ActionListener addListener) {
-		btnAdd.addActionListener(addListener);
+	public void iniciarLista(ListModel modelo){
+		listaPacientes.setModel(modelo);
 	}
-	
-	
-	private void mostrarNombre() {
-		PacienteDAO pacienteDao = new PacienteDAO();
-		pacienteDao.buscarNombreUsuarios(tableDModel);
-		scrollPacientes.setViewportView(tablePacientes);
-	}
-	
 }

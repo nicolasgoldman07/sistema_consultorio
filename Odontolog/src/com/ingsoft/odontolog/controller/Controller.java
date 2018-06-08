@@ -24,13 +24,22 @@ public class Controller {
 		mView.newLogin();
 		mView.login.addLoginListener(new LoginListener());
 		//mView.newMenu();
+		//mView.menu.addMenuListeners(new menuListener());
+
 		//mView.menu.addAgendaListener(new AgendaListener());
 		//mView.newOdontograma();
+  
 		//mView.newHistoriaClinica();
 		//mView.odontograma.addDienteListener(new DienteListener());
-		//mView.historia.iniciarLista(mModel.getListModelPaciente());
-		//mView.historia.addBusquedaListener(new BusquedaListener(), new EnterBusquedaListener());
+		
+		//mView.historia.iniciarLista(ListModelPaciente.getInstance());
+		//mView.historia.addBusquedaListener(new historiaMouseListener(), new historiaActionListener());
+		
 		//mView.odontograma.addDienteListener(new DienteListener());
+		
+		mView.newAdministracion();
+		mView.administracion.iniciarLista(ListModelPaciente.getInstance());
+
 
 	}
 	
@@ -122,7 +131,7 @@ public class Controller {
 		public void actionPerformed(ActionEvent e) {
 			id = mView.odontograma.getBotones().indexOf(e.getSource());
 			try{
-				mModel.setDienteTratado(paciente, id, 1);
+				mModel.setDienteTratado(paciente, id, 0);
 				mView.odontograma.refresh(mModel.getTratamientosPaciente(paciente));
 			} catch(NullPointerException exc){
 				exc.printStackTrace();
