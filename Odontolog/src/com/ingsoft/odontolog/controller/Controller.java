@@ -99,8 +99,8 @@ public class Controller {
 			}
 			if(source.equals(mView.menu.getAdminBttn())){
 				mView.newAdministracion();
-				mView.administracion.addAddListener (new AddListener());
-				mView.administracion.addBackListener(new BackListener());
+				//mView.administracion.addAddListener (new AddListener());
+				//mView.administracion.addBackListener(new BackListener());
 			}
 			if(source.equals(mView.menu.getAgendaBttn())){
 				mView.newAgenda();
@@ -196,8 +196,8 @@ public class Controller {
 		public void actionPerformed(ActionEvent e) {
 			mView.newAdministracion();
 			mView.menu.setVisible(false);
-			mView.administracion.addAddListener(new AddListener());
-			mView.administracion.addBackListener(new BackListener());
+			//mView.administracion.addAddListener(new AddListener());
+			//mView.administracion.addBackListener(new BackListener());
 		}
 	}
 	
