@@ -21,14 +21,14 @@ public class Controller {
 	public Controller(View v, Model m){
 		this.mView = v;
 		this.mModel = m;
-		//mView.newLogin();
+		mView.newLogin();
+		mView.login.addLoginListener(new LoginListener());
 		//mView.newMenu();
 		//mView.menu.addMenuListeners(new menuListener());
-		//mView.menu.addAgendaListener(new AgendaListener());
 
+		//mView.menu.addAgendaListener(new AgendaListener());
 		//mView.newOdontograma();
-		
-			
+  
 		//mView.newHistoriaClinica();
 		//mView.odontograma.addDienteListener(new DienteListener());
 		
@@ -39,6 +39,7 @@ public class Controller {
 		
 		mView.newAdministracion();
 		mView.administracion.iniciarLista(ListModelPaciente.getInstance());
+
 
 	}
 	
@@ -98,6 +99,7 @@ public class Controller {
 			}
 			if(source.equals(mView.menu.getAdminBttn())){
 				mView.newAdministracion();
+				mView.administracion.addAddListener (new AddListener());
 				mView.administracion.addBackListener(new BackListener());
 			}
 			if(source.equals(mView.menu.getAgendaBttn())){
@@ -110,11 +112,15 @@ public class Controller {
 	class BackListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if(mView.agenda.isVisible()) {
-			mView.agenda.setVisible(false);
+			try {
+				mView.agenda.setVisible(false);
+			}catch(NullPointerException agenda_null) {
+				
 			}
-			else if(mView.administracion.isVisible()) {
-			mView.administracion.setVisible(false);
+			try {
+				mView.administracion.setVisible(false);
+			}catch(NullPointerException admin_null){
+			
 			}
 			mView.menu.setVisible(true);
 		}
@@ -184,4 +190,55 @@ public class Controller {
 			}
 		}
 	}
+	
+	class AdministracionListener implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			mView.newAdministracion();
+			mView.menu.setVisible(false);
+			mView.administracion.addAddListener(new AddListener());
+			mView.administracion.addBackListener(new BackListener());
+		}
+	}
+	
+	class NuevoPacienteListener implements ActionListener{
+		public void actionPerformed (ActionEvent e) {
+			String nombre, apellido, dni, telefono, mail, direccion, medicoCabecera, peso, obraSocial, numeroOS, altura, factorSanguineo;
+			nombre = mView.nuevoPaciente.getNombre();
+			apellido = mView.nuevoPaciente.getApellido();
+			dni = mView.nuevoPaciente.getDni();
+			telefono = mView.nuevoPaciente.getTelefono();
+			mail = mView.nuevoPaciente.getMail();
+			direccion = mView.nuevoPaciente.getDireccion();
+			medicoCabecera = mView.nuevoPaciente.getMedicoCabecera();
+			peso = mView.nuevoPaciente.getPeso();
+			obraSocial = mView.nuevoPaciente.getObraSocial();
+			numeroOS = mView.nuevoPaciente.getNumOSi();
+			altura = mView.nuevoPaciente.getAltura();
+			factorSanguineo = mView.nuevoPaciente.getFactor();
+			if (mModel.addPaciente(nombre, apellido, dni, telefono, mail, direccion, medicoCabecera, peso, obraSocial, numeroOS, altura, factorSanguineo)) {
+				mView.nuevoPaciente.setVisible(false);
+			}
+		}
+	}
+	
+	class CancelListener implements ActionListener{
+		public void actionPerformed (ActionEvent e) {
+			mView.nuevoPaciente.setVisible(false);
+		}
+	}
+	
+	class AddListener implements ActionListener{
+		public void actionPerformed (ActionEvent e) {
+			mView.newAgregarPaciente();
+			mView.nuevoPaciente.addNuevoPacienteListener(new NuevoPacienteListener());
+			mView.nuevoPaciente.addCancelListener(new CancelListener());
+		}
+	}
+	
+	
+	
+	
+	
+	
 }
