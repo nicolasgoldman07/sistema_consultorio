@@ -12,6 +12,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
@@ -25,6 +26,7 @@ import com.ingsoft.odontolog.model.sql.PacienteDAO;
 
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
+import javax.swing.ListModel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
@@ -41,26 +43,27 @@ public class adminView extends JFrame {
 	private JScrollPane scrollPacientes;
 	private DefaultTableModel tableDModel;
 	private JTable tablePacientes;
+	private JList listaPacientes;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					adminView frame = new adminView();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
+//	/**
+//	 * Launch the application.
+//	 */
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					adminView frame = new adminView();
+//					frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
+//
+//	/**
+//	 * Create the frame.
+//	 */
 	public adminView() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -273,8 +276,10 @@ public class adminView extends JFrame {
 		contentPane.add(scrollPane);						*/
 		
 		scrollPacientes = new JScrollPane();
+		listaPacientes = new JList();
+		scrollPacientes.setViewportView(listaPacientes);
 		scrollPacientes.setBounds(10, 164, 220, 368);
-		mostrarNombre();// mostramos la tabla
+		//mostrarNombre();// mostramos la tabla
 		getContentPane().add(scrollPacientes);
 
 		
@@ -403,11 +408,14 @@ public class adminView extends JFrame {
 		backButton.addActionListener(backListener);
 	}
 	
+	public void iniciarLista(ListModel modelo){
+		listaPacientes.setModel(modelo);
+	}
 	
-	private void mostrarNombre() {
+	/*private void mostrarNombre() {
 		PacienteDAO pacienteDao = new PacienteDAO();
 		pacienteDao.buscarNombreUsuarios(tableDModel);
 		scrollPacientes.setViewportView(tablePacientes);
-	}
+	}*/
 	
 }

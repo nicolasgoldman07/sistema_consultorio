@@ -28,7 +28,7 @@ public class Model {
 	
 	public Model(){
 		listaPacientes = ListModelPaciente.getInstance();
-		for(int i=0; i<5; i++){
+		for(int i=0; i<50; i++){
 			listaPacientes.addPaciente(this.dummyPaciente());
 		}
 		listaPacientes.ordenarAlfa();
@@ -77,7 +77,7 @@ public class Model {
 		int cantDientes = dentaduraPaciente.size();
 		for(int i=0; i<cantDientes; i++){
 			for(int j=0; j<Diente.CARAS; j++){
-				dientes.add(dentaduraPaciente.get(i).getCara(Diente.keys[j]));
+				dientes.add(dentaduraPaciente.get(i).getCara(Diente.keys[j])+Diente.keys[j]);
 			}
 		}
 		return dientes;

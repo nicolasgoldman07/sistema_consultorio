@@ -6,6 +6,7 @@ import java.awt.GraphicsEnvironment;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import java.awt.GridBagLayout;
 import javax.swing.JSpinner;
@@ -35,6 +36,7 @@ public class historiaClinicaView extends JFrame {
 	private JTextField textsearch;
 	private JList listaNombres;
 	private JButton odontoButton;
+	private JScrollPane	scrollPacientes;
 
 	public historiaClinicaView() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -105,9 +107,25 @@ public class historiaClinicaView extends JFrame {
 		gbc_btnNewButton.gridy = 2;
 		contentPane.add(odontoButton, gbc_btnNewButton);
 		
+//		scrollPacientes = new JScrollPane();
+//		listaNombres = new JList();
+//		scrollPacientes.setViewportView(listaNombres);
+//		listaNombres.setBorder(new LineBorder(new Color(0, 0, 0), 2));
+//		listaNombres.setVisibleRowCount(10);
+//		GridBagConstraints gbc_list = new GridBagConstraints();
+//		gbc_list.insets = new Insets(0, 0, 5, 5);
+//		listaNombres.setFont(new Font("Yu Gothic UI Semilight", Font.PLAIN, 16));
+//		gbc_list.fill = GridBagConstraints.BOTH;
+//		gbc_list.weighty = 2.5;
+//		gbc_list.gridx = 1;
+//		gbc_list.gridy = 3;
+//		contentPane.add(listaNombres, gbc_list);
+		
+		scrollPacientes = new JScrollPane();
 		listaNombres = new JList();
-		listaNombres.setBorder(new LineBorder(new Color(0, 0, 0), 2));
-		listaNombres.setVisibleRowCount(10);
+		scrollPacientes.setViewportView(listaNombres);
+		scrollPacientes.setBorder(new LineBorder(new Color(0, 0, 0), 2));
+		//listaNombres.setVisibleRowCount(10);
 		GridBagConstraints gbc_list = new GridBagConstraints();
 		gbc_list.insets = new Insets(0, 0, 5, 5);
 		listaNombres.setFont(new Font("Yu Gothic UI Semilight", Font.PLAIN, 16));
@@ -115,7 +133,7 @@ public class historiaClinicaView extends JFrame {
 		gbc_list.weighty = 2.5;
 		gbc_list.gridx = 1;
 		gbc_list.gridy = 3;
-		contentPane.add(listaNombres, gbc_list);
+		contentPane.add(scrollPacientes, gbc_list);
 		
 		JPanel panel_1 = new JPanel();
 		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
