@@ -10,10 +10,10 @@ import java.sql.SQLException;
 **/
 
 public class ConexionPacientes {
-   static String bd = "pacientes_db";
-   static String login = "root";
-   static String password = "demoniofc";
-   static String url = "jdbc:mysql://localhost/pacientes_db?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+   static String bd = "odontologin";
+   static String login = "odontologin";
+   static String password = "Sc7lcPgR-9-2";
+   static String url = "jdbc:mysql://den1.mysql6.gear.host/odontologin?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 
    private Connection conn = null;
 
