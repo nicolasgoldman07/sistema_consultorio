@@ -6,6 +6,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.JOptionPane;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 
 import com.ingsoft.odontolog.model.ListModelPaciente;
 import com.ingsoft.odontolog.model.Model;
@@ -36,8 +38,11 @@ public class Controller {
 		mView.newHistoriaClinica();
 		//mView.odontograma.addDienteListener(new DienteListener());
 		
+		
+		
 		mView.historia.iniciarLista(ListModelPaciente.getInstance());
 		mView.historia.addBusquedaListener(new historiaMouseListener(), new historiaActionListener());
+		
 		
 		//mView.odontograma.addDienteListener(new DienteListener());
 		
@@ -46,6 +51,8 @@ public class Controller {
 
 
 	}
+	
+
 	
 	class LoginListener implements ActionListener{
 		@Override
@@ -117,7 +124,14 @@ public class Controller {
 	class historiaMouseListener implements MouseListener{
 		@Override
 		public void mouseClicked(MouseEvent me) {
+			
 			Object source = me.getSource();
+			
+			//Obtengo el paciente seleccionado
+			int index = mView.historia.getListaDeNombres().getSelectedIndex();
+			paciente = ListModelPaciente.getInstance().getPaciente(index);
+			
+			
 			if(source.equals(mView.historia.getBusquedaField())){
 				if(mView.historia.getBusquedaField().getText().equals("\"B\u00FAsqueda\"")){
 					mView.historia.getBusquedaField().setText("");
@@ -125,6 +139,7 @@ public class Controller {
 			}
 			if(source.equals(mView.historia.getListaDeNombres())){
 				mView.historia.getListaDeNombres().setSelectionBackground(Color.GREEN);
+				mModel.llenarTabla(mView.historia.getTablaDatos(), paciente.getDatosCompletosTabla());
 			}
 		}
 		@Override
@@ -145,6 +160,9 @@ public class Controller {
 				int index = ListModelPaciente.getInstance().getPacientePorNombre(aux);
 				mView.historia.getListaDeNombres().setSelectedValue(ListModelPaciente.getInstance().getElementAt(index), false);
 				mView.historia.getListaDeNombres().setSelectionBackground(Color.GREEN);
+				
+				paciente = ListModelPaciente.getInstance().getPaciente(index);
+				mModel.llenarTabla(mView.historia.getTablaDatos(), paciente.getDatosCompletosTabla());
 			}
 			
 			if(e.getSource().equals(mView.historia.getOdontoButton())){
@@ -160,7 +178,7 @@ public class Controller {
 					mView.odontograma.addDienteListener(new DienteListener());
 					mView.odontograma.refresh(mModel.getTratamientosPaciente(paciente));
 				}catch(Exception outOfBounds){
-					JOptionPane.showMessageDialog(null, "No se ha seleccionado un paciente", "Error", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "No se ha seleccionado un paciente \n INDEX: "+String.valueOf(index), "Error", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		}

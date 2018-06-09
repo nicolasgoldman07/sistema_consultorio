@@ -34,6 +34,7 @@ import javax.swing.ImageIcon;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
 import java.awt.ComponentOrientation;
+import java.awt.Dimension;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
@@ -50,9 +51,8 @@ public class adminView extends JFrame {
 	private JButton btnAdd;
 
 
-//	/**
-//	 * Launch the application.
-//	 */
+
+//	 
 //	public static void main(String[] args) {
 //		EventQueue.invokeLater(new Runnable() {
 //			public void run() {
@@ -66,9 +66,8 @@ public class adminView extends JFrame {
 //		});
 //	}
 //
-//	/**
-//	 * Create the frame.
-//	 */
+//	
+//	 
 
 
 	public adminView() {
@@ -76,6 +75,7 @@ public class adminView extends JFrame {
 		GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		this.setMaximizedBounds(env.getMaximumWindowBounds());
         this.setExtendedState(this.getExtendedState() | this.MAXIMIZED_BOTH);
+        this.setMinimumSize(new Dimension(600, 300));
 		
         //Contenedor-Panel General
 		contentPane = new JPanel();

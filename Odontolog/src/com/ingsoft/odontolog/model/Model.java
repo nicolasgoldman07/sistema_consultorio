@@ -11,7 +11,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 import com.ingsoft.odontolog.model.sql.ConexionLogin;
 import com.ingsoft.odontolog.model.sql.ConexionPacientes;
@@ -79,7 +82,13 @@ public class Model {
 	public Vector<String> getTratamientosPaciente(Paciente paciente){
 		Vector<String> dientes = new Vector<String>();
 		ArrayList<Diente> dentaduraPaciente = new ArrayList<Diente>();
-		dentaduraPaciente = paciente.getHistoriaClinica().getDentadura();
+		
+		try{
+			dentaduraPaciente = paciente.getHistoriaClinica().getDentadura();
+		}catch(NullPointerException e){
+			JOptionPane.showMessageDialog(null, "No tiene un odontograma", "Error", JOptionPane.ERROR_MESSAGE);
+		}
+		
 		int cantDientes = dentaduraPaciente.size();
 		for(int i=0; i<cantDientes; i++){
 			for(int j=0; j<Diente.CARAS; j++){
@@ -142,8 +151,6 @@ public class Model {
 						datos.get(3), datos.get(4), datos.get(5), datos.get(6), datos.get(7),
 						datos.get(8), datos.get(9), datos.get(10), datos.get(11));
 				
-				System.out.println(paciente.getNombreCompleto());
-				
 				listaPacientes.addPaciente(paciente);
 			}
 			listaPacientes.ordenarAlfa();
@@ -160,6 +167,18 @@ public class Model {
 
 		}
 	}
+	
+	public void llenarTabla(JTable tabla, Vector<Vector<String>> datos){
+		for(int i=0; i<datos.size(); i++){
+			for(int j=0; j<datos.get(i).size(); j++){
+				tabla.getModel().setValueAt(datos.get(i).get(j), i, j);
+			}
+		}
+		
+
+	}
+	
+
 	
 	
 	public Paciente dummyPaciente(){
