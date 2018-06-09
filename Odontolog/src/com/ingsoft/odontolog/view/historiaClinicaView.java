@@ -51,6 +51,8 @@ public class historiaClinicaView extends JFrame {
 	private JButton backButton;
 	private JButton addButton;
 	private JButton rmButton;
+	private JButton ordenarButton;
+	private JLabel ordenamientoLbl;
 
 	public historiaClinicaView() {
 		setTitle("Historia Clinica");
@@ -259,14 +261,21 @@ public class historiaClinicaView extends JFrame {
 		addButton.setBackground(SystemColor.menu);
 		panel_botones.add(addButton);
 		
-		JPanel panel_2 = new JPanel();
-		panel_botones.add(panel_2);
+		ordenarButton = new JButton("");
+		panel_botones.add(ordenarButton);
 		
 		rmButton = new JButton("");
 		rmButton.setIcon(new ImageIcon(adminView.class.getResource("/images/subtract.png")));
 		rmButton.setBorder(null);
 		rmButton.setBackground(SystemColor.menu);
 		panel_botones.add(rmButton);
+		
+		ordenamientoLbl = new JLabel("Tipo: Alfabeticamente");
+		GridBagConstraints gbc_ordenamientoLbl = new GridBagConstraints();
+		gbc_ordenamientoLbl.insets = new Insets(0, 0, 0, 5);
+		gbc_ordenamientoLbl.gridx = 0;
+		gbc_ordenamientoLbl.gridy = 4;
+		contentPane.add(ordenamientoLbl, gbc_ordenamientoLbl);
 	}
 	
 	public void iniciarLista(ListModel modelo){
@@ -285,6 +294,7 @@ public class historiaClinicaView extends JFrame {
 		backButton.addActionListener(listenAction);
 		addButton.addActionListener(listenAddPaciente);
 		rmButton.addActionListener(listenAction);
+		ordenarButton.addActionListener(listenAction);
 	}
 	
 	public JButton getRemoveButton(){
@@ -309,5 +319,12 @@ public class historiaClinicaView extends JFrame {
 	
 	public JTextField getBusquedaField(){
 		return textsearch;
+	}
+	
+	public JButton getOrdenarButton(){
+		return ordenarButton;
+	}
+	public JLabel getTipoLbl(){
+		return ordenamientoLbl;
 	}
 }

@@ -18,6 +18,7 @@ public class Paciente implements Comparable {
 	private String direccion;
 	private String grupoSanguineo;
 	private Odontograma historiaC;
+	private CompararStrategy orden;
 	
 	private HashMap<String, String> datos = new HashMap<String, String>();
 	
@@ -115,15 +116,15 @@ public class Paciente implements Comparable {
 		datos.put(campos[0], this.nombre);
 		datos.put(campos[1], this.apellido);
 		datos.put(campos[2], this.dni);
-		datos.put(campos[3], this.altura);
-		datos.put(campos[4], this.telefono);
+		datos.put(campos[3], this.telefono);
+		datos.put(campos[4], this.mail);
 		datos.put(campos[5], this.direccion);
-		datos.put(campos[6], this.grupoSanguineo);
-		datos.put(campos[7], this.medico);
-		datos.put(campos[8], this.mail);
-		datos.put(campos[9], this.peso);
-		datos.put(campos[10],this.obraSocial);
-		datos.put(campos[11],this.obraSocialNum);
+		datos.put(campos[6], this.medico);
+		datos.put(campos[7], this.peso);
+		datos.put(campos[8], this.obraSocial);
+		datos.put(campos[9], this.obraSocialNum);
+		datos.put(campos[10],this.altura);
+		datos.put(campos[11],this.grupoSanguineo);
 		
 	}
 	
@@ -138,11 +139,21 @@ public class Paciente implements Comparable {
 		}
 		return datos;
 	}
+	
+	public void setCompararBehavior(CompararStrategy comp){
+		orden = comp;
+	}
 
+//	@Override
+//	public int compareTo(Object other) {
+//		Paciente otherPacient = (Paciente) other;
+//		return getNombreCompleto().compareToIgnoreCase(otherPacient.getNombreCompleto());
+//	}
+	
 	@Override
 	public int compareTo(Object other) {
-		Paciente otherPacient = (Paciente) other;
-		return getNombreCompleto().compareToIgnoreCase(otherPacient.getNombreCompleto());
+		return orden.ordenar(this, (Paciente) other);
 	}
+	
 	
 }

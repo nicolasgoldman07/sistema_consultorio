@@ -19,6 +19,9 @@ public class Controller {
 	private Model mModel;
 	private int id;
 	private Paciente paciente = new Paciente();
+	private int tipoOrden = 0;
+	private String[] ordenes = {"Alfabeticamente", "Por Nombre", "Por Dni"};
+	private ListModelPaciente listaPacientes = ListModelPaciente.getInstance();
 
 	public Controller(View v, Model m){
 		
@@ -40,7 +43,7 @@ public class Controller {
 		
 		
 		
-		mView.historia.iniciarLista(ListModelPaciente.getInstance());
+		mView.historia.iniciarLista(listaPacientes);
 		mView.historia.addBusquedaListener(new historiaMouseListener(), new historiaActionListener(), new AddPacienteListener());
 		
 		
@@ -128,17 +131,24 @@ public class Controller {
 			
 			Object source = me.getSource();
 			
-			//Obtengo el paciente seleccionado
-			int index = mView.historia.getListaDeNombres().getSelectedIndex();
-			paciente = ListModelPaciente.getInstance().getPaciente(index);
 			
 			
+			
+			//Click en panel de busqueda
 			if(source.equals(mView.historia.getBusquedaField())){
 				if(mView.historia.getBusquedaField().getText().equals("\"B\u00FAsqueda\"")){
 					mView.historia.getBusquedaField().setText("");
 				}
 			}
+			
+			//Click en lista de nombres
 			if(source.equals(mView.historia.getListaDeNombres())){
+				
+				//Obtengo el paciente seleccionado
+				int index = mView.historia.getListaDeNombres().getSelectedIndex();
+				paciente = listaPacientes.getPaciente(index);
+				
+				//Muestro sus datos en la tabla
 				mView.historia.getListaDeNombres().setSelectionBackground(Color.GREEN);
 				mModel.llenarTabla(mView.historia.getTablaDatos(), paciente.getDatosCompletosTabla());
 			}
@@ -160,11 +170,11 @@ public class Controller {
 			//Busqueda
 			if(source.equals(mView.historia.getBusquedaField())){
 				String aux = mView.historia.getBusquedaField().getText();
-				int index = ListModelPaciente.getInstance().getPacientePorNombre(aux);
-				mView.historia.getListaDeNombres().setSelectedValue(ListModelPaciente.getInstance().getElementAt(index), false);
+				int index = listaPacientes.getPacientePorNombre(aux);
+				mView.historia.getListaDeNombres().setSelectedValue(listaPacientes.getElementAt(index), false);
 				mView.historia.getListaDeNombres().setSelectionBackground(Color.GREEN);
 				
-				paciente = ListModelPaciente.getInstance().getPaciente(index);
+				paciente = listaPacientes.getPaciente(index);
 				mModel.llenarTabla(mView.historia.getTablaDatos(), paciente.getDatosCompletosTabla());
 			}
 			
@@ -175,7 +185,7 @@ public class Controller {
 				
 				try{
 					//Dejo el paciente seleccionado para ver el odontograma
-					paciente = ListModelPaciente.getInstance().getPaciente(index);
+					paciente = listaPacientes.getPaciente(index);
 					
 					//Creo la nueva ventana y la refresco
 					mView.newOdontograma(paciente.getNombreCompleto());
@@ -208,17 +218,34 @@ public class Controller {
 				int index = mView.historia.getListaDeNombres().getSelectedIndex();
 				
 				try{
-					paciente = ListModelPaciente.getInstance().getPaciente(index);
+					paciente = listaPacientes.getPaciente(index);
 					
 					if (JOptionPane.showConfirmDialog(null, "¿Esta seguro que desea eliminar a: "+paciente.getNombreCompleto()+" ?", "ADVERTENCIA",
 					        JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 						
-						ListModelPaciente.getInstance().removePaciente(paciente);
+						//Lo remuevo de la base de datos
+						mModel.removePacienteDB(paciente.getDni());
+						
+						//Lo remuevo de la lista de Pacientes
+						listaPacientes.removePaciente(paciente);
 					}
 					
 				}catch(ArrayIndexOutOfBoundsException ex){
 					JOptionPane.showMessageDialog(null, "No se ha seleccionado un paciente \n INDEX: "+String.valueOf(index), "Error", JOptionPane.ERROR_MESSAGE);
 				}
+			}
+			
+			//Boton Ordenar
+			if(source.equals(mView.historia.getOrdenarButton())){
+				
+				tipoOrden++;
+				if(tipoOrden == ordenes.length){
+					tipoOrden = 0;
+				}
+				
+				listaPacientes.setOrdenarStrategy(mModel.getOrdenamiento(tipoOrden));
+				mView.historia.getTipoLbl().setText("Tipo: "+ordenes[tipoOrden]);
+				
 			}
 		}
 	}
