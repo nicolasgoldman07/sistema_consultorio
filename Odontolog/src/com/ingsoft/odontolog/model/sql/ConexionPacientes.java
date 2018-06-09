@@ -13,7 +13,7 @@ public class ConexionPacientes {
    static String bd = "odontologin";
    static String login = "odontologin";
    static String password = "Sc7lcPgR-9-2";
-   static String url = "jdbc:mysql://den1.mysql6.gear.host/odontologin?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+   static String url = "jdbc:mysql://den1.mysql6.gear.host/odontologin";
 
    private Connection conn = null;
 

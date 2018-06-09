@@ -22,8 +22,8 @@ public class Controller {
 		
 		this.mView = v;
 		this.mModel = m;
-		//mView.newLogin();
-		//mView.login.addLoginListener(new LoginListener());
+		mView.newLogin();
+		mView.login.addLoginListener(new LoginListener());
 		
 		//mView.newMenu();
 		//mView.menu.addMenuListeners(new menuListener());
@@ -31,13 +31,13 @@ public class Controller {
 		//mView.menu.addAgendaListener(new AgendaListener());
 		//mView.newOdontograma();
 		
-		mModel.llenarLista();
+		//mModel.llenarLista();
 		
-		mView.newHistoriaClinica();
+		//mView.newHistoriaClinica();
 		//mView.odontograma.addDienteListener(new DienteListener());
 		
-		mView.historia.iniciarLista(ListModelPaciente.getInstance());
-		mView.historia.addBusquedaListener(new historiaMouseListener(), new historiaActionListener());
+		//mView.historia.iniciarLista(ListModelPaciente.getInstance());
+		//mView.historia.addBusquedaListener(new historiaMouseListener(), new historiaActionListener());
 		
 		//mView.odontograma.addDienteListener(new DienteListener());
 		
@@ -109,9 +109,22 @@ public class Controller {
 			if(source.equals(mView.menu.getAgendaBttn())){
 				mView.newAgenda();
 				mView.agenda.addBackListener(new BackListener());
+				mView.agenda.addAgregarTurnoListener(new AgregarTurnoListener());
 			}
 		}
 	}
+	
+	
+	
+	class AgregarTurnoListener implements ActionListener{
+		public void actionPerformed (ActionEvent e) {
+			mView.newAgregarTurno();
+			mView.nuevoTurno.setVisible(true);
+			mView.nuevoTurno.addConfirmarTurnoListener(new ConfirmarTurnoListener());
+			
+		}
+	}
+	
 	
 	class BackListener implements ActionListener{
 		@Override
@@ -226,6 +239,25 @@ public class Controller {
 		}
 	}
 	
+	
+	class ConfirmarTurnoListener implements ActionListener{
+		public void actionPerformed (ActionEvent e) {
+			String fecha, horario, tratamiento, diente, odontologo, paciente;
+			int duracion;
+			fecha = mView.nuevoTurno.getFecha();
+			horario = mView.nuevoTurno.getHorario();
+			duracion = mView.nuevoTurno.getDuracion();
+			tratamiento = mView.nuevoTurno.getTratamiento();
+			diente = mView.nuevoTurno.getDiente();
+			odontologo = mView.nuevoTurno.getOdontologo();
+			paciente = mView.nuevoTurno.getPaciente();
+			if (mModel.addTurnoDB(fecha, horario, tratamiento, duracion, diente, odontologo, paciente)){
+				mView.nuevoTurno.setVisible(false);
+			}
+		}
+	}
+	
+
 	class CancelListener implements ActionListener{
 		public void actionPerformed (ActionEvent e) {
 			mView.nuevoPaciente.setVisible(false);

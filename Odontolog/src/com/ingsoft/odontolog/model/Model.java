@@ -15,6 +15,7 @@ import javax.swing.table.DefaultTableModel;
 
 import com.ingsoft.odontolog.model.sql.ConexionLogin;
 import com.ingsoft.odontolog.model.sql.ConexionPacientes;
+import com.ingsoft.odontolog.model.sql.ConexionTurnos;
 
 
 public class Model {
@@ -22,9 +23,11 @@ public class Model {
 	private ConexionLogin con = null;
 	private PreparedStatement pst = null;
 	private ResultSet rs = null;
-	private String sqlLoginCommand = "";
+	private String sqlLoginCommand;
 	private String sqlAddingCommand;
+	private String sqlTurnosCommand;
 	private ConexionPacientes conP;
+	private ConexionTurnos conT;
 	
 	
 	private String[] DummyNames = {"Ale", "Hueba", "Nico", "Lea", "Tortugo" };
@@ -122,6 +125,38 @@ public class Model {
 		}
 		
 	}
+	
+	
+	public boolean addTurnoDB(String date, String time, String treatement, int duration, String tooth, String dentist, String pacient) {
+		sqlTurnosCommand = "INSERT INTO turnos (fecha, horario, tratamiento, diente, "
+				+ "odontologo, paciente, duracion) "
+				+ "VALUES (?, ?, ?, ?, ?, ?, ?)" ;
+		conT = new ConexionTurnos();
+		try {
+			pst = conT.getConnection().prepareStatement(sqlTurnosCommand);
+			pst.setString(1, date);
+			pst.setString(2, time);
+			pst.setString(3, treatement);
+			pst.setString(4, tooth);
+			pst.setString(5, dentist);
+			pst.setString(6, pacient);
+			pst.setInt(7, duration);
+			if(pst.executeUpdate() == 1) {
+				return true;
+			}
+			else {
+				JOptionPane.showMessageDialog(null, "La cagaste");
+				return false;
+			}
+		} catch(SQLException | HeadlessException | NullPointerException ex){
+			JOptionPane.showMessageDialog(null, ex);
+			return false;
+		}
+	}
+	
+	
+	
+	
 	
 	public void llenarLista() {
 

@@ -37,6 +37,7 @@ import java.awt.ComponentOrientation;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.BorderLayout;
 
 public class adminView extends JFrame {
 
@@ -50,22 +51,22 @@ public class adminView extends JFrame {
 	private JButton btnAdd;
 
 
-//	/**
-//	 * Launch the application.
-//	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					adminView frame = new adminView();
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
-//
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					adminView frame = new adminView();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
 //	/**
 //	 * Create the frame.
 //	 */
@@ -99,25 +100,18 @@ public class adminView extends JFrame {
 		gbc_panel_atras.gridx = 0;
 		gbc_panel_atras.gridy = 0;
 		contentPane.add(panel_atras, gbc_panel_atras);
-		panel_atras.setLayout(null);
+		panel_atras.setLayout(new BorderLayout(0, 0));
 		
 		//Boton "Atras"
 		backButton = new JButton("ATRAS");
+		backButton.setHorizontalAlignment(SwingConstants.LEADING);
 		backButton.setIcon(new ImageIcon(adminView.class.getResource("/images/espalda.png")));
 		backButton.setFont(new Font("Yu Gothic UI Semilight", Font.BOLD, 11));
 		backButton.setForeground(SystemColor.activeCaptionText);
 		backButton.setBackground(SystemColor.activeCaption);
 		backButton.setVerticalTextPosition(SwingConstants.BOTTOM);
 		backButton.setHorizontalTextPosition(SwingConstants.CENTER);
-		backButton.setBounds(0, 0, 84, 77);
 		panel_atras.add(backButton);
-		
-		//Etiqueta "Atras"
-		JLabel lblAtras = new JLabel("ATRAS");
-		lblAtras.setBounds(0, 63, 62, 14);
-		panel_atras.add(lblAtras);
-		lblAtras.setForeground(SystemColor.desktop);
-		lblAtras.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		//Panel titulo
 		JPanel panel_titulo = new JPanel();

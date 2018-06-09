@@ -11,6 +11,7 @@ public class View {
 	public adminView administracion;
 	public nuevoPacienteView nuevoPaciente;
 	public historiaClinicaView	historia;
+	public nuevoTurnoView nuevoTurno;
 	
 	
 
@@ -40,6 +41,16 @@ public class View {
 		try {
 			agenda = new agendaTurnosView();
 			agenda.setVisible(true);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	public void newAgregarTurno() {
+		try {
+			nuevoTurno = new nuevoTurnoView();
+			nuevoTurno.setVisible(true);
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
