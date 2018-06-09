@@ -118,7 +118,10 @@ public class Model {
 			pst.setString(10, num);
 			pst.setString(11, alt);
 			pst.setString(12, fac);
+			
 			if(pst.executeUpdate() == 1) {
+				conP.desconectar();
+				añadirUltimoALista();
 				return true;
 			}
 			else {
@@ -132,10 +135,44 @@ public class Model {
 		
 	}
 	
+	public void añadirUltimoALista(){
+		ConexionLogin conex = new ConexionLogin();
+		try {
+			Statement estatuto = conex.getConnection().createStatement();
+			ResultSet rs = estatuto.executeQuery("SELECT * FROM odontologin.pacientes");
+			
+			System.out.println("LLEGO ACA");
+			rs.last();
+			
+			Vector<String> datos = new Vector<String>();
+			Paciente paciente = new Paciente();
+			
+			for (int i = 1; i < 13; i++){
+				datos.addElement(String.valueOf(rs.getObject(i)).toUpperCase());	
+			}
+		
+			paciente.setDatosCompletos(datos.get(0), datos.get(1), datos.get(2), 
+					datos.get(3), datos.get(4), datos.get(5), datos.get(6), datos.get(7),
+					datos.get(8), datos.get(9), datos.get(10), datos.get(11));
+			
+			listaPacientes.addPaciente(paciente);
+			
+			
+			rs.close();
+			estatuto.close();
+			conex.desconectar();
+
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			JOptionPane.showMessageDialog(null, "Error al consultar", "Error",
+					JOptionPane.ERROR_MESSAGE);
+
+		}
+	}
+	
 	public void llenarLista() {
 
 		ConexionLogin conex = new ConexionLogin();
-		
 		
 		try {
 			Statement estatuto = conex.getConnection().createStatement();

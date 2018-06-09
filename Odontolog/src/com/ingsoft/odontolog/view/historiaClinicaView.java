@@ -48,6 +48,9 @@ public class historiaClinicaView extends JFrame {
 	private JButton odontoButton;
 	private JScrollPane	scrollPacientes;
 	private JTable tablaDatos;
+	private JButton backButton;
+	private JButton addButton;
+	private JButton rmButton;
 
 	public historiaClinicaView() {
 		setTitle("Historia Clinica");
@@ -85,7 +88,7 @@ public class historiaClinicaView extends JFrame {
 		panel_back.setLayout(gbl_panel_back);
 		
 		//Boton "Atras"
-		JButton backButton = new JButton("ATRAS");
+		backButton = new JButton("ATRAS");
 		backButton.setIcon(new ImageIcon(adminView.class.getResource("/images/espalda.png")));
 		backButton.setFont(new Font("Yu Gothic UI Semilight", Font.BOLD, 11));
 		backButton.setForeground(SystemColor.activeCaptionText);
@@ -225,20 +228,7 @@ public class historiaClinicaView extends JFrame {
 		gbc_odontoButton.gridy = 1;
 		contentPane.add(odontoButton, gbc_odontoButton);
 		
-//		scrollPacientes = new JScrollPane();
-//		listaNombres = new JList();
-//		scrollPacientes.setViewportView(listaNombres);
-//		listaNombres.setBorder(new LineBorder(new Color(0, 0, 0), 2));
-//		listaNombres.setVisibleRowCount(10);
-//		GridBagConstraints gbc_list = new GridBagConstraints();
-//		gbc_list.insets = new Insets(0, 0, 5, 5);
-//		listaNombres.setFont(new Font("Yu Gothic UI Semilight", Font.PLAIN, 16));
-//		gbc_list.fill = GridBagConstraints.BOTH;
-//		gbc_list.weighty = 2.5;
-//		gbc_list.gridx = 1;
-//		gbc_list.gridy = 3;
-//		contentPane.add(listaNombres, gbc_list);
-		
+		//LISTA DE PACIENTES
 		scrollPacientes = new JScrollPane();
 		listaNombres = new JList();
 		scrollPacientes.setViewportView(listaNombres);
@@ -253,6 +243,7 @@ public class historiaClinicaView extends JFrame {
 		gbc_list.gridy = 2;
 		contentPane.add(scrollPacientes, gbc_list);
 		
+		//Botones
 		JPanel panel_botones = new JPanel();
 		GridBagConstraints gbc_panel_botones = new GridBagConstraints();
 		gbc_panel_botones.insets = new Insets(0, 10, 5, 5);
@@ -262,7 +253,7 @@ public class historiaClinicaView extends JFrame {
 		contentPane.add(panel_botones, gbc_panel_botones);
 		panel_botones.setLayout(new GridLayout(1, 0, 0, 0));
 		
-		JButton addButton = new JButton("");
+		addButton = new JButton("");
 		addButton.setIcon(new ImageIcon(adminView.class.getResource("/images/add.png")));
 		addButton.setBorder(null);
 		addButton.setBackground(SystemColor.menu);
@@ -271,7 +262,7 @@ public class historiaClinicaView extends JFrame {
 		JPanel panel_2 = new JPanel();
 		panel_botones.add(panel_2);
 		
-		JButton rmButton = new JButton("");
+		rmButton = new JButton("");
 		rmButton.setIcon(new ImageIcon(adminView.class.getResource("/images/subtract.png")));
 		rmButton.setBorder(null);
 		rmButton.setBackground(SystemColor.menu);
@@ -286,15 +277,26 @@ public class historiaClinicaView extends JFrame {
 		odontoButton.addActionListener(listenOdonto);
 	}*/
 	
-	public void addBusquedaListener(MouseListener listenMouse, ActionListener listenAction){
+	public void addBusquedaListener(MouseListener listenMouse, ActionListener listenAction, ActionListener listenAddPaciente){
 		textsearch.addMouseListener(listenMouse);
 		textsearch.addActionListener(listenAction);
 		odontoButton.addActionListener(listenAction);
 		listaNombres.addMouseListener(listenMouse);
+		backButton.addActionListener(listenAction);
+		addButton.addActionListener(listenAddPaciente);
+		rmButton.addActionListener(listenAction);
+	}
+	
+	public JButton getRemoveButton(){
+		return rmButton;
 	}
 	
 	public JTable getTablaDatos(){
 		return tablaDatos;
+	}
+	
+	public JButton getBackButton(){
+		return backButton;
 	}
 	
 	public JButton getOdontoButton(){

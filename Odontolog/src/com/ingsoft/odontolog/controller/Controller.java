@@ -41,7 +41,7 @@ public class Controller {
 		
 		
 		mView.historia.iniciarLista(ListModelPaciente.getInstance());
-		mView.historia.addBusquedaListener(new historiaMouseListener(), new historiaActionListener());
+		mView.historia.addBusquedaListener(new historiaMouseListener(), new historiaActionListener(), new AddPacienteListener());
 		
 		
 		//mView.odontograma.addDienteListener(new DienteListener());
@@ -121,6 +121,7 @@ public class Controller {
 		}
 	}
 	
+	//HistoriaClinicaView Listeners
 	class historiaMouseListener implements MouseListener{
 		@Override
 		public void mouseClicked(MouseEvent me) {
@@ -155,7 +156,9 @@ public class Controller {
 	class historiaActionListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if(e.getSource().equals(mView.historia.getBusquedaField())){
+			Object source = e.getSource();
+			//Busqueda
+			if(source.equals(mView.historia.getBusquedaField())){
 				String aux = mView.historia.getBusquedaField().getText();
 				int index = ListModelPaciente.getInstance().getPacientePorNombre(aux);
 				mView.historia.getListaDeNombres().setSelectedValue(ListModelPaciente.getInstance().getElementAt(index), false);
@@ -165,7 +168,8 @@ public class Controller {
 				mModel.llenarTabla(mView.historia.getTablaDatos(), paciente.getDatosCompletosTabla());
 			}
 			
-			if(e.getSource().equals(mView.historia.getOdontoButton())){
+			//Odontograma
+			if(source.equals(mView.historia.getOdontoButton())){
 				//Obtengo el paciente seleccionado
 				int index = mView.historia.getListaDeNombres().getSelectedIndex();
 				
@@ -177,46 +181,96 @@ public class Controller {
 					mView.newOdontograma(paciente.getNombreCompleto());
 					mView.odontograma.addDienteListener(new DienteListener());
 					mView.odontograma.refresh(mModel.getTratamientosPaciente(paciente));
-				}catch(Exception outOfBounds){
+				}catch(ArrayIndexOutOfBoundsException outOfBounds){
+					JOptionPane.showMessageDialog(null, "No se ha seleccionado un paciente \n INDEX: "+String.valueOf(index), "Error", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+			
+			//Boton Atras
+			if(source.equals(mView.historia.getBackButton())){
+				mView.historia.setVisible(false);
+				
+				try {
+					mView.menu.setVisible(true);
+				}catch(NullPointerException main_null){
+						JOptionPane.showMessageDialog(null, "ERROR: 404", "Error", JOptionPane.ERROR_MESSAGE);
+				}
+				
+				try{
+					mView.odontograma.setVisible(false);
+				}catch(NullPointerException odonto){
+					
+				}
+			}
+			
+			//Boton Quitar
+			if(source.equals(mView.historia.getRemoveButton())){
+				int index = mView.historia.getListaDeNombres().getSelectedIndex();
+				
+				try{
+					paciente = ListModelPaciente.getInstance().getPaciente(index);
+					
+					if (JOptionPane.showConfirmDialog(null, "¿Esta seguro que desea eliminar a: "+paciente.getNombreCompleto()+" ?", "ADVERTENCIA",
+					        JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+						
+						ListModelPaciente.getInstance().removePaciente(paciente);
+					}
+					
+				}catch(ArrayIndexOutOfBoundsException ex){
 					JOptionPane.showMessageDialog(null, "No se ha seleccionado un paciente \n INDEX: "+String.valueOf(index), "Error", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		}
 	}
 	
-	
+	//nuevoPacienteView Listener
 	class NuevoPacienteListener implements ActionListener{
 		public void actionPerformed (ActionEvent e) {
-			String nombre, apellido, dni, telefono, mail, direccion, medicoCabecera, peso, obraSocial, numeroOS, altura, factorSanguineo;
-			nombre = mView.nuevoPaciente.getNombre();
-			apellido = mView.nuevoPaciente.getApellido();
-			dni = mView.nuevoPaciente.getDni();
-			telefono = mView.nuevoPaciente.getTelefono();
-			mail = mView.nuevoPaciente.getMail();
-			direccion = mView.nuevoPaciente.getDireccion();
-			medicoCabecera = mView.nuevoPaciente.getMedicoCabecera();
-			peso = mView.nuevoPaciente.getPeso();
-			obraSocial = mView.nuevoPaciente.getObraSocial();
-			numeroOS = mView.nuevoPaciente.getNumOSi();
-			altura = mView.nuevoPaciente.getAltura();
-			factorSanguineo = mView.nuevoPaciente.getFactor();
-			if (mModel.addPacienteDB(nombre, apellido, dni, telefono, mail, direccion, medicoCabecera, peso, obraSocial, numeroOS, altura, factorSanguineo)) {
+			
+			Object source = e.getSource();
+			
+			//Boton Agregar
+			if(source.equals(mView.nuevoPaciente.getAddButton())){
+				String nombre, apellido, dni, telefono, mail, direccion, medicoCabecera, 
+				peso, obraSocial, numeroOS, altura, factorSanguineo;
+		
+				nombre = mView.nuevoPaciente.getNombre();
+				apellido = mView.nuevoPaciente.getApellido();
+				dni = mView.nuevoPaciente.getDni();
+				telefono = mView.nuevoPaciente.getTelefono();
+				mail = mView.nuevoPaciente.getMail();
+				direccion = mView.nuevoPaciente.getDireccion();
+				medicoCabecera = mView.nuevoPaciente.getMedicoCabecera();
+				peso = mView.nuevoPaciente.getPeso();
+				obraSocial = mView.nuevoPaciente.getObraSocial();
+				numeroOS = mView.nuevoPaciente.getNumOSi();
+				altura = mView.nuevoPaciente.getAltura();
+				factorSanguineo = mView.nuevoPaciente.getFactor();
+				
+				if (mModel.addPacienteDB(nombre, apellido, dni, telefono, mail, direccion, medicoCabecera, peso, obraSocial, numeroOS, altura, factorSanguineo)) {
+					mView.nuevoPaciente.setVisible(false);
+				}
+			}
+			
+			//Boton Cancelar
+			if(source.equals(mView.nuevoPaciente.getCancelButton())){
 				mView.nuevoPaciente.setVisible(false);
 			}
+			
 		}
 	}
 	
-	class CancelListener implements ActionListener{
-		public void actionPerformed (ActionEvent e) {
-			mView.nuevoPaciente.setVisible(false);
-		}
-	}
+//	class CancelListener implements ActionListener{
+//		public void actionPerformed (ActionEvent e) {
+//			mView.nuevoPaciente.setVisible(false);
+//		}
+//	}
 	
-	class AddListener implements ActionListener{
+	//AgregarUnNuevoPaciente Listener
+	class AddPacienteListener implements ActionListener{
 		public void actionPerformed (ActionEvent e) {
 			mView.newAgregarPaciente();
 			mView.nuevoPaciente.addNuevoPacienteListener(new NuevoPacienteListener());
-			mView.nuevoPaciente.addCancelListener(new CancelListener());
 		}
 	}
 	

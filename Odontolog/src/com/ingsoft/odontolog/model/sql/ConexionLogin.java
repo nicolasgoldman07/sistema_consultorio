@@ -2,6 +2,7 @@ package com.ingsoft.odontolog.model.sql;
 import java.sql.*;
 
 
+
 /**
  * Clase que permite conectar con la base de datos
 **/
