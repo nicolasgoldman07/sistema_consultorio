@@ -24,6 +24,7 @@ public class Controller {
 		this.mModel = m;
 		mView.newLogin();
 		mView.login.addLoginListener(new LoginListener());
+		mModel.llenarLista();
 		
 		//mView.newMenu();
 		//mView.menu.addMenuListeners(new menuListener());
@@ -119,6 +120,7 @@ public class Controller {
 	class AgregarTurnoListener implements ActionListener{
 		public void actionPerformed (ActionEvent e) {
 			mView.newAgregarTurno();
+			mView.nuevoTurno.iniciarLista(ListModelPaciente.getInstance());
 			mView.nuevoTurno.setVisible(true);
 			mView.nuevoTurno.addConfirmarTurnoListener(new ConfirmarTurnoListener());
 			

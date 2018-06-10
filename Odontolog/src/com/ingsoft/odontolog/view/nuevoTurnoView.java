@@ -31,6 +31,7 @@ import java.awt.Component;
 import javax.swing.border.LineBorder;
 import javax.swing.JTable;
 import javax.swing.JToggleButton;
+import javax.swing.ListModel;
 import javax.swing.JSlider;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -243,7 +244,7 @@ public class nuevoTurnoView extends JFrame {
 		contentPane.add(textField, gbc_textField);
 		
 		listaPacientes = new JList();
-		listaPacientes.setModel(new AbstractListModel() {
+		/*listaPacientes.setModel(new AbstractListModel() {
 			String[] values = new String[] {"ShrekHumano"};
 			public int getSize() {
 				return values.length;
@@ -251,7 +252,7 @@ public class nuevoTurnoView extends JFrame {
 			public Object getElementAt(int index) {
 				return values[index];
 			}
-		});
+		});*/
 		listaPacientes.setFont(new Font("Yu Gothic UI Semilight", Font.PLAIN, 16));
 		GridBagConstraints gbc_listaPacientes = new GridBagConstraints();
 		gbc_listaPacientes.insets = new Insets(0, 0, 5, 0);
@@ -355,6 +356,10 @@ public class nuevoTurnoView extends JFrame {
 	
 	public String getPaciente() {
 		return listaPacientes.getSelectedValue().toString();
+	}
+	
+	public void iniciarLista(ListModel modelo){
+		listaPacientes.setModel(modelo);
 	}
 	
 	
