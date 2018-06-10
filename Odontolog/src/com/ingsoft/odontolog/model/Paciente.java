@@ -17,7 +17,9 @@ public class Paciente implements Comparable {
 	private String mail;
 	private String direccion;
 	private String grupoSanguineo;
+	
 	private Odontograma historiaC;
+	
 	private CompararStrategy orden;
 	
 	private HashMap<String, String> datos = new HashMap<String, String>();
