@@ -27,8 +27,8 @@ public class Controller {
 		
 		this.mView = v;
 		this.mModel = m;
-		//mView.newLogin();
-		//mView.login.addLoginListener(new LoginListener());
+		mView.newLogin();
+		mView.login.addLoginListener(new LoginListener());
 		
 		//mView.newMenu();
 		//mView.menu.addMenuListeners(new menuListener());
@@ -38,19 +38,17 @@ public class Controller {
 		
 		mModel.llenarLista();
 		
-		mView.newHistoriaClinica();
+		//mView.newHistoriaClinica();
 		//mView.odontograma.addDienteListener(new DienteListener());
-		
-		
 		
 		mView.historia.iniciarLista(listaPacientes);
 		mView.historia.addBusquedaListener(new historiaMouseListener(), new historiaActionListener(), new AddPacienteListener());
-		
 		
 		//mView.odontograma.addDienteListener(new DienteListener());
 		
 		//mView.newAdministracion();
 		//mView.administracion.iniciarLista(ListModelPaciente.getInstance());
+		//mView.administracion.addAdminListener(new AdminListener());
 
 
 	}
@@ -84,8 +82,8 @@ public class Controller {
 			}
 			if(source.equals(mView.menu.getAdminBttn())){
 				mView.newAdministracion();
-				//mView.administracion.addAddListener (new AddListener());
-				//mView.administracion.addBackListener(new BackListener());
+				mView.administracion.addAdminListener(new AdminListener());
+			
 			}
 			if(source.equals(mView.menu.getAgendaBttn())){
 				mView.newAgenda();
@@ -102,13 +100,9 @@ public class Controller {
 			}catch(NullPointerException agenda_null) {
 				
 			}
-			try {
-				mView.administracion.setVisible(false);
-			}catch(NullPointerException admin_null){
-			
-			}
 			mView.menu.setVisible(true);
 		}
+		
 	}
 	
 	class DienteListener implements ActionListener{
@@ -220,7 +214,7 @@ public class Controller {
 				try{
 					paciente = listaPacientes.getPaciente(index);
 					
-					if (JOptionPane.showConfirmDialog(null, "¿Esta seguro que desea eliminar a: "+paciente.getNombreCompleto()+" ?", "ADVERTENCIA",
+					if (JOptionPane.showConfirmDialog(null, "ï¿½Esta seguro que desea eliminar a: "+paciente.getNombreCompleto()+" ?", "ADVERTENCIA",
 					        JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 						
 						//Lo remuevo de la base de datos
@@ -250,6 +244,7 @@ public class Controller {
 		}
 	}
 	
+
 	//nuevoPacienteView Listener
 	class NuevoPacienteListener implements ActionListener{
 		public void actionPerformed (ActionEvent e) {
@@ -301,9 +296,32 @@ public class Controller {
 		}
 	}
 	
-	
-	
-	
-	
-	
+	//BOTONES DE LA VISTA ADMINISTRACION
+	class AdminListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			Object source = e.getSource();
+			
+			//BOTON "ATRAS" (REGRESA AL MENU PRINCIPAL)
+			if (source.equals(mView.administracion.getBackButton())) {
+				try {
+					mView.administracion.setVisible(false);
+				}catch(NullPointerException admin_null){
+				
+				}
+				mView.menu.setVisible(true);
+			}
+
+			//BOTON AGREGAR TRATAMIENTO
+			/*if (source.equals(mView.administracion.getAddButton())) {
+				
+			}*/
+			
+			
+			
+		}	
+		
+	}	
+		
 }
