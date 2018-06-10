@@ -57,7 +57,7 @@ public class historiaClinicaView extends JFrame {
 	public historiaClinicaView() {
 		setTitle("Historia Clinica");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setMinimumSize(new Dimension(600, 300));
+		this.setMinimumSize(new Dimension(720, 500));
 		//setBounds(100, 100, 1280, 720);
 		GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		this.setMaximizedBounds(env.getMaximumWindowBounds());

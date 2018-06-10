@@ -40,6 +40,7 @@ public class principalView extends JFrame {
 	private JPanel	panel;
 	private JButton btnAdmin;
 	private JPanel panel_2;
+	private JButton btnHistoria;
 
 	
 	public principalView() {
@@ -85,7 +86,7 @@ public class principalView extends JFrame {
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
 		
-		JButton btnHistoria = new JButton("");
+		btnHistoria = new JButton("");
 		btnHistoria.setForeground(SystemColor.activeCaption);
 		btnHistoria.setBounds(32, 96, 151, 151);
 		panel_1.add(btnHistoria);
@@ -150,6 +151,7 @@ public class principalView extends JFrame {
 		logoutButton.addActionListener(listenMenu);
 		btnAgenda.addActionListener(listenMenu);
 		btnAdmin.addActionListener(listenMenu);
+		btnHistoria.addActionListener(listenMenu);
 	}
 	
 	public JButton getLougoutBttn(){
@@ -160,5 +162,8 @@ public class principalView extends JFrame {
 	}
 	public JButton getAdminBttn(){
 		return btnAdmin;
+	}
+	public JButton getHistoriaBttn(){
+		return btnHistoria;
 	}
 }

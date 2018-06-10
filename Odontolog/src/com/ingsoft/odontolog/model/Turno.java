@@ -3,7 +3,7 @@ package com.ingsoft.odontolog.model;
 import java.util.HashMap;
 import java.util.Vector;
 
-public class Turno {
+public class Turno implements Comparable{
 	private String fecha;
 	private String horario;
 	private String tratamiento;
@@ -49,6 +49,13 @@ public class Turno {
 		}
 		
 		return vector_datos;
+	}
+
+	@Override
+	public int compareTo(Object other) {
+		Turno otherTurno = (Turno) other;
+		return getDato("horario").compareToIgnoreCase(otherTurno.getDato("horario"));
+		
 	}
 	
 }

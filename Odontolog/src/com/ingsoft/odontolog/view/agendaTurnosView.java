@@ -105,6 +105,7 @@ public class agendaTurnosView extends JFrame{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		this.setMaximizedBounds(env.getMaximumWindowBounds());
+		this.setMinimumSize(new Dimension(720, 500));
         this.setExtendedState(this.getExtendedState() | this.MAXIMIZED_BOTH);
 		
 		contentPane = new JPanel();
@@ -458,6 +459,10 @@ public class agendaTurnosView extends JFrame{
 	}
 	public JButton getBackButton(){
 		return backButton;
+	}
+	
+	public CalendarPanel getCalendario(){
+		return calendarPanel;
 	}
     
 }

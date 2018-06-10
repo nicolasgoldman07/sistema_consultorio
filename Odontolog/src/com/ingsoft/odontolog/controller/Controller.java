@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 
 import javax.swing.JOptionPane;
@@ -28,6 +30,7 @@ public class Controller {
 	private String[] ordenes = {"Alfabeticamente", "Por Nombre", "Por Dni"};
 	private ListModelPaciente listaPacientes = ListModelPaciente.getInstance();
 	private ListaDeTurnos listaTurnos = ListaDeTurnos.getInstance();
+	private String fechaSeleccionada = "";
 
 	public Controller(View v, Model m){
 		
@@ -87,20 +90,26 @@ public class Controller {
 		public void actionPerformed(ActionEvent e) {
 			mView.menu.setVisible(false);
 			Object source = e.getSource();
+			//Boton LogOut
 			if(source.equals(mView.menu.getLougoutBttn())){
 				mView.login.setVisible(true);
 			}
+			//Boton Administracion View
 			if(source.equals(mView.menu.getAdminBttn())){
 				mView.newAdministracion();
 				mView.administracion.addAdminListener(new AdminListener());
-			
 			}
+			//Boton Agenda de Turnos View
 			if(source.equals(mView.menu.getAgendaBttn())){
 				mView.newAgenda();
 				mView.agenda.addCalendarListener(new CalendarioListener());
 				mView.agenda.addAgendaListener(new AgendaDeTurnosListener());
-//				mView.agenda.addBackListener(new BackListener());
-//				mView.agenda.addAgregarTurnoListener(new AgregarTurnoListener());
+			}
+			//Boton Historia Clinica View
+			if(source.equals(mView.menu.getHistoriaBttn())){
+				mView.newHistoriaClinica();
+				mView.historia.iniciarLista(listaPacientes);
+				mView.historia.addBusquedaListener(new historiaMouseListener(), new historiaActionListener(), new AddPacienteListener());
 			}
 		}
 	}
@@ -118,6 +127,13 @@ public class Controller {
 				mView.nuevoTurno.iniciarLista(ListModelPaciente.getInstance());
 				mView.nuevoTurno.setVisible(true);
 				mView.nuevoTurno.addConfirmarTurnoListener(new ConfirmarTurnoListener());
+				
+				try {
+					mView.nuevoTurno.getDateChooser().setDate(new SimpleDateFormat("dd/MM/yyyy").parse(fechaSeleccionada));
+				} catch (ParseException e1) {
+					
+				}
+				
 			}
 			
 			//Boton Atras
@@ -172,7 +188,7 @@ public class Controller {
             	mesSeleccionado = "0"+String.valueOf(newDate.getMonthValue());
             }
             
-            String fechaSeleccionada = diaSeleccionado+"/"+mesSeleccionado+"/"+anoSeleccionado;
+            fechaSeleccionada = diaSeleccionado+"/"+mesSeleccionado+"/"+anoSeleccionado;
             mView.agenda.getFechaSeleccion().setText(fechaSeleccionada);
             
             mModel.llenarTablaTurnos(mView.agenda.getTabla(), listaTurnos.getTurnosPorDia(fechaSeleccionada));

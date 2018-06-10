@@ -255,9 +255,11 @@ public class Model {
 				}
 				turno.setDatos(datos.get(0), datos.get(1), datos.get(2), 
 						datos.get(3), datos.get(4), datos.get(5), datos.get(6));
-				System.out.println(turno.getDato(Turno.campos[6]));
 				listaTurnos.addTurno(turno);
 			}
+			
+			listaTurnos.Ordenar();
+			
 			rs.close();
 			estatuto.close();
 			conex.desconectar();
@@ -309,7 +311,6 @@ public class Model {
 		try{
 			for(int i=0; i<datos.size(); i++){
 				for(int j=0; j<datos.get(i).size(); j++){
-					System.out.println(String.valueOf(datos.get(i).get(j)));
 					tabla.getModel().setValueAt(datos.get(i).get(j), i, j);
 				}
 			}
@@ -327,7 +328,6 @@ public class Model {
 		try{
 			for(int i=0; i<datos.size(); i++){
 				for(int j=1; j<5; j++){
-					System.out.println(String.valueOf(datos.get(i).get(j)));
 					tabla.getModel().setValueAt(datos.get(i).get(j), i, j);
 				}
 			}

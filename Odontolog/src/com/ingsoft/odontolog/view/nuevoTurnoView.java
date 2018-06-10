@@ -180,7 +180,7 @@ public class nuevoTurnoView extends JFrame {
 		contentPane.add(lblOdontologo, gbc_lblOdontologo);
 		
 		comboBoxHoriarios = new JComboBox();
-		comboBoxHoriarios.setModel(new DefaultComboBoxModel(new String[] {"7:00", "7:30", "8:00", "8:30", "9:00", "9:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30", "18:00", "18:30", "19:00", "19:30", "20:00", "20:30", "21:00", "21:30", "22:00", "22:30"}));
+		comboBoxHoriarios.setModel(new DefaultComboBoxModel(new String[] {"07:00", "07:30", "08:00", "08:30", "09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30", "18:00", "18:30", "19:00", "19:30", "20:00", "20:30", "21:00", "21:30", "22:00", "22:30"}));
 		comboBoxHoriarios.setToolTipText("");
 		GridBagConstraints gbc_comboBoxHoriarios = new GridBagConstraints();
 		gbc_comboBoxHoriarios.gridwidth = 3;
@@ -244,15 +244,6 @@ public class nuevoTurnoView extends JFrame {
 		contentPane.add(textField, gbc_textField);
 		
 		listaPacientes = new JList();
-		/*listaPacientes.setModel(new AbstractListModel() {
-			String[] values = new String[] {"ShrekHumano"};
-			public int getSize() {
-				return values.length;
-			}
-			public Object getElementAt(int index) {
-				return values[index];
-			}
-		});*/
 		listaPacientes.setFont(new Font("Yu Gothic UI Semilight", Font.PLAIN, 16));
 		GridBagConstraints gbc_listaPacientes = new GridBagConstraints();
 		gbc_listaPacientes.insets = new Insets(0, 0, 5, 0);
@@ -324,6 +315,9 @@ public class nuevoTurnoView extends JFrame {
 		confirmarTurnoBtn.addActionListener(listenConfirmar);
 	}
 	
+	public JDateChooser getDateChooser(){
+		return dateChooser;
+	}
 	
 	public String getFecha() {
 		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");

@@ -78,7 +78,7 @@ public class adminView extends JFrame {
 		GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		this.setMaximizedBounds(env.getMaximumWindowBounds());
         this.setExtendedState(this.getExtendedState() | this.MAXIMIZED_BOTH);
-        this.setMinimumSize(new Dimension(600, 300));
+        this.setMinimumSize(new Dimension(720, 500));
 		
         //Contenedor-Panel General
 		contentPane = new JPanel();
