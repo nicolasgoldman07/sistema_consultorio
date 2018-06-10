@@ -4,12 +4,19 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 
 import javax.swing.JOptionPane;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 
+import com.github.lgooddatepicker.optionalusertools.CalendarListener;
+import com.github.lgooddatepicker.zinternaltools.CalendarSelectionEvent;
+import com.github.lgooddatepicker.zinternaltools.YearMonthChangeEvent;
 import com.ingsoft.odontolog.model.ListModelPaciente;
+import com.ingsoft.odontolog.model.ListaDeTurnos;
 import com.ingsoft.odontolog.model.Model;
 import com.ingsoft.odontolog.model.Paciente;
 import com.ingsoft.odontolog.view.View;
@@ -22,6 +29,8 @@ public class Controller {
 	private int tipoOrden = 0;
 	private String[] ordenes = {"Alfabeticamente", "Por Nombre", "Por Dni"};
 	private ListModelPaciente listaPacientes = ListModelPaciente.getInstance();
+	private ListaDeTurnos listaTurnos = ListaDeTurnos.getInstance();
+	private String fechaSeleccionada = "";
 
 	public Controller(View v, Model m){
 		
@@ -29,6 +38,10 @@ public class Controller {
 		this.mModel = m;
 		mView.newLogin();
 		mView.login.addLoginListener(new LoginListener());
+
+		mModel.llenarLista();
+		mModel.llenarListaDeTurnos();
+
 		
 		//mView.newMenu();
 		//mView.menu.addMenuListeners(new menuListener());
@@ -36,13 +49,13 @@ public class Controller {
 		//mView.menu.addAgendaListener(new AgendaListener());
 		//mView.newOdontograma();
 		
-		mModel.llenarLista();
+		//mModel.llenarLista();
 		
 		//mView.newHistoriaClinica();
 		//mView.odontograma.addDienteListener(new DienteListener());
 		
-		mView.historia.iniciarLista(listaPacientes);
-		mView.historia.addBusquedaListener(new historiaMouseListener(), new historiaActionListener(), new AddPacienteListener());
+//		mView.historia.iniciarLista(listaPacientes);
+//		mView.historia.addBusquedaListener(new historiaMouseListener(), new historiaActionListener(), new AddPacienteListener());
 		
 		//mView.odontograma.addDienteListener(new DienteListener());
 		
@@ -77,32 +90,113 @@ public class Controller {
 		public void actionPerformed(ActionEvent e) {
 			mView.menu.setVisible(false);
 			Object source = e.getSource();
+			//Boton LogOut
 			if(source.equals(mView.menu.getLougoutBttn())){
 				mView.login.setVisible(true);
 			}
+			//Boton Administracion View
 			if(source.equals(mView.menu.getAdminBttn())){
 				mView.newAdministracion();
 				mView.administracion.addAdminListener(new AdminListener());
-			
 			}
+			//Boton Agenda de Turnos View
 			if(source.equals(mView.menu.getAgendaBttn())){
 				mView.newAgenda();
-				mView.agenda.addBackListener(new BackListener());
+				mView.agenda.addCalendarListener(new CalendarioListener());
+				mView.agenda.addAgendaListener(new AgendaDeTurnosListener());
+			}
+			//Boton Historia Clinica View
+			if(source.equals(mView.menu.getHistoriaBttn())){
+				mView.newHistoriaClinica();
+				mView.historia.iniciarLista(listaPacientes);
+				mView.historia.addBusquedaListener(new historiaMouseListener(), new historiaActionListener(), new AddPacienteListener());
 			}
 		}
 	}
 	
-	class BackListener implements ActionListener{
+	
+	//Agenda de Turnos Listeners
+	class AgendaDeTurnosListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			try {
-				mView.agenda.setVisible(false);
-			}catch(NullPointerException agenda_null) {
+			Object source = e.getSource();
+			
+			//Boton Agregar Turno
+			if(source.equals(mView.agenda.getAgregarButton())){
+				mView.newAgregarTurno();
+				mView.nuevoTurno.iniciarLista(ListModelPaciente.getInstance());
+				mView.nuevoTurno.setVisible(true);
+				mView.nuevoTurno.addConfirmarTurnoListener(new ConfirmarTurnoListener());
+				
+				try {
+					mView.nuevoTurno.getDateChooser().setDate(new SimpleDateFormat("dd/MM/yyyy").parse(fechaSeleccionada));
+				} catch (ParseException e1) {
+					
+				}
 				
 			}
-			mView.menu.setVisible(true);
+			
+			//Boton Atras
+			if(source.equals(mView.agenda.getBackButton())){
+				mView.agenda.setVisible(false);
+				mView.menu.setVisible(true);
+			}
 		}
-		
+	}
+	
+	//Nuevo Turno Listener
+	class ConfirmarTurnoListener implements ActionListener{
+		public void actionPerformed (ActionEvent e) {
+			String fecha, horario, tratamiento, diente, odontologo, paciente;
+			int duracion;
+			fecha = mView.nuevoTurno.getFecha();
+			horario = mView.nuevoTurno.getHorario();
+			duracion = mView.nuevoTurno.getDuracion();
+			tratamiento = mView.nuevoTurno.getTratamiento();
+			diente = mView.nuevoTurno.getDiente();
+			odontologo = mView.nuevoTurno.getOdontologo();
+			
+			try{
+				paciente = mView.nuevoTurno.getPaciente();
+				if (mModel.addTurnoDB(fecha, horario, tratamiento, duracion, diente, odontologo, paciente)){
+					mView.nuevoTurno.setVisible(false);
+				}
+			}catch(Exception ex){
+				JOptionPane.showMessageDialog(null, "No se ha seleccionado un paciente", "Error", JOptionPane.ERROR_MESSAGE);
+			}
+		}
+	}
+	
+	//Listener Para El Calendario
+	class CalendarioListener implements CalendarListener {
+        @Override
+        public void selectedDateChanged(CalendarSelectionEvent event) {
+            LocalDate newDate = event.getNewDate();
+            String diaSeleccionado;
+            String mesSeleccionado;
+            String anoSeleccionado = String.valueOf(newDate.getYear());
+            
+            if(newDate.getDayOfMonth() >= 10){
+            	diaSeleccionado = String.valueOf(newDate.getDayOfMonth());
+            }else{
+            	diaSeleccionado = "0"+String.valueOf(newDate.getDayOfMonth());
+            }
+            
+            if(newDate.getMonthValue() >= 10){
+            	mesSeleccionado = String.valueOf(newDate.getMonthValue());
+            } else{
+            	mesSeleccionado = "0"+String.valueOf(newDate.getMonthValue());
+            }
+            
+            fechaSeleccionada = diaSeleccionado+"/"+mesSeleccionado+"/"+anoSeleccionado;
+            mView.agenda.getFechaSeleccion().setText(fechaSeleccionada);
+            
+            mModel.llenarTablaTurnos(mView.agenda.getTabla(), listaTurnos.getTurnosPorDia(fechaSeleccionada));
+        }
+
+        @Override
+        public void yearMonthChanged(YearMonthChangeEvent event) {
+        }
 	}
 	
 	class DienteListener implements ActionListener{
@@ -124,9 +218,6 @@ public class Controller {
 		public void mouseClicked(MouseEvent me) {
 			
 			Object source = me.getSource();
-			
-			
-			
 			
 			//Click en panel de busqueda
 			if(source.equals(mView.historia.getBusquedaField())){
@@ -282,12 +373,6 @@ public class Controller {
 		}
 	}
 	
-//	class CancelListener implements ActionListener{
-//		public void actionPerformed (ActionEvent e) {
-//			mView.nuevoPaciente.setVisible(false);
-//		}
-//	}
-	
 	//AgregarUnNuevoPaciente Listener
 	class AddPacienteListener implements ActionListener{
 		public void actionPerformed (ActionEvent e) {
@@ -316,12 +401,9 @@ public class Controller {
 			//BOTON AGREGAR TRATAMIENTO
 			/*if (source.equals(mView.administracion.getAddButton())) {
 				
-			}*/
-			
-			
-			
+			}*/	
 		}	
+	}
 		
-	}	
-		
+
 }

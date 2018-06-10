@@ -19,6 +19,7 @@ import javax.swing.table.TableModel;
 
 import com.ingsoft.odontolog.model.sql.ConexionLogin;
 import com.ingsoft.odontolog.model.sql.ConexionPacientes;
+import com.ingsoft.odontolog.model.sql.ConexionTurnos;
 
 
 public class Model {
@@ -26,16 +27,21 @@ public class Model {
 	private ConexionLogin con = null;
 	private PreparedStatement pst = null;
 	private ResultSet rs = null;
-	private String sqlLoginCommand = "";
+	private String sqlLoginCommand;
 	private String sqlAddingCommand;
+	private String sqlTurnosCommand;
 	private ConexionPacientes conP;
+	private ConexionTurnos conT;
 	
 	
 	private int aux = 0;
-	private ListModelPaciente listaPacientes;
+	
+	private ListModelPaciente listaPacientes = ListModelPaciente.getInstance();
+	private ListaDeTurnos listaTurnos = ListaDeTurnos.getInstance();
+	
 	
 	public Model(){
-		listaPacientes = ListModelPaciente.getInstance();
+		
 	}
 	
 	
@@ -173,8 +179,99 @@ public class Model {
 		}
 	}
 	
-	public void llenarLista() {
+	
+	//Añadir Turnos a la Base de Datos
+	public boolean addTurnoDB(String date, String time, String treatement, int duration, String tooth, String dentist, String pacient) {
+		sqlTurnosCommand = "INSERT INTO turnos (fecha, horario, tratamiento, diente, "
+				+ "odontologo, paciente, duracion) "
+				+ "VALUES (?, ?, ?, ?, ?, ?, ?)" ;
+		conT = new ConexionTurnos();
+		try {
+			pst = conT.getConnection().prepareStatement(sqlTurnosCommand);
+			pst.setString(1, date);
+			pst.setString(2, time);
+			pst.setString(3, treatement);
+			pst.setString(4, tooth);
+			pst.setString(5, dentist);
+			pst.setString(6, pacient);
+			pst.setInt(7, duration);
+			if(pst.executeUpdate() == 1) {
+				conT.desconectar();
+				añadirUltimoTurno();
+				return true;
+			}
+			else {
+				JOptionPane.showMessageDialog(null, "La cagaste");
+				return false;
+			}
+		} catch(SQLException | HeadlessException | NullPointerException ex){
+			JOptionPane.showMessageDialog(null, ex);
+			return false;
+		}
+	}
+	//Añadir el Nuevo Turno a la Lista de Turnos
+	public void añadirUltimoTurno(){
+		ConexionLogin conex = new ConexionLogin();
+		try {
+			Statement estatuto = conex.getConnection().createStatement();
+			ResultSet rs = estatuto.executeQuery("SELECT * FROM turnos");
+			
+			rs.last();
+			
+			Vector<String> datos = new Vector<String>();
+			Turno turno = new Turno();
+			
+			for (int i = 1; i < Turno.campos.length+1; i++){
+				datos.addElement(String.valueOf(rs.getObject(i)).toUpperCase());	
+			}
+		
+			turno.setDatos(datos.get(0), datos.get(1), datos.get(2), 
+					datos.get(3), datos.get(4), datos.get(5), datos.get(6));
+			
+			listaTurnos.addTurno(turno);
+			
+			rs.close();
+			estatuto.close();
+			conex.desconectar();
 
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			JOptionPane.showMessageDialog(null, "Error al consultar", "Error",
+					JOptionPane.ERROR_MESSAGE);
+		}
+	}
+	public void llenarListaDeTurnos() {
+		ConexionLogin conex = new ConexionLogin();
+		
+		try {
+			Statement estatuto = conex.getConnection().createStatement();
+			ResultSet rs = estatuto.executeQuery("SELECT * FROM turnos");
+			while (rs.next()) {
+				Vector<String> datos = new Vector<String>();
+				Turno turno = new Turno();
+				for (int i = 1; i < Turno.campos.length+1; i++){
+					datos.addElement(String.valueOf(rs.getObject(i)).toUpperCase());
+					
+				}
+				turno.setDatos(datos.get(0), datos.get(1), datos.get(2), 
+						datos.get(3), datos.get(4), datos.get(5), datos.get(6));
+				listaTurnos.addTurno(turno);
+			}
+			
+			listaTurnos.Ordenar();
+			
+			rs.close();
+			estatuto.close();
+			conex.desconectar();
+
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			JOptionPane.showMessageDialog(null, "Error al consultar", "Error",
+					JOptionPane.ERROR_MESSAGE);
+		}
+	}
+	
+	public void llenarLista() {
 		ConexionLogin conex = new ConexionLogin();
 		
 		try {
@@ -193,10 +290,7 @@ public class Model {
 				
 				listaPacientes.addPaciente(paciente);
 			}
-			
 			listaPacientes.setOrdenarStrategy(new OrdenarAlfabeticamente());
-			
-			
 			rs.close();
 			estatuto.close();
 			conex.desconectar();
@@ -205,15 +299,40 @@ public class Model {
 			System.out.println(e.getMessage());
 			JOptionPane.showMessageDialog(null, "Error al consultar", "Error",
 					JOptionPane.ERROR_MESSAGE);
-
 		}
 	}
 	
 	public void llenarTabla(JTable tabla, Vector<Vector<String>> datos){
-		for(int i=0; i<datos.size(); i++){
-			for(int j=0; j<datos.get(i).size(); j++){
-				tabla.getModel().setValueAt(datos.get(i).get(j), i, j);
+		for(int i=0; i<tabla.getModel().getRowCount(); i++){
+			for(int j=0; j<tabla.getModel().getColumnCount(); j++){
+				tabla.getModel().setValueAt(" ", i, j);
 			}
+		}
+		try{
+			for(int i=0; i<datos.size(); i++){
+				for(int j=0; j<datos.get(i).size(); j++){
+					tabla.getModel().setValueAt(datos.get(i).get(j), i, j);
+				}
+			}
+		}catch(Exception ex){
+	
+		}
+	}
+	
+	public void llenarTablaTurnos(JTable tabla, Vector<Vector<String>> datos){
+		for(int i=0; i<tabla.getModel().getRowCount(); i++){
+			for(int j=0; j<4; j++){
+				tabla.getModel().setValueAt(" ", i, j+1);
+			}
+		}
+		try{
+			for(int i=0; i<datos.size(); i++){
+				for(int j=1; j<5; j++){
+					tabla.getModel().setValueAt(datos.get(i).get(j), i, j);
+				}
+			}
+		}catch(Exception ex){
+	
 		}
 	}
 	

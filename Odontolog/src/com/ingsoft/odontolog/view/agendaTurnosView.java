@@ -12,6 +12,8 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.YearMonth;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -33,15 +35,22 @@ import com.toedter.calendar.JDayChooser;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
-
 import java.awt.FlowLayout;
 import java.awt.BorderLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import javax.swing.BoxLayout;
 import com.jgoodies.forms.layout.FormLayout;
+import com.github.lgooddatepicker.components.CalendarPanel;
+import com.github.lgooddatepicker.components.DatePickerSettings;
+import com.github.lgooddatepicker.optionalusertools.CalendarListener;
+import com.github.lgooddatepicker.optionalusertools.DateChangeListener;
+import com.github.lgooddatepicker.optionalusertools.PickerUtilities;
+import com.github.lgooddatepicker.zinternaltools.CalendarSelectionEvent;
+import com.github.lgooddatepicker.zinternaltools.YearMonthChangeEvent;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
+import com.privatejgoodies.forms.factories.CC;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JComboBox;
@@ -51,20 +60,26 @@ import javax.swing.JTextField;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.ListSelectionModel;
+import javax.swing.JSeparator;
+import java.awt.ComponentOrientation;
+import javax.swing.SpringLayout;
+import javax.swing.DebugGraphics;
+import java.awt.Cursor;
 
 public class agendaTurnosView extends JFrame{
 
 	private JPanel contentPane;
 	private JTable table;
-	private JTextField fecha;
 	private JButton backButton;
-	private JPanel panel_1;
-	private JCalendar calendar;
+	private JPanel panelBtnAtras;
 	private JPanel panel_2;
-	private JCalendar calendar_1;
 	private Date mesSiguiente;
 	private Calendar calendario1;
-	private Calendar calendario;
+	private CalendarPanel calendarPanel;
+	private static JTextField fechaSeleccion;
+	private JButton agregarBtn;
+	//private Calendar calendario;
+	//private JPanel panel;
 
 	
 	/**
@@ -90,6 +105,7 @@ public class agendaTurnosView extends JFrame{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		this.setMaximizedBounds(env.getMaximumWindowBounds());
+		this.setMinimumSize(new Dimension(720, 500));
         this.setExtendedState(this.getExtendedState() | this.MAXIMIZED_BOTH);
 		
 		contentPane = new JPanel();
@@ -97,84 +113,100 @@ public class agendaTurnosView extends JFrame{
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JPanel panel = new JPanel();
-		panel.setBounds(82, 0, 818, 77);
-		panel.setBackground(SystemColor.inactiveCaption);
-		contentPane.add(panel);
-		panel.setLayout(null);
+		JPanel panelTitulo = new JPanel();
+		panelTitulo.setBounds(77, 0, 834, 83);
+		panelTitulo.setBackground(SystemColor.activeCaption);
+		contentPane.add(panelTitulo);
+		panelTitulo.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Agenda de Turnos");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(10, 0, 502, 71);
-		panel.add(lblNewLabel);
+		lblNewLabel.setBounds(10, 11, 502, 64);
+		panelTitulo.add(lblNewLabel);
 		lblNewLabel.setFont(new Font("Yu Gothic UI Semilight", Font.BOLD, 48));
 		
-		panel_1 = new JPanel();
-		panel_1.setBounds(0, 0, 84, 77);
-		panel_1.setBackground(SystemColor.activeCaption);
-		contentPane.add(panel_1);
-		panel_1.setLayout(null);
+		panelBtnAtras = new JPanel();
+		panelBtnAtras.setBounds(0, 0, 77, 83);
+		panelBtnAtras.setBackground(SystemColor.activeCaption);
+		contentPane.add(panelBtnAtras);
+		panelBtnAtras.setLayout(null);
 		
 		backButton = new JButton("ATRAS");
+		backButton.setHorizontalTextPosition(SwingConstants.CENTER);
+		backButton.setHorizontalAlignment(SwingConstants.LEFT);
+		backButton.setVerticalTextPosition(SwingConstants.BOTTOM);
 		backButton.setFont(new Font("Yu Gothic UI Semilight", Font.BOLD, 11));
 		backButton.setForeground(SystemColor.activeCaptionText);
 		backButton.setBackground(SystemColor.activeCaption);
-	    backButton.setVerticalTextPosition(SwingConstants.BOTTOM);
-	    backButton.setHorizontalTextPosition(SwingConstants.CENTER);
 		backButton.setIcon(new ImageIcon(agendaTurnosView.class.getResource("/images/espalda.png")));
-		backButton.setBounds(0, 0, 84, 77);
-		panel_1.add(backButton);
-		
-		JLabel lblAtras = new JLabel("ATRAS");
-		lblAtras.setBounds(0, 63, 62, 14);
-		panel_1.add(lblAtras);
-		lblAtras.setForeground(SystemColor.desktop);
-		lblAtras.setHorizontalAlignment(SwingConstants.CENTER);
+		backButton.setBounds(0, 0, 77, 84);
+		panelBtnAtras.add(backButton);
 		
 		JPanel panel_5 = new JPanel();
+		panel_5.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 		panel_5.setBackground(SystemColor.inactiveCaption);
-		panel_5.setBounds(910, 0, 1032, 1038);
+		panel_5.setBounds(910, 0, 1038, 1038);
 		contentPane.add(panel_5);
-		panel_5.setLayout(null);
+		SpringLayout sl_panel_5 = new SpringLayout();
+		panel_5.setLayout(sl_panel_5);
+		
+		fechaSeleccion = new JTextField();
+		sl_panel_5.putConstraint(SpringLayout.EAST, fechaSeleccion, -597, SpringLayout.EAST, panel_5);
+		panel_5.add(fechaSeleccion);
+		fechaSeleccion.setEditable(false);
+		fechaSeleccion.setBackground(SystemColor.inactiveCaption);
+		fechaSeleccion.setFont(new Font("Yu Gothic UI Semilight", Font.BOLD, 24));
+		fechaSeleccion.setColumns(10);
+        Date date = new Date();
+		DateFormat df = new SimpleDateFormat("d '/' M '/' yyyy");
+		fechaSeleccion.setText(df.format(date));
+
+		
 		
 		JPanel panel_7 = new JPanel();
-		panel_7.setBackground(SystemColor.inactiveCaption);
-		panel_7.setBounds(21, 56, 956, 434);
+		sl_panel_5.putConstraint(SpringLayout.SOUTH, fechaSeleccion, -7, SpringLayout.NORTH, panel_7);
+		sl_panel_5.putConstraint(SpringLayout.NORTH, panel_7, 82, SpringLayout.NORTH, panel_5);
+		sl_panel_5.putConstraint(SpringLayout.WEST, panel_7, 29, SpringLayout.WEST, panel_5);
+		sl_panel_5.putConstraint(SpringLayout.EAST, panel_7, -56, SpringLayout.EAST, panel_5);
 		panel_5.add(panel_7);
+		panel_7.setBackground(SystemColor.inactiveCaption);
 		
 		table = new JTable();
+		table.setBorder(new LineBorder(new Color(0, 0, 0)));
+		table.setRowHeight(32);
+		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		table.setEnabled(false);
 		table.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 		table.setFont(new Font("Yu Gothic UI Semilight", Font.PLAIN, 16));
 		table.setBackground(SystemColor.activeCaption);
-		table.setCellSelectionEnabled(true);
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
+				{"8:00", null, null, null, null},
+				{"8:30", null, null, null, null},
+				{"9:00", null, null, null, null},
+				{"9:30", null, null, null, null},
+				{"10:00", null, null, null, null},
+				{"8:30", null, null, null, null},
+				{"11:00", null, null, null, null},
+				{"11:30", null, null, null, null},
+				{"12:00", null, null, null, null},
+				{"12:30", null, null, null, null},
+				{"13:00", null, null, null, null},
+				{"13:30", null, null, null, null},
+				{"14:00", null, null, null, null},
+				{"14:30", null, null, null, null},
+				{"15:00", null, null, null, null},
+				{"15:30", null, null, null, null},
+				{"16:00", null, null, null, null},
+				{"16:30", null, null, null, null},
+				{"17:00", null, null, null, null},
+				{"17:30", null, null, null, null},
+				{"18:00", null, null, null, null},
+				{"18:30", null, null, null, null},
+				{"19:00", null, null, null, null},
+				{"19:30", null, null, null, null},
+				{"20:00", null, null, null, null},
+				{"20:30", null, null, null, null},
 			},
 			new String[] {
 				"Horario", "Paciente", "Arreglo", "Diente", "Observaciones"
@@ -202,73 +234,59 @@ public class agendaTurnosView extends JFrame{
 		panel_7.add(table, BorderLayout.SOUTH);
 		panel_7.add(header, BorderLayout.NORTH);
 		
+		JLabel labelDiaSeleccionado = new JLabel("Dia Seleccionado: ");
+		sl_panel_5.putConstraint(SpringLayout.WEST, fechaSeleccion, 6, SpringLayout.EAST, labelDiaSeleccionado);
+		sl_panel_5.putConstraint(SpringLayout.NORTH, labelDiaSeleccionado, 37, SpringLayout.NORTH, panel_5);
+		sl_panel_5.putConstraint(SpringLayout.WEST, labelDiaSeleccionado, 37, SpringLayout.WEST, panel_5);
+		sl_panel_5.putConstraint(SpringLayout.SOUTH, labelDiaSeleccionado, -7, SpringLayout.NORTH, panel_7);
+		sl_panel_5.putConstraint(SpringLayout.EAST, labelDiaSeleccionado, -782, SpringLayout.EAST, panel_5);
+		labelDiaSeleccionado.setFont(new Font("Yu Gothic UI Semilight", Font.BOLD, 24));
+		panel_5.add(labelDiaSeleccionado);
+		
 		panel_2 = new JPanel();
 		panel_2.setBackground(SystemColor.inactiveCaption);
-		panel_2.setBounds(0, 77, 900, 961);
+		panel_2.setBounds(0, 82, 911, 956);
 		contentPane.add(panel_2);
 		panel_2.setLayout(null);
-		
-		JTextField fechaSeleccion = new JTextField();
-		fechaSeleccion.setEditable(false);
-		fechaSeleccion.setBackground(SystemColor.inactiveCaption);
-		fechaSeleccion.setFont(new Font("Yu Gothic UI Semilight", Font.BOLD, 16));
-		fechaSeleccion.setBounds(21, 28, 353, 28);
-		panel_5.add(fechaSeleccion);
-		fechaSeleccion.setColumns(10);
-		
-		calendar = new JCalendar();
-		calendar.getDayChooser().addPropertyChangeListener(new PropertyChangeListener() {
-			public void propertyChange(PropertyChangeEvent arg0) {
-				DateFormat df = new SimpleDateFormat("EE dd 'de' MMM 'de' yyyy");
-				fechaSeleccion.setText(df.format(calendar.getDate()));
-			}
-		});
-		calendar.setToolTipText("");
-		calendar.getDayChooser().setAlwaysFireDayProperty(false);
-		calendar.setDecorationBackgroundColor(new Color(153, 204, 255));
-		calendar.getDayChooser().getDayPanel().setBorder(null);
-		calendar.setWeekOfYearVisible(false);
-		calendar.setDecorationBordersVisible(true);
-		calendar.setForeground(SystemColor.textText);
-		calendar.getDayChooser().getDayPanel().setBackground(SystemColor.inactiveCaption);
-		calendar.getDayChooser().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{calendar.getDayChooser().getDayPanel()}));
-		calendar.setBounds(10, 47, 880, 580);
-		panel_2.add(calendar);
-		calendar.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{calendar.getMonthChooser(), calendar.getMonthChooser().getSpinner(), calendar.getMonthChooser().getComboBox(), calendar.getYearChooser(), calendar.getYearChooser().getSpinner(), calendar.getDayChooser(), calendar.getDayChooser().getDayPanel()}));
-		
-		calendar_1 = new JCalendar();
-		calendar_1.getDayChooser().setDayBordersVisible(true);
-		calendar_1.getDayChooser().setAlwaysFireDayProperty(false);
-		calendar_1.getDayChooser().setDecorationBackgroundVisible(false);
-		calendar_1.getDayChooser().setWeekOfYearVisible(false);
 		calendario1 = new GregorianCalendar();
 		mesSiguiente = new Date();
 		System.out.println(mesSiguiente);
 		calendario1.set(mesSiguiente.getYear()+1900, mesSiguiente.getMonth()+1, mesSiguiente.getDay());
-		calendar_1.setDate(calendario1.getTime());
-		calendar_1.getDayChooser().getDayPanel().setBackground(SystemColor.inactiveCaption);
-		calendar_1.setBounds(10, 679, 267, 223);
-		panel_2.add(calendar_1);
 		
-		JLabel lblSiguienteMes = new JLabel("Siguiente Mes");
-		lblSiguienteMes.setHorizontalAlignment(SwingConstants.CENTER);
-		lblSiguienteMes.setFont(new Font("Yu Gothic UI Semilight", Font.BOLD, 18));
-		lblSiguienteMes.setBounds(10, 644, 267, 24);
-		panel_2.add(lblSiguienteMes);
 		
 		JPanel panel_3 = new JPanel();
+		panel_3.setToolTipText("");
 		panel_3.setBackground(SystemColor.inactiveCaption);
-		panel_3.setBounds(10, 0, 890, 45);
+		panel_3.setBounds(10, 62, 881, 628);
 		panel_2.add(panel_3);
 		
-		JLabel lblMesActual = new JLabel("Mes Actual");
-		panel_3.add(lblMesActual);
-		lblMesActual.setFont(new Font("Yu Gothic UI Semilight", Font.BOLD, 25));
+		
+		
+		
+		///////////Se crea el calendario y su panel/////////////
+		DatePickerSettings settings = new DatePickerSettings();
+		settings.setSizeDatePanelMinimumHeight(500);
+		settings.setSizeDatePanelMinimumWidth(870);
+		settings.setVisibleClearButton(false);
+		//System.out.println(settings.getColorBackgroundWeekdayLabels());
+		panel_3.setLayout(new BorderLayout(0, 0));
+		calendarPanel = new CalendarPanel(settings);
+		calendarPanel.setFont(new Font("Yu Gothic UI Semilight", Font.PLAIN, 16));
+		calendarPanel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		calendarPanel.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+		calendarPanel.setName("Schedule");
+		calendarPanel.setBackground(SystemColor.inactiveCaption);
+		calendarPanel.setForeground(SystemColor.inactiveCaptionText);
+		calendarPanel.setSelectedDate(LocalDate.now());
+		calendarPanel.setBorder(new LineBorder(SystemColor.textHighlight, 1, true));
+		
+		panel_3.add(calendarPanel, BorderLayout.NORTH);
+		
 		
 		JPanel panel_4 = new JPanel();
 		panel_4.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
 		panel_4.setBackground(SystemColor.inactiveCaption);
-		panel_4.setBounds(303, 679, 364, 137);
+		panel_4.setBounds(10, 732, 364, 137);
 		panel_2.add(panel_4);
 		panel_4.setLayout(null);
 		
@@ -308,17 +326,97 @@ public class agendaTurnosView extends JFrame{
 		label_3.setBounds(10, 101, 17, 14);
 		panel_4.add(label_3);
 		
-		JPanel panel_6 = new JPanel();
-		panel_6.setBackground(SystemColor.activeCaption);
-		panel_6.setBounds(897, 0, 19, 1011);
-		contentPane.add(panel_6);
+		JPanel panel = new JPanel();
+		panel.setBackground(SystemColor.inactiveCaption);
+		panel.setBounds(413, 732, 440, 121);
+		panel_2.add(panel);
+		GridBagLayout gbl_panel = new GridBagLayout();
+		gbl_panel.columnWidths = new int[] {110, 110, 110, 110};
+		gbl_panel.rowHeights = new int[] {20, 20};
+		gbl_panel.columnWeights = new double[]{1.0, 1.0};
+		gbl_panel.rowWeights = new double[]{0.0, 0.0};
+		panel.setLayout(gbl_panel);
 		
-		fecha = new JTextField();
-		fecha.setBackground(SystemColor.inactiveCaption);
-		fecha.setFont(new Font("Yu Gothic UI Semilight", Font.BOLD, 16));
-		fecha.setBounds(21, 28, 353, 28);
-		panel_5.add(fecha);
-		fecha.setColumns(10);
+		agregarBtn = new JButton("");
+		GridBagConstraints gbc_agregarBtn = new GridBagConstraints();
+		gbc_agregarBtn.insets = new Insets(0, 0, 5, 5);
+		gbc_agregarBtn.gridx = 0;
+		gbc_agregarBtn.gridy = 0;
+		panel.add(agregarBtn, gbc_agregarBtn);
+		agregarBtn.setIcon(new ImageIcon(agendaTurnosView.class.getResource("/images/add.png")));
+		agregarBtn.setVerticalAlignment(SwingConstants.BOTTOM);
+		agregarBtn.setHorizontalAlignment(SwingConstants.LEADING);
+		agregarBtn.setBorder(null);
+		agregarBtn.setBackground(SystemColor.menu);
+		
+		
+		
+		JButton quitarBtn = new JButton("");
+		GridBagConstraints gbc_quitarBtn = new GridBagConstraints();
+		gbc_quitarBtn.fill = GridBagConstraints.VERTICAL;
+		gbc_quitarBtn.insets = new Insets(0, 0, 5, 5);
+		gbc_quitarBtn.gridx = 1;
+		gbc_quitarBtn.gridy = 0;
+		panel.add(quitarBtn, gbc_quitarBtn);
+		quitarBtn.setIcon(new ImageIcon(agendaTurnosView.class.getResource("/images/subtract.png")));
+		quitarBtn.setVerticalAlignment(SwingConstants.BOTTOM);
+		quitarBtn.setHorizontalAlignment(SwingConstants.LEADING);
+		quitarBtn.setBorder(null);
+		quitarBtn.setBackground(SystemColor.menu);
+		
+		JButton modificarBtn = new JButton("");
+		GridBagConstraints gbc_modificarBtn = new GridBagConstraints();
+		gbc_modificarBtn.insets = new Insets(0, 0, 5, 5);
+		gbc_modificarBtn.gridx = 2;
+		gbc_modificarBtn.gridy = 0;
+		panel.add(modificarBtn, gbc_modificarBtn);
+		modificarBtn.setIcon(new ImageIcon(agendaTurnosView.class.getResource("/images/edit.png")));
+		modificarBtn.setVerticalAlignment(SwingConstants.BOTTOM);
+		modificarBtn.setHorizontalAlignment(SwingConstants.LEADING);
+		modificarBtn.setBorder(null);
+		modificarBtn.setBackground(SystemColor.menu);
+		
+		JButton nodarBtn = new JButton("");
+		nodarBtn.setIcon(new ImageIcon(agendaTurnosView.class.getResource("/images/unable.png")));
+		nodarBtn.setVerticalAlignment(SwingConstants.BOTTOM);
+		nodarBtn.setHorizontalAlignment(SwingConstants.LEADING);
+		nodarBtn.setBorder(null);
+		nodarBtn.setBackground(SystemColor.menu);
+		GridBagConstraints gbc_nodarBtn = new GridBagConstraints();
+		gbc_nodarBtn.insets = new Insets(0, 0, 5, 0);
+		gbc_nodarBtn.gridx = 3;
+		gbc_nodarBtn.gridy = 0;
+		panel.add(nodarBtn, gbc_nodarBtn);
+		
+		JLabel lblAgregarTurno = new JLabel("Agregar Turno");
+		GridBagConstraints gbc_lblAgregarTurno = new GridBagConstraints();
+		gbc_lblAgregarTurno.insets = new Insets(0, 0, 5, 5);
+		gbc_lblAgregarTurno.gridx = 0;
+		gbc_lblAgregarTurno.gridy = 1;
+		panel.add(lblAgregarTurno, gbc_lblAgregarTurno);
+		
+		JLabel lblQuitarTurno = new JLabel("Quitar Turno");
+		GridBagConstraints gbc_lblQuitarTurno = new GridBagConstraints();
+		gbc_lblQuitarTurno.insets = new Insets(0, 0, 5, 5);
+		gbc_lblQuitarTurno.gridx = 1;
+		gbc_lblQuitarTurno.gridy = 1;
+		panel.add(lblQuitarTurno, gbc_lblQuitarTurno);
+		
+		JLabel lblModificarTurno = new JLabel("Modificar Turno");
+		GridBagConstraints gbc_lblModificarTurno = new GridBagConstraints();
+		gbc_lblModificarTurno.insets = new Insets(0, 0, 5, 5);
+		gbc_lblModificarTurno.gridx = 2;
+		gbc_lblModificarTurno.gridy = 1;
+		panel.add(lblModificarTurno, gbc_lblModificarTurno);
+		
+		JLabel lblNoDarTurno = new JLabel("No Dar Turno");
+		GridBagConstraints gbc_lblNoDarTurno = new GridBagConstraints();
+		gbc_lblNoDarTurno.insets = new Insets(0, 0, 5, 0);
+		gbc_lblNoDarTurno.gridx = 3;
+		gbc_lblNoDarTurno.gridy = 1;
+		panel.add(lblNoDarTurno, gbc_lblNoDarTurno);
+		
+
 		
 		/*JButton b = new JButton("New button");
 		b.addActionListener(new ActionListener() {
@@ -331,8 +429,40 @@ public class agendaTurnosView extends JFrame{
 		panel_5.add(b);*/
 	}
 	
-	public void addBackListener(ActionListener listenBack) {
-		backButton.addActionListener(listenBack);
-	}	
+//	public void addBackListener(ActionListener listenBack) {
+//		backButton.addActionListener(listenBack);
+//	}
+//	
+//	public void addAgregarTurnoListener (ActionListener listenAgregar) {
+//		agregarBtn.addActionListener(listenAgregar);
+//	}
 	
+	public void addAgendaListener(ActionListener listenAgenda){
+		backButton.addActionListener(listenAgenda);
+		agregarBtn.addActionListener(listenAgenda);
+	}
+	
+	public void addCalendarListener(CalendarListener listenCalendario){
+		calendarPanel.addCalendarListener(listenCalendario);
+	}
+	
+	public JTable getTabla(){
+		return table;
+	} 
+	
+	public JTextField getFechaSeleccion(){
+		return fechaSeleccion;
+	}
+	
+	public JButton getAgregarButton(){
+		return agregarBtn;
+	}
+	public JButton getBackButton(){
+		return backButton;
+	}
+	
+	public CalendarPanel getCalendario(){
+		return calendarPanel;
+	}
+    
 }
