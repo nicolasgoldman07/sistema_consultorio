@@ -34,6 +34,7 @@ import javax.swing.ImageIcon;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
 import java.awt.ComponentOrientation;
+import java.awt.Dimension;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
@@ -49,27 +50,27 @@ public class adminView extends JFrame {
 	private JTable tablePacientes;
 	private JList listaPacientes;
 	private JButton btnAdd;
+	private JButton btnSub;
+	private JButton btnEdit;
+	private JButton btnPrint;
 
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					adminView frame = new adminView();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-//	/**
-//	 * Create the frame.
-//	 */
+//	 
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					adminView frame = new adminView();
+//					frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
+//
+//	
+//	 
 
 
 	public adminView() {
@@ -77,6 +78,7 @@ public class adminView extends JFrame {
 		GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		this.setMaximizedBounds(env.getMaximumWindowBounds());
         this.setExtendedState(this.getExtendedState() | this.MAXIMIZED_BOTH);
+        this.setMinimumSize(new Dimension(600, 300));
 		
         //Contenedor-Panel General
 		contentPane = new JPanel();
@@ -201,7 +203,7 @@ public class adminView extends JFrame {
 		panel_tabs.setLayout(gbl_panel_tabs);
 		
 		
-		//Panel de pestaÃ±as
+		//Panel de pestanas
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		GridBagConstraints gbc_tabbedPane = new GridBagConstraints();
 		gbc_tabbedPane.fill = GridBagConstraints.BOTH;
@@ -211,7 +213,7 @@ public class adminView extends JFrame {
 		tabbedPane.setBackground(SystemColor.inactiveCaption);
 		tabbedPane.setFont(new Font("Yu Gothic UI Semilight", Font.PLAIN, 14));
 		
-		//PestaÃ±a "Posicion Consolidada"
+		//Pestana "Posicion Consolidada"
 		JPanel posCons = new JPanel();
 		tabbedPane.addTab("Posicion Consolidada", null, posCons, null);
 		GridBagLayout gbl_posCons = new GridBagLayout();
@@ -344,7 +346,7 @@ public class adminView extends JFrame {
 		panel_6.setLayout(gbl_panel_6);
 		
 		//Boton Print
-		JButton btnPrint = new JButton("");
+		btnPrint = new JButton("");
 		btnPrint.setIcon(new ImageIcon(adminView.class.getResource("/images/print.png")));
 		GridBagConstraints gbc_btnPrint = new GridBagConstraints();
 		gbc_btnPrint.gridx = 3;
@@ -354,7 +356,7 @@ public class adminView extends JFrame {
 		panel_6.add(btnPrint, gbc_btnPrint);
 		
 		//Boton Edit
-		JButton btnEdit = new JButton("");
+		btnEdit = new JButton("");
 		GridBagConstraints gbc_btnEdit = new GridBagConstraints();
 		gbc_btnEdit.insets = new Insets(0, 0, 0, 5);
 		gbc_btnEdit.anchor = GridBagConstraints.SOUTHWEST;
@@ -368,7 +370,7 @@ public class adminView extends JFrame {
 		btnEdit.setBackground(SystemColor.menu);
 		
 		//Boton Quitar
-		JButton btnSub = new JButton("");
+		btnSub = new JButton("");
 		GridBagConstraints gbc_btnSub = new GridBagConstraints();
 		gbc_btnSub.insets = new Insets(0, 0, 0, 5);
 		gbc_btnSub.anchor = GridBagConstraints.SOUTHWEST;
@@ -382,7 +384,7 @@ public class adminView extends JFrame {
 		btnSub.setBackground(SystemColor.menu);
 		
 		//Boton Agregar
-		JButton btnAdd = new JButton("");
+		btnAdd = new JButton("");
 		GridBagConstraints gbc_btnAdd = new GridBagConstraints();
 		gbc_btnAdd.insets = new Insets(0, 0, 0, 5);
 		gbc_btnAdd.anchor = GridBagConstraints.SOUTHWEST;
@@ -423,12 +425,39 @@ public class adminView extends JFrame {
 		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
 		centerRenderer.setHorizontalAlignment(JLabel.CENTER);
 	}
-	
-	public void addBackListener (ActionListener backListener) {
-		backButton.addActionListener(backListener);
-	}
+
 	
 	public void iniciarLista(ListModel modelo){
 		listaPacientes.setModel(modelo);
+	}
+	
+	
+	public void addAdminListener(ActionListener adminListener) {
+		backButton.addActionListener(adminListener);
+		btnAdd.addActionListener(adminListener);
+		btnSub.addActionListener(adminListener);
+		btnEdit.addActionListener(adminListener);
+		btnPrint.addActionListener(adminListener);
+	}
+	
+	
+	public JButton getBackButton() {
+		return backButton;
+	}
+	
+	public JButton getAddButton() {
+		return btnAdd;
+	}
+	
+	public JButton getSubButton() {
+		return btnSub;
+	}
+	
+	public JButton getEditButton() {
+		return btnEdit;
+	}
+	
+	public JButton getPrintButton() {
+		return btnPrint;
 	}
 }

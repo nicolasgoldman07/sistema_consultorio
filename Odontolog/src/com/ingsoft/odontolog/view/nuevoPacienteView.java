@@ -53,7 +53,7 @@ public class nuevoPacienteView extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	/*public static void main(String[] args) {
+	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -64,13 +64,14 @@ public class nuevoPacienteView extends JFrame {
 				}
 			}
 		});
-	}*/
+	}
 
 	/**
 	 * Create the frame.
 	 */
 	public nuevoPacienteView() {
-		setTitle("Agregar");
+		setTitle("Agregar Paciente");
+		this.setResizable(false);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(nuevoPacienteView.class.getResource("/images/dientesin200.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(600, 300, 811, 597);
@@ -356,6 +357,7 @@ public class nuevoPacienteView extends JFrame {
 		panelFoto.add(panel_2, BorderLayout.SOUTH);
 		
 		JButton btnFoto = new JButton("Agregar Foto");
+		btnFoto.setEnabled(false);
 		panel_2.add(btnFoto);
 		
 		JLabel lblNewLabel = new JLabel("");
@@ -369,12 +371,20 @@ public class nuevoPacienteView extends JFrame {
 		contentPane.setLayout(gl_contentPane);
 	}
 	
-	public void addNuevoPacienteListener (ActionListener addListener) {
-		btnAgregar.addActionListener(addListener);
+	public void addNuevoPacienteListener (ActionListener nuevoPacienteListener) {
+		btnAgregar.addActionListener(nuevoPacienteListener);
+		btnCancelar.addActionListener(nuevoPacienteListener);
 	}
 	
-	public void addCancelListener (ActionListener cancelListener) {
-		btnCancelar.addActionListener(cancelListener);
+//	public void addCancelListener (ActionListener cancelListener) {
+//		btnCancelar.addActionListener(cancelListener);
+//	}
+	
+	public JButton getAddButton(){
+		return btnAgregar;
+	}
+	public JButton getCancelButton(){
+		return btnCancelar;
 	}
 	
 	public String getNombre() {

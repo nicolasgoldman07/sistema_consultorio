@@ -7,6 +7,8 @@ import java.awt.event.MouseListener;
 import java.time.LocalDate;
 
 import javax.swing.JOptionPane;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 
 import com.github.lgooddatepicker.optionalusertools.CalendarListener;
 import com.github.lgooddatepicker.zinternaltools.CalendarSelectionEvent;
@@ -22,6 +24,9 @@ public class Controller {
 	private Model mModel;
 	private int id;
 	private Paciente paciente = new Paciente();
+	private int tipoOrden = 0;
+	private String[] ordenes = {"Alfabeticamente", "Por Nombre", "Por Dni"};
+	private ListModelPaciente listaPacientes = ListModelPaciente.getInstance();
 
 	public Controller(View v, Model m){
 		
@@ -29,7 +34,9 @@ public class Controller {
 		this.mModel = m;
 		mView.newLogin();
 		mView.login.addLoginListener(new LoginListener());
+
 		mModel.llenarLista();
+
 		
 		//mView.newMenu();
 		//mView.menu.addMenuListeners(new menuListener());
@@ -42,16 +49,19 @@ public class Controller {
 		//mView.newHistoriaClinica();
 		//mView.odontograma.addDienteListener(new DienteListener());
 		
-		//mView.historia.iniciarLista(ListModelPaciente.getInstance());
-		//mView.historia.addBusquedaListener(new historiaMouseListener(), new historiaActionListener());
+//		mView.historia.iniciarLista(listaPacientes);
+//		mView.historia.addBusquedaListener(new historiaMouseListener(), new historiaActionListener(), new AddPacienteListener());
 		
 		//mView.odontograma.addDienteListener(new DienteListener());
 		
 		//mView.newAdministracion();
 		//mView.administracion.iniciarLista(ListModelPaciente.getInstance());
+		//mView.administracion.addAdminListener(new AdminListener());
 
 
 	}
+	
+
 	
 	class LoginListener implements ActionListener{
 		@Override
@@ -65,39 +75,10 @@ public class Controller {
 				mView.login.clearLogin();
 				mView.newMenu();
 				mView.menu.addMenuListeners(new menuListener());
-//				mView.menu.addAgendaListener(new AgendaListener());
-//				mView.menu.addLogoutListener(new LogoutListener());
-//				mView.menu.addAdministracionListener (new AdministracionListener());
 				
 			}
 		}
 	}
-	
-//	class LogoutListener implements ActionListener{
-//		@Override
-//		public void actionPerformed(ActionEvent evt) {
-//			mView.menu.setVisible(false);
-//			mView.login.setVisible(true);
-//		}
-//	}
-//	
-//	class AgendaListener implements ActionListener{
-//		@Override
-//		public void actionPerformed(ActionEvent e) {
-//			mView.newAgenda();
-//			mView.menu.setVisible(false);
-//			mView.agenda.addBackListener(new BackListener());
-//		}
-//	}
-//	
-//	class AdministracionListener implements ActionListener{
-//		@Override
-//		public void actionPerformed(ActionEvent e) {
-//			mView.newAdministracion();
-//			mView.menu.setVisible(false);
-//			mView.administracion.addBackListener(new BackListener());
-//		}
-//	}
 	
 	class menuListener implements ActionListener{
 		@Override
@@ -109,8 +90,8 @@ public class Controller {
 			}
 			if(source.equals(mView.menu.getAdminBttn())){
 				mView.newAdministracion();
-				//mView.administracion.addAddListener (new AddListener());
-				//mView.administracion.addBackListener(new BackListener());
+				mView.administracion.addAdminListener(new AdminListener());
+			
 			}
 			if(source.equals(mView.menu.getAgendaBttn())){
 				mView.newAgenda();
@@ -142,13 +123,9 @@ public class Controller {
 			}catch(NullPointerException agenda_null) {
 				
 			}
-			try {
-				mView.administracion.setVisible(false);
-			}catch(NullPointerException admin_null){
-			
-			}
 			mView.menu.setVisible(true);
 		}
+		
 	}
 	
 	class DienteListener implements ActionListener{
@@ -164,17 +141,33 @@ public class Controller {
 		}
 	}
 	
+	//HistoriaClinicaView Listeners
 	class historiaMouseListener implements MouseListener{
 		@Override
 		public void mouseClicked(MouseEvent me) {
+			
 			Object source = me.getSource();
+			
+			
+			
+			
+			//Click en panel de busqueda
 			if(source.equals(mView.historia.getBusquedaField())){
 				if(mView.historia.getBusquedaField().getText().equals("\"B\u00FAsqueda\"")){
 					mView.historia.getBusquedaField().setText("");
 				}
 			}
+			
+			//Click en lista de nombres
 			if(source.equals(mView.historia.getListaDeNombres())){
+				
+				//Obtengo el paciente seleccionado
+				int index = mView.historia.getListaDeNombres().getSelectedIndex();
+				paciente = listaPacientes.getPaciente(index);
+				
+				//Muestro sus datos en la tabla
 				mView.historia.getListaDeNombres().setSelectionBackground(Color.GREEN);
+				mModel.llenarTabla(mView.historia.getTablaDatos(), paciente.getDatosCompletosTabla());
 			}
 		}
 		@Override
@@ -190,63 +183,127 @@ public class Controller {
 	class historiaActionListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if(e.getSource().equals(mView.historia.getBusquedaField())){
+			Object source = e.getSource();
+			//Busqueda
+			if(source.equals(mView.historia.getBusquedaField())){
 				String aux = mView.historia.getBusquedaField().getText();
-				int index = ListModelPaciente.getInstance().getPacientePorNombre(aux);
-				mView.historia.getListaDeNombres().setSelectedValue(ListModelPaciente.getInstance().getElementAt(index), false);
+				int index = listaPacientes.getPacientePorNombre(aux);
+				mView.historia.getListaDeNombres().setSelectedValue(listaPacientes.getElementAt(index), false);
 				mView.historia.getListaDeNombres().setSelectionBackground(Color.GREEN);
+				
+				paciente = listaPacientes.getPaciente(index);
+				mModel.llenarTabla(mView.historia.getTablaDatos(), paciente.getDatosCompletosTabla());
 			}
 			
-			if(e.getSource().equals(mView.historia.getOdontoButton())){
+			//Odontograma
+			if(source.equals(mView.historia.getOdontoButton())){
 				//Obtengo el paciente seleccionado
 				int index = mView.historia.getListaDeNombres().getSelectedIndex();
 				
 				try{
 					//Dejo el paciente seleccionado para ver el odontograma
-					paciente = ListModelPaciente.getInstance().getPaciente(index);
+					paciente = listaPacientes.getPaciente(index);
 					
 					//Creo la nueva ventana y la refresco
 					mView.newOdontograma(paciente.getNombreCompleto());
 					mView.odontograma.addDienteListener(new DienteListener());
 					mView.odontograma.refresh(mModel.getTratamientosPaciente(paciente));
-				}catch(Exception outOfBounds){
-					JOptionPane.showMessageDialog(null, "No se ha seleccionado un paciente", "Error", JOptionPane.ERROR_MESSAGE);
+				}catch(ArrayIndexOutOfBoundsException outOfBounds){
+					JOptionPane.showMessageDialog(null, "No se ha seleccionado un paciente \n INDEX: "+String.valueOf(index), "Error", JOptionPane.ERROR_MESSAGE);
 				}
 			}
-		}
-	}
-	
-	class AdministracionListener implements ActionListener{
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			mView.newAdministracion();
-			mView.menu.setVisible(false);
-			//mView.administracion.addAddListener(new AddListener());
-			//mView.administracion.addBackListener(new BackListener());
-		}
-	}
-	
-	class NuevoPacienteListener implements ActionListener{
-		public void actionPerformed (ActionEvent e) {
-			String nombre, apellido, dni, telefono, mail, direccion, medicoCabecera, peso, obraSocial, numeroOS, altura, factorSanguineo;
-			nombre = mView.nuevoPaciente.getNombre();
-			apellido = mView.nuevoPaciente.getApellido();
-			dni = mView.nuevoPaciente.getDni();
-			telefono = mView.nuevoPaciente.getTelefono();
-			mail = mView.nuevoPaciente.getMail();
-			direccion = mView.nuevoPaciente.getDireccion();
-			medicoCabecera = mView.nuevoPaciente.getMedicoCabecera();
-			peso = mView.nuevoPaciente.getPeso();
-			obraSocial = mView.nuevoPaciente.getObraSocial();
-			numeroOS = mView.nuevoPaciente.getNumOSi();
-			altura = mView.nuevoPaciente.getAltura();
-			factorSanguineo = mView.nuevoPaciente.getFactor();
-			if (mModel.addPacienteDB(nombre, apellido, dni, telefono, mail, direccion, medicoCabecera, peso, obraSocial, numeroOS, altura, factorSanguineo)) {
-				mView.nuevoPaciente.setVisible(false);
+			
+			//Boton Atras
+			if(source.equals(mView.historia.getBackButton())){
+				mView.historia.setVisible(false);
+				
+				try {
+					mView.menu.setVisible(true);
+				}catch(NullPointerException main_null){
+						JOptionPane.showMessageDialog(null, "ERROR: 404", "Error", JOptionPane.ERROR_MESSAGE);
+				}
+				
+				try{
+					mView.odontograma.setVisible(false);
+				}catch(NullPointerException odonto){
+					
+				}
+			}
+			
+			//Boton Quitar
+			if(source.equals(mView.historia.getRemoveButton())){
+				int index = mView.historia.getListaDeNombres().getSelectedIndex();
+				
+				try{
+					paciente = listaPacientes.getPaciente(index);
+					
+					if (JOptionPane.showConfirmDialog(null, "�Esta seguro que desea eliminar a: "+paciente.getNombreCompleto()+" ?", "ADVERTENCIA",
+					        JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+						
+						//Lo remuevo de la base de datos
+						mModel.removePacienteDB(paciente.getDni());
+						
+						//Lo remuevo de la lista de Pacientes
+						listaPacientes.removePaciente(paciente);
+					}
+					
+				}catch(ArrayIndexOutOfBoundsException ex){
+					JOptionPane.showMessageDialog(null, "No se ha seleccionado un paciente \n INDEX: "+String.valueOf(index), "Error", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+			
+			//Boton Ordenar
+			if(source.equals(mView.historia.getOrdenarButton())){
+				
+				tipoOrden++;
+				if(tipoOrden == ordenes.length){
+					tipoOrden = 0;
+				}
+				
+				listaPacientes.setOrdenarStrategy(mModel.getOrdenamiento(tipoOrden));
+				mView.historia.getTipoLbl().setText("Tipo: "+ordenes[tipoOrden]);
+				
 			}
 		}
 	}
 	
+
+	//nuevoPacienteView Listener
+	class NuevoPacienteListener implements ActionListener{
+		public void actionPerformed (ActionEvent e) {
+			
+			Object source = e.getSource();
+			
+			//Boton Agregar
+			if(source.equals(mView.nuevoPaciente.getAddButton())){
+				String nombre, apellido, dni, telefono, mail, direccion, medicoCabecera, 
+				peso, obraSocial, numeroOS, altura, factorSanguineo;
+		
+				nombre = mView.nuevoPaciente.getNombre();
+				apellido = mView.nuevoPaciente.getApellido();
+				dni = mView.nuevoPaciente.getDni();
+				telefono = mView.nuevoPaciente.getTelefono();
+				mail = mView.nuevoPaciente.getMail();
+				direccion = mView.nuevoPaciente.getDireccion();
+				medicoCabecera = mView.nuevoPaciente.getMedicoCabecera();
+				peso = mView.nuevoPaciente.getPeso();
+				obraSocial = mView.nuevoPaciente.getObraSocial();
+				numeroOS = mView.nuevoPaciente.getNumOSi();
+				altura = mView.nuevoPaciente.getAltura();
+				factorSanguineo = mView.nuevoPaciente.getFactor();
+				
+				if (mModel.addPacienteDB(nombre, apellido, dni, telefono, mail, direccion, medicoCabecera, peso, obraSocial, numeroOS, altura, factorSanguineo)) {
+					mView.nuevoPaciente.setVisible(false);
+				}
+			}
+			
+			//Boton Cancelar
+			if(source.equals(mView.nuevoPaciente.getCancelButton())){
+				mView.nuevoPaciente.setVisible(false);
+			}
+			
+		}
+	}
 	
 	class ConfirmarTurnoListener implements ActionListener{
 		public void actionPerformed (ActionEvent e) {
@@ -267,20 +324,23 @@ public class Controller {
 	}
 	
 
-	class CancelListener implements ActionListener{
-		public void actionPerformed (ActionEvent e) {
-			mView.nuevoPaciente.setVisible(false);
-		}
-	}
+
+//	class CancelListener implements ActionListener{
+//		public void actionPerformed (ActionEvent e) {
+//			mView.nuevoPaciente.setVisible(false);
+//		}
+//	}
+
 	
-	class AddListener implements ActionListener{
+	//AgregarUnNuevoPaciente Listener
+	class AddPacienteListener implements ActionListener{
 		public void actionPerformed (ActionEvent e) {
 			mView.newAgregarPaciente();
 			mView.nuevoPaciente.addNuevoPacienteListener(new NuevoPacienteListener());
-			mView.nuevoPaciente.addCancelListener(new CancelListener());
 		}
 	}
 	
+
 	class CalendarioListener implements CalendarListener {
         @Override
         public void selectedDateChanged(CalendarSelectionEvent event) {
@@ -297,5 +357,29 @@ public class Controller {
 	
 	
 	
-	
+	//BOTONES DE LA VISTA ADMINISTRACION
+	class AdminListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			Object source = e.getSource();
+			
+			//BOTON "ATRAS" (REGRESA AL MENU PRINCIPAL)
+			if (source.equals(mView.administracion.getBackButton())) {
+				try {
+					mView.administracion.setVisible(false);
+				}catch(NullPointerException admin_null){
+				
+				}
+				mView.menu.setVisible(true);
+			}
+
+			//BOTON AGREGAR TRATAMIENTO
+			/*if (source.equals(mView.administracion.getAddButton())) {
+				
+			}*/	
+		}	
+	}
+		
+
 }

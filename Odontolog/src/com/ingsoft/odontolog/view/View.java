@@ -1,5 +1,7 @@
 package com.ingsoft.odontolog.view;
 
+import java.awt.Dimension;
+
 public class View {
 	
 	
