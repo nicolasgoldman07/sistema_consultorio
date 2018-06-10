@@ -278,7 +278,7 @@ public class agendaTurnosView extends JFrame{
 		calendarPanel.setForeground(SystemColor.inactiveCaptionText);
 		calendarPanel.setSelectedDate(LocalDate.now());
 		calendarPanel.setBorder(new LineBorder(SystemColor.textHighlight, 1, true));
-		calendarPanel.addCalendarListener(new SampleCalendarListener());
+		
 		panel_3.add(calendarPanel, BorderLayout.NORTH);
 		
 		
@@ -435,26 +435,17 @@ public class agendaTurnosView extends JFrame{
 	public void addAgregarTurnoListener (ActionListener listenAgregar) {
 		agregarBtn.addActionListener(listenAgregar);
 	}
-    
-    
 	
+	public void addCalendarListener(CalendarListener listenCalendario){
+		calendarPanel.addCalendarListener(listenCalendario);
+	}
 	
+	public JTable getTabla(){
+		return table;
+	} 
 	
-	
-	
-    private static class SampleCalendarListener implements CalendarListener {
-        @Override
-        public void selectedDateChanged(CalendarSelectionEvent event) {
-            LocalDate newDate = event.getNewDate();
-            String diaSeleccionado = newDate.getDayOfMonth() + " / " + newDate.getMonthValue() + " / " + newDate.getYear();
-            fechaSeleccion.setText(diaSeleccionado);
-        }
-
-        @Override
-        public void yearMonthChanged(YearMonthChangeEvent event) {
-        }
-    }
-    
-    
+	public JTextField getFechaSeleccion(){
+		return fechaSeleccion;
+	}
     
 }

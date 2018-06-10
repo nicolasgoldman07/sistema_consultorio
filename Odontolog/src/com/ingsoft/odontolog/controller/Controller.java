@@ -4,10 +4,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.time.LocalDate;
 
 import javax.swing.JOptionPane;
 
+import com.github.lgooddatepicker.optionalusertools.CalendarListener;
+import com.github.lgooddatepicker.zinternaltools.CalendarSelectionEvent;
+import com.github.lgooddatepicker.zinternaltools.YearMonthChangeEvent;
 import com.ingsoft.odontolog.model.ListModelPaciente;
+import com.ingsoft.odontolog.model.ListaDeTurnos;
 import com.ingsoft.odontolog.model.Model;
 import com.ingsoft.odontolog.model.Paciente;
 import com.ingsoft.odontolog.view.View;
@@ -109,6 +114,7 @@ public class Controller {
 			}
 			if(source.equals(mView.menu.getAgendaBttn())){
 				mView.newAgenda();
+				mView.agenda.addCalendarListener(new CalendarioListener());
 				mView.agenda.addBackListener(new BackListener());
 				mView.agenda.addAgregarTurnoListener(new AgregarTurnoListener());
 			}
@@ -256,6 +262,7 @@ public class Controller {
 			if (mModel.addTurnoDB(fecha, horario, tratamiento, duracion, diente, odontologo, paciente)){
 				mView.nuevoTurno.setVisible(false);
 			}
+			
 		}
 	}
 	
@@ -274,7 +281,19 @@ public class Controller {
 		}
 	}
 	
-	
+	class CalendarioListener implements CalendarListener {
+        @Override
+        public void selectedDateChanged(CalendarSelectionEvent event) {
+            LocalDate newDate = event.getNewDate();
+            String diaSeleccionado = newDate.getDayOfMonth() + " / " + newDate.getMonthValue() + " / " + newDate.getYear();
+            mView.agenda.getFechaSeleccion().setText(diaSeleccionado);
+            //mModel
+        }
+
+        @Override
+        public void yearMonthChanged(YearMonthChangeEvent event) {
+        }
+	}
 	
 	
 	
