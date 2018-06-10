@@ -58,25 +58,6 @@ public class adminView extends JFrame {
 	private JTable tablaImportes;
 	private JLabel saldosLbl;
 
-
-//	 
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					adminView frame = new adminView();
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
-//
-//	
-//	 
-
-
 	public adminView() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();

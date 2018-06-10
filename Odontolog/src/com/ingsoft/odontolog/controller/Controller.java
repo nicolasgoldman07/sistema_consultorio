@@ -43,32 +43,8 @@ public class Controller {
 		mModel.llenarLista();
 		mModel.llenarListaDeTurnos();
 
-		
-		//mView.newMenu();
-		//mView.menu.addMenuListeners(new menuListener());
-
-		//mView.menu.addAgendaListener(new AgendaListener());
-		//mView.newOdontograma();
-		
-		//mModel.llenarLista();
-		
-		//mView.newHistoriaClinica();
-		//mView.odontograma.addDienteListener(new DienteListener());
-		
-//		mView.historia.iniciarLista(listaPacientes);
-//		mView.historia.addBusquedaListener(new historiaMouseListener(), new historiaActionListener(), new AddPacienteListener());
-		
-		//mView.odontograma.addDienteListener(new DienteListener());
-		
-		//mView.newAdministracion();
-		//mView.administracion.iniciarLista(ListModelPaciente.getInstance());
-		//mView.administracion.addAdminListener(new AdminListener());
-
-
 	}
-	
 
-	
 	class LoginListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {

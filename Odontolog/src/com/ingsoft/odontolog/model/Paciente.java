@@ -145,12 +145,6 @@ public class Paciente implements Comparable {
 	public void setCompararBehavior(CompararStrategy comp){
 		orden = comp;
 	}
-
-//	@Override
-//	public int compareTo(Object other) {
-//		Paciente otherPacient = (Paciente) other;
-//		return getNombreCompleto().compareToIgnoreCase(otherPacient.getNombreCompleto());
-//	}
 	
 	@Override
 	public int compareTo(Object other) {
