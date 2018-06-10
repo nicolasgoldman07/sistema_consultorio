@@ -84,26 +84,6 @@ public class agendaTurnosView extends JFrame{
 	//private Calendar calendario;
 	//private JPanel panel;
 
-	
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					agendaTurnosView frame = new agendaTurnosView();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
 	public agendaTurnosView() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -424,26 +404,7 @@ public class agendaTurnosView extends JFrame{
 		gbc_lblNoDarTurno.gridy = 1;
 		panel.add(lblNoDarTurno, gbc_lblNoDarTurno);
 		
-
-		
-		/*JButton b = new JButton("New button");
-		b.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				DateFormat df = new SimpleDateFormat("EE dd 'de' MMM 'de' yyyy");
-				fecha.setText(df.format(calendar.getDate()));
-			}
-		});
-		b.setBounds(142, 598, 89, 23);
-		panel_5.add(b);*/
 	}
-	
-//	public void addBackListener(ActionListener listenBack) {
-//		backButton.addActionListener(listenBack);
-//	}
-//	
-//	public void addAgregarTurnoListener (ActionListener listenAgregar) {
-//		agregarBtn.addActionListener(listenAgregar);
-//	}
 	
 	public void addAgendaListener(ActionListener listenAgenda){
 		backButton.addActionListener(listenAgenda);

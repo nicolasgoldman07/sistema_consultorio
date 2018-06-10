@@ -104,7 +104,6 @@ public class View {
 	public void newHistoriaClinica(){
 		historia = new historiaClinicaView();
 		historia.setVisible(true);
-		//this.newOdontograma();
 	}
 	
 

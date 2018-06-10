@@ -158,13 +158,17 @@ public class Model {
 			Vector<String> datos = new Vector<String>();
 			Paciente paciente = new Paciente();
 			
+			rs.last();
+			
 			for (int i = 1; i < 13; i++){
 				datos.addElement(String.valueOf(rs.getObject(i)).toUpperCase());	
+				System.out.println("AGREGO: "+String.valueOf(rs.getObject(i)).toUpperCase());
 			}
 		
 			paciente.setDatosCompletos(datos.get(0), datos.get(1), datos.get(2), 
 					datos.get(3), datos.get(4), datos.get(5), datos.get(6), datos.get(7),
 					datos.get(8), datos.get(9), datos.get(10), datos.get(11));
+			
 			
 			listaPacientes.addPaciente(paciente);
 			
@@ -320,11 +324,13 @@ public class Model {
 	}
 	
 	public void llenarTablaTurnos(JTable tabla, Vector<Vector<String>> datos){
+		
 		for(int i=0; i<tabla.getModel().getRowCount(); i++){
 			for(int j=0; j<4; j++){
 				tabla.getModel().setValueAt(" ", i, j+1);
 			}
 		}
+		
 		try{
 			for(int i=0; i<datos.size(); i++){
 				for(int j=1; j<5; j++){
@@ -343,5 +349,18 @@ public class Model {
 		ordenes.add(new OrdenarPorDni());
 		
 		return ordenes.get(a);
+	}
+	
+	//Calcula precio total de Tratamientos de un Paciente
+	public String getPrecioTotal(Vector<Vector<String>> tratamientos){
+		String precioTotal = "";
+		String precio = "";
+		float p = 0;
+		for(int i=0; i<tratamientos.size(); i++){
+			precio = tratamientos.get(i).get(1);
+			p = p+Float.valueOf(precio.substring(2, precio.length()));
+		}
+		precioTotal = String.format("%.2f", p);
+		return precioTotal;
 	}
 }

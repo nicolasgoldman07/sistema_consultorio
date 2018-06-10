@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 import java.awt.Font;
 import java.awt.GraphicsEnvironment;
 
@@ -53,25 +54,9 @@ public class adminView extends JFrame {
 	private JButton btnSub;
 	private JButton btnEdit;
 	private JButton btnPrint;
-
-
-//	 
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					adminView frame = new adminView();
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
-//
-//	
-//	 
-
+	
+	private JTable tablaImportes;
+	private JLabel saldosLbl;
 
 	public adminView() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -255,51 +240,51 @@ public class adminView extends JFrame {
 		
 				
 				//Tabla2 para tratamiento e importe
-				JTable table2 = new JTable();
-				table2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-				table2.setRowSelectionAllowed(false);
-				table2.setFont(new Font("Yu Gothic UI Semilight", Font.PLAIN, 16));
-				table2.setBackground(SystemColor.activeCaption);
-				table2.setModel(new DefaultTableModel(
+				tablaImportes = new JTable();
+				tablaImportes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+				tablaImportes.setRowSelectionAllowed(false);
+				tablaImportes.setFont(new Font("Yu Gothic UI Semilight", Font.PLAIN, 16));
+				tablaImportes.setBackground(SystemColor.activeCaption);
+				tablaImportes.setModel(new DefaultTableModel(
 					new Object[][] {
-						{new String ("ExtracciÃ³n Premolar"), new Integer(-2500)},
-						{new String ("Limpieza bucal"), new Integer(-500)},
-						{new String ("DepÃ³sito"), new Integer(10000)}, 
 						{null, null},
 						{null, null},
-						{null},
-						{null},
-						{null},
-						{null},
-						{null},
-						{null},
-						{null},
-						{null},
-						{null},
-						{null},
-						{null},
-						{null},
-						{null},
-						{null},
-						{null},
-						{null},
-						{null},
-						{null},
-						{null},
-						{null},
-						{null},
-						{null},
-						{null},
-						{null},
-						{null},
-						{null},
-						{null},
-						{null},
-						{null},
-						{null},
-						{null},
-						{null},
-						{null},
+						{null, null}, 
+						{null, null},
+						{null, null},
+						{null, null},
+						{null, null},
+						{null, null},
+						{null, null},
+						{null, null},
+						{null, null},
+						{null, null},
+						{null, null},
+						{null, null},
+						{null, null},
+						{null, null},
+						{null, null},
+						{null, null},
+						{null, null},
+						{null, null},
+						{null, null},
+						{null, null},
+						{null, null},
+						{null, null},
+						{null, null},
+						{null, null},
+						{null, null},
+						{null, null},
+						{null, null},
+						{null, null},
+						{null, null},
+						{null, null},
+						{null, null},
+						{null, null},
+						{null, null},
+						{null, null},
+						{null, null},
+						{null, null}
 						
 					},
 					new String[] {"Tratamiento", "Importe"}
@@ -316,11 +301,11 @@ public class adminView extends JFrame {
 						return columnEditables[column];
 					}
 				});
-				table2.getColumnModel().getColumn(0).setPreferredWidth(650);
+				tablaImportes.getColumnModel().getColumn(0).setPreferredWidth(650);
 				//table2.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
 				
 		//Panel con scroll para la tabla de tratamientos e importe
-		JScrollPane scrollPane_1 = new JScrollPane(table2);
+		JScrollPane scrollPane_1 = new JScrollPane(tablaImportes);
 		GridBagConstraints gbc_scrollPane_1 = new GridBagConstraints();
 		gbc_scrollPane_1.fill = GridBagConstraints.BOTH;
 		gbc_scrollPane_1.insets = new Insets(0, 0, 0, 5);
@@ -415,11 +400,11 @@ public class adminView extends JFrame {
 		panel_3.add(label);
 		
 		//Texto de Saldo final
-		JLabel lblNewLabel_2 = new JLabel("16.000");
-		lblNewLabel_2.setFont(new Font("Yu Gothic UI Semilight", Font.BOLD, 75));
-		lblNewLabel_2.setHorizontalAlignment(SwingConstants.LEFT);
-		lblNewLabel_2.setBounds(100, 0, 795, 95);
-		panel_3.add(lblNewLabel_2);
+		saldosLbl = new JLabel("00.00");
+		saldosLbl.setFont(new Font("Yu Gothic UI Semilight", Font.BOLD, 75));
+		saldosLbl.setHorizontalAlignment(SwingConstants.LEFT);
+		saldosLbl.setBounds(100, 0, 795, 95);
+		panel_3.add(saldosLbl);
 		
 				
 		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
@@ -431,18 +416,23 @@ public class adminView extends JFrame {
 		listaPacientes.setModel(modelo);
 	}
 	
-	
-	public void addAdminListener(ActionListener adminListener) {
+	public void addAdminListener(ActionListener adminListener, MouseListener adminMouse) {
 		backButton.addActionListener(adminListener);
 		btnAdd.addActionListener(adminListener);
 		btnSub.addActionListener(adminListener);
 		btnEdit.addActionListener(adminListener);
 		btnPrint.addActionListener(adminListener);
+		listaPacientes.addMouseListener(adminMouse);
 	}
 	
-	
+	public JList getListaNombres(){
+		return listaPacientes;
+	}
 	public JButton getBackButton() {
 		return backButton;
+	}
+	public JLabel getSaldosLbl(){
+		return saldosLbl;
 	}
 	
 	public JButton getAddButton() {
@@ -459,5 +449,9 @@ public class adminView extends JFrame {
 	
 	public JButton getPrintButton() {
 		return btnPrint;
+	}
+	
+	public JTable getTablaImportes(){
+		return tablaImportes;
 	}
 }
