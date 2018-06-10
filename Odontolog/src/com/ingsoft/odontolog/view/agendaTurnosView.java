@@ -180,32 +180,32 @@ public class agendaTurnosView extends JFrame{
 		table.setBackground(SystemColor.activeCaption);
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
-				{"8", null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
+				{"8:00", null, null, null, null},
+				{"8:30", null, null, null, null},
+				{"9:00", null, null, null, null},
+				{"9:30", null, null, null, null},
+				{"10:00", null, null, null, null},
+				{"8:30", null, null, null, null},
+				{"11:00", null, null, null, null},
+				{"11:30", null, null, null, null},
+				{"12:00", null, null, null, null},
+				{"12:30", null, null, null, null},
+				{"13:00", null, null, null, null},
+				{"13:30", null, null, null, null},
+				{"14:00", null, null, null, null},
+				{"14:30", null, null, null, null},
+				{"15:00", null, null, null, null},
+				{"15:30", null, null, null, null},
+				{"16:00", null, null, null, null},
+				{"16:30", null, null, null, null},
+				{"17:00", null, null, null, null},
+				{"17:30", null, null, null, null},
+				{"18:00", null, null, null, null},
+				{"18:30", null, null, null, null},
+				{"19:00", null, null, null, null},
+				{"19:30", null, null, null, null},
+				{"20:00", null, null, null, null},
+				{"20:30", null, null, null, null},
 			},
 			new String[] {
 				"Horario", "Paciente", "Arreglo", "Diente", "Observaciones"
@@ -428,12 +428,17 @@ public class agendaTurnosView extends JFrame{
 		panel_5.add(b);*/
 	}
 	
-	public void addBackListener(ActionListener listenBack) {
-		backButton.addActionListener(listenBack);
-	}
+//	public void addBackListener(ActionListener listenBack) {
+//		backButton.addActionListener(listenBack);
+//	}
+//	
+//	public void addAgregarTurnoListener (ActionListener listenAgregar) {
+//		agregarBtn.addActionListener(listenAgregar);
+//	}
 	
-	public void addAgregarTurnoListener (ActionListener listenAgregar) {
-		agregarBtn.addActionListener(listenAgregar);
+	public void addAgendaListener(ActionListener listenAgenda){
+		backButton.addActionListener(listenAgenda);
+		agregarBtn.addActionListener(listenAgenda);
 	}
 	
 	public void addCalendarListener(CalendarListener listenCalendario){
@@ -446,6 +451,13 @@ public class agendaTurnosView extends JFrame{
 	
 	public JTextField getFechaSeleccion(){
 		return fechaSeleccion;
+	}
+	
+	public JButton getAgregarButton(){
+		return agregarBtn;
+	}
+	public JButton getBackButton(){
+		return backButton;
 	}
     
 }

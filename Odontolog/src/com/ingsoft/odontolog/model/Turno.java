@@ -10,15 +10,15 @@ public class Turno {
 	private String diente;
 	private String odontologo;
 	private String paciente;
-	private int duracion;
+	private String duracion;
 	
-	public static final String[] campos = {"fecha", "horario", "tratamiento", "diente", "odontologo", "paciente", "duracion"};
+	public static final String[] campos = {"horario", "paciente", "tratamiento", "diente", "odontologo", "duracion", "fecha"};
 	private HashMap<String, String> datos = new HashMap<String, String>();
 	
 	public Turno() {}
 	
 	public void setDatos(String fecha, String horario, String tratamiento, 
-						String diente, String odonto, String paciente, int duracion){
+						String diente, String odonto, String paciente, String duracion){
 		this.fecha = fecha;
 		this.horario = horario;
 		this.tratamiento = tratamiento;
@@ -27,14 +27,14 @@ public class Turno {
 		this.paciente = paciente;
 		this.duracion = duracion;
 		
-		datos.put(campos[0], this.fecha);
-		datos.put(campos[1], this.horario);
+		
+		datos.put(campos[0], this.horario);
+		datos.put(campos[1], this.paciente);
 		datos.put(campos[2], this.tratamiento);
 		datos.put(campos[3], this.diente);
 		datos.put(campos[4], this.odontologo);
-		datos.put(campos[5], this.paciente);
-		datos.put(campos[6], String.valueOf(this.duracion));
-		
+		datos.put(campos[5], this.duracion);
+		datos.put(campos[6], this.fecha);
 	}
 	
 	public String getDato(String tipo){

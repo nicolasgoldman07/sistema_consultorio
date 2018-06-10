@@ -28,7 +28,8 @@ public class ListaDeTurnos{
 	public Vector<Vector<String>> getTurnosPorDia(String fecha){
 		Vector<Vector<String>> vector_datos = new Vector<Vector<String>>();
 		for(int i=0; i<listaTurnos.size(); i++){
-			if(listaTurnos.get(i).getDato(Turno.campos[0]).equals(fecha)){
+			if(listaTurnos.get(i).getDato(Turno.campos[6]).equals(fecha)){
+				System.out.println(fecha);
 				vector_datos.add(listaTurnos.get(i).getDatosCompletosTabla());
 			}
 		}

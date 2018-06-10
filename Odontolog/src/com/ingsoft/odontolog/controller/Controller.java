@@ -27,6 +27,7 @@ public class Controller {
 	private int tipoOrden = 0;
 	private String[] ordenes = {"Alfabeticamente", "Por Nombre", "Por Dni"};
 	private ListModelPaciente listaPacientes = ListModelPaciente.getInstance();
+	private ListaDeTurnos listaTurnos = ListaDeTurnos.getInstance();
 
 	public Controller(View v, Model m){
 		
@@ -36,6 +37,7 @@ public class Controller {
 		mView.login.addLoginListener(new LoginListener());
 
 		mModel.llenarLista();
+		mModel.llenarListaDeTurnos();
 
 		
 		//mView.newMenu();
@@ -96,36 +98,89 @@ public class Controller {
 			if(source.equals(mView.menu.getAgendaBttn())){
 				mView.newAgenda();
 				mView.agenda.addCalendarListener(new CalendarioListener());
-				mView.agenda.addBackListener(new BackListener());
-				mView.agenda.addAgregarTurnoListener(new AgregarTurnoListener());
+				mView.agenda.addAgendaListener(new AgendaDeTurnosListener());
+//				mView.agenda.addBackListener(new BackListener());
+//				mView.agenda.addAgregarTurnoListener(new AgregarTurnoListener());
 			}
 		}
 	}
 	
 	
-	
-	class AgregarTurnoListener implements ActionListener{
-		public void actionPerformed (ActionEvent e) {
-			mView.newAgregarTurno();
-			mView.nuevoTurno.iniciarLista(ListModelPaciente.getInstance());
-			mView.nuevoTurno.setVisible(true);
-			mView.nuevoTurno.addConfirmarTurnoListener(new ConfirmarTurnoListener());
-			
-		}
-	}
-	
-	
-	class BackListener implements ActionListener{
+	//Agenda de Turnos Listeners
+	class AgendaDeTurnosListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			try {
-				mView.agenda.setVisible(false);
-			}catch(NullPointerException agenda_null) {
-				
+			Object source = e.getSource();
+			
+			//Boton Agregar Turno
+			if(source.equals(mView.agenda.getAgregarButton())){
+				mView.newAgregarTurno();
+				mView.nuevoTurno.iniciarLista(ListModelPaciente.getInstance());
+				mView.nuevoTurno.setVisible(true);
+				mView.nuevoTurno.addConfirmarTurnoListener(new ConfirmarTurnoListener());
 			}
-			mView.menu.setVisible(true);
+			
+			//Boton Atras
+			if(source.equals(mView.agenda.getBackButton())){
+				mView.agenda.setVisible(false);
+				mView.menu.setVisible(true);
+			}
 		}
-		
+	}
+	
+	//Nuevo Turno Listener
+	class ConfirmarTurnoListener implements ActionListener{
+		public void actionPerformed (ActionEvent e) {
+			String fecha, horario, tratamiento, diente, odontologo, paciente;
+			int duracion;
+			fecha = mView.nuevoTurno.getFecha();
+			horario = mView.nuevoTurno.getHorario();
+			duracion = mView.nuevoTurno.getDuracion();
+			tratamiento = mView.nuevoTurno.getTratamiento();
+			diente = mView.nuevoTurno.getDiente();
+			odontologo = mView.nuevoTurno.getOdontologo();
+			
+			try{
+				paciente = mView.nuevoTurno.getPaciente();
+				if (mModel.addTurnoDB(fecha, horario, tratamiento, duracion, diente, odontologo, paciente)){
+					mView.nuevoTurno.setVisible(false);
+				}
+			}catch(Exception ex){
+				JOptionPane.showMessageDialog(null, "No se ha seleccionado un paciente", "Error", JOptionPane.ERROR_MESSAGE);
+			}
+		}
+	}
+	
+	//Listener Para El Calendario
+	class CalendarioListener implements CalendarListener {
+        @Override
+        public void selectedDateChanged(CalendarSelectionEvent event) {
+            LocalDate newDate = event.getNewDate();
+            String diaSeleccionado;
+            String mesSeleccionado;
+            String anoSeleccionado = String.valueOf(newDate.getYear());
+            
+            if(newDate.getDayOfMonth() >= 10){
+            	diaSeleccionado = String.valueOf(newDate.getDayOfMonth());
+            }else{
+            	diaSeleccionado = "0"+String.valueOf(newDate.getDayOfMonth());
+            }
+            
+            if(newDate.getMonthValue() >= 10){
+            	mesSeleccionado = String.valueOf(newDate.getMonthValue());
+            } else{
+            	mesSeleccionado = "0"+String.valueOf(newDate.getMonthValue());
+            }
+            
+            String fechaSeleccionada = diaSeleccionado+"/"+mesSeleccionado+"/"+anoSeleccionado;
+            mView.agenda.getFechaSeleccion().setText(fechaSeleccionada);
+            
+            mModel.llenarTablaTurnos(mView.agenda.getTabla(), listaTurnos.getTurnosPorDia(fechaSeleccionada));
+        }
+
+        @Override
+        public void yearMonthChanged(YearMonthChangeEvent event) {
+        }
 	}
 	
 	class DienteListener implements ActionListener{
@@ -147,9 +202,6 @@ public class Controller {
 		public void mouseClicked(MouseEvent me) {
 			
 			Object source = me.getSource();
-			
-			
-			
 			
 			//Click en panel de busqueda
 			if(source.equals(mView.historia.getBusquedaField())){
@@ -305,33 +357,6 @@ public class Controller {
 		}
 	}
 	
-	class ConfirmarTurnoListener implements ActionListener{
-		public void actionPerformed (ActionEvent e) {
-			String fecha, horario, tratamiento, diente, odontologo, paciente;
-			int duracion;
-			fecha = mView.nuevoTurno.getFecha();
-			horario = mView.nuevoTurno.getHorario();
-			duracion = mView.nuevoTurno.getDuracion();
-			tratamiento = mView.nuevoTurno.getTratamiento();
-			diente = mView.nuevoTurno.getDiente();
-			odontologo = mView.nuevoTurno.getOdontologo();
-			paciente = mView.nuevoTurno.getPaciente();
-			if (mModel.addTurnoDB(fecha, horario, tratamiento, duracion, diente, odontologo, paciente)){
-				mView.nuevoTurno.setVisible(false);
-			}
-			
-		}
-	}
-	
-
-
-//	class CancelListener implements ActionListener{
-//		public void actionPerformed (ActionEvent e) {
-//			mView.nuevoPaciente.setVisible(false);
-//		}
-//	}
-
-	
 	//AgregarUnNuevoPaciente Listener
 	class AddPacienteListener implements ActionListener{
 		public void actionPerformed (ActionEvent e) {
@@ -339,23 +364,6 @@ public class Controller {
 			mView.nuevoPaciente.addNuevoPacienteListener(new NuevoPacienteListener());
 		}
 	}
-	
-
-	class CalendarioListener implements CalendarListener {
-        @Override
-        public void selectedDateChanged(CalendarSelectionEvent event) {
-            LocalDate newDate = event.getNewDate();
-            String diaSeleccionado = newDate.getDayOfMonth() + " / " + newDate.getMonthValue() + " / " + newDate.getYear();
-            mView.agenda.getFechaSeleccion().setText(diaSeleccionado);
-            //mModel
-        }
-
-        @Override
-        public void yearMonthChanged(YearMonthChangeEvent event) {
-        }
-	}
-	
-	
 	
 	//BOTONES DE LA VISTA ADMINISTRACION
 	class AdminListener implements ActionListener{
