@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 
 import javax.swing.JOptionPane;
+import javax.swing.event.ChangeListener;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 
@@ -136,10 +137,38 @@ public class Controller {
 				
 			}
 			
+			//Boton No Dar Turno
+			if (source.equals(mView.agenda.getNoDarTurnoButton())) {
+				mView.newNoDarTurno();
+				mView.noDarTurno.setVisible(true);
+				mView.noDarTurno.addNoDarTurnoListener(new NoDarTurnosListener());
+				
+				try {
+					mView.noDarTurno.getDateChooser().setDate(new SimpleDateFormat("dd/MM/yyyy").parse(fechaSeleccionada));
+				} catch(ParseException ex) {
+					
+				}
+			}
+			
 			//Boton Atras
 			if(source.equals(mView.agenda.getBackButton())){
 				mView.agenda.setVisible(false);
 				mView.menu.setVisible(true);
+			}
+		}
+	}
+
+	
+	class NoDarTurnosListener implements ActionListener {
+		public void actionPerformed (ActionEvent e) {
+			Object source = e.getSource();
+			
+			if (source.equals(mView.noDarTurno.getConfirmar())){
+				mView.noDarTurno.setVisible(false);
+			}
+			
+			if (source.equals(mView.noDarTurno.getAtras())) {
+				mView.noDarTurno.setVisible(false);
 			}
 		}
 	}

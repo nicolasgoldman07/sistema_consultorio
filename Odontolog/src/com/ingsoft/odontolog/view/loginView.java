@@ -42,6 +42,7 @@ public class loginView extends JFrame {
 		setTitle("Odontolog");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(600, 300, 650, 400);								// los primeros dos son de ubicacion en pantalla
+		this.setMaximumSize(this.getSize());
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);

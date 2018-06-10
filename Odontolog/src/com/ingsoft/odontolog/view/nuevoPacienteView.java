@@ -49,23 +49,6 @@ public class nuevoPacienteView extends JFrame {
 	private JButton btnAgregar;
 	private JButton btnCancelar;
 	
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					nuevoPacienteView frame = new nuevoPacienteView();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
 	/**
 	 * Create the frame.
 	 */

@@ -14,6 +14,7 @@ public class View {
 	public nuevoPacienteView nuevoPaciente;
 	public historiaClinicaView	historia;
 	public nuevoTurnoView nuevoTurno;
+	public noDarTurnoView noDarTurno;
 	
 	
 
@@ -53,6 +54,15 @@ public class View {
 		try {
 			nuevoTurno = new nuevoTurnoView();
 			nuevoTurno.setVisible(true);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void newNoDarTurno() {
+		try {
+			noDarTurno = new noDarTurnoView();
+			noDarTurno.setVisible(true);
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
