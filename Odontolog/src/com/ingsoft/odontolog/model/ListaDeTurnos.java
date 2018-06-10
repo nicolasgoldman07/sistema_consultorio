@@ -41,14 +41,11 @@ public class ListaDeTurnos{
 		int hora_1 = Integer.valueOf(hora_a.substring(0, 2));
 		int min_1 = Integer.valueOf(hora_a.substring(3, 4));
 		
-		System.out.println(String.valueOf(hora_1));
-		
 		int hora_2 = Integer.valueOf(hora_b.substring(0, 2));
 		int min_2 = Integer.valueOf(hora_b.substring(3, 4));
 		
-		System.out.println(String.valueOf(hora_2));
-		
 		int index = hora_2 - hora_1;
+		
 		if((min_1 - min_2) < 0){
 			index = (index*2)+1;
 		}
@@ -58,8 +55,6 @@ public class ListaDeTurnos{
 		if((min_1 - min_2) > 0){
 			index = (index*2)-1;
 		}
-		
-		System.out.println(index);
 		
 		return index;
 	}
@@ -74,8 +69,8 @@ public class ListaDeTurnos{
 				String esta_hor = listaTurnos.get(i).getDato("horario");
 				
 				if(i==0){
-					int dif = getDiferenciaDeHorarios("08:00", esta_hor);
-					
+					int dif = getDiferenciaDeHorarios("07:00", esta_hor);
+					System.out.println("LA DIFERENCIA ES: "+String.valueOf(dif));
 					for(int k=0; k<dif; k++){
 						vector_datos.add(vector_blanco);
 					}
@@ -113,7 +108,7 @@ public class ListaDeTurnos{
 		
 		for(int i=0; i<listaTurnos.size(); i++){
 			if(listaTurnos.get(i).getDato("paciente").equals(paciente)){
-				vector_datos.add(listaTurnos.get(i).getDatosCompletosTabla());
+				vector_datos.add(listaTurnos.get(i).getTratamientoTabla());
 			}	
 		}
 		

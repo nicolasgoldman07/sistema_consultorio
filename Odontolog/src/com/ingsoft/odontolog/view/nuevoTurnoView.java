@@ -265,7 +265,8 @@ public class nuevoTurnoView extends JFrame {
 		contentPane.add(lblTratamiento, gbc_lblTratamiento);
 		
 		comboBoxTratamiento = new JComboBox();
-		comboBoxTratamiento.setModel(new DefaultComboBoxModel(new String[] {"04.02.01 \tPr\u00F3tesis parcial de hasta 5 elementos"}));
+		comboBoxTratamiento.setModel(new DefaultComboBoxModel(new String[] {"CONSULTAS", "OPERATORIA", "ENDODONCIA", "PROTESIS", "PREVENCION", "ORTODONCIA",
+				"ORTODONCIA", "PERIODONCIA", "RADIOLOGIA", "CIRUGIA"}));
 		comboBoxTratamiento.setToolTipText("");
 		GridBagConstraints gbc_comboBoxTratamiento = new GridBagConstraints();
 		gbc_comboBoxTratamiento.gridwidth = 3;

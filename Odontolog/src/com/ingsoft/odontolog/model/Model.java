@@ -344,4 +344,17 @@ public class Model {
 		
 		return ordenes.get(a);
 	}
+	
+	//Calcula precio total de Tratamientos de un Paciente
+	public String getPrecioTotal(Vector<Vector<String>> tratamientos){
+		String precioTotal = "";
+		String precio = "";
+		float p = 0;
+		for(int i=0; i<tratamientos.size(); i++){
+			precio = tratamientos.get(i).get(1);
+			p = p+Float.valueOf(precio.substring(2, precio.length()));
+		}
+		precioTotal = String.format("%.2f", p);
+		return precioTotal;
+	}
 }
