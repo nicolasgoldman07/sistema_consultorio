@@ -11,7 +11,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+
 
 import com.ingsoft.odontolog.model.sql.ConexionLogin;
 import com.ingsoft.odontolog.model.sql.ConexionPacientes;
@@ -27,17 +31,11 @@ public class Model {
 	private ConexionPacientes conP;
 	
 	
-	private String[] DummyNames = {"Ale", "Hueba", "Nico", "Lea", "Tortugo" };
-	private String[] DummySurenames = {"Arce", "Weda", "Goldman", "Drueta", "Weda"};
 	private int aux = 0;
 	private ListModelPaciente listaPacientes;
 	
 	public Model(){
 		listaPacientes = ListModelPaciente.getInstance();
-//		for(int i=0; i<50; i++){
-//			listaPacientes.addPaciente(this.dummyPaciente());
-//		}
-//		listaPacientes.ordenarAlfa();
 	}
 	
 	
@@ -79,7 +77,13 @@ public class Model {
 	public Vector<String> getTratamientosPaciente(Paciente paciente){
 		Vector<String> dientes = new Vector<String>();
 		ArrayList<Diente> dentaduraPaciente = new ArrayList<Diente>();
-		dentaduraPaciente = paciente.getHistoriaClinica().getDentadura();
+		
+		try{
+			dentaduraPaciente = paciente.getHistoriaClinica().getDentadura();
+		}catch(NullPointerException e){
+			JOptionPane.showMessageDialog(null, "No tiene un odontograma", "Error", JOptionPane.ERROR_MESSAGE);
+		}
+		
 		int cantDientes = dentaduraPaciente.size();
 		for(int i=0; i<cantDientes; i++){
 			for(int j=0; j<Diente.CARAS; j++){
@@ -109,7 +113,10 @@ public class Model {
 			pst.setString(10, num);
 			pst.setString(11, alt);
 			pst.setString(12, fac);
+			
 			if(pst.executeUpdate() == 1) {
+				conP.desconectar();
+				añadirUltimoALista();
 				return true;
 			}
 			else {
@@ -120,13 +127,55 @@ public class Model {
 			JOptionPane.showMessageDialog(null,ex);
 			return false;
 		}
+	}
+	
+	public void removePacienteDB(String id){
+		String rmCommand = "DELETE FROM pacientes WHERE dni = '"+id+"' ";
+		conP = new ConexionPacientes();
 		
+		try{
+			Statement estatuto = conP.getConnection().createStatement();
+			estatuto.execute(rmCommand);
+		}catch(SQLException | HeadlessException ex){
+			JOptionPane.showMessageDialog(null,ex);
+		}
+	}
+	
+	public void añadirUltimoALista(){
+		ConexionLogin conex = new ConexionLogin();
+		try {
+			Statement estatuto = conex.getConnection().createStatement();
+			ResultSet rs = estatuto.executeQuery("SELECT * FROM odontologin.pacientes");
+			
+			rs.last();
+			
+			Vector<String> datos = new Vector<String>();
+			Paciente paciente = new Paciente();
+			
+			for (int i = 1; i < 13; i++){
+				datos.addElement(String.valueOf(rs.getObject(i)).toUpperCase());	
+			}
+		
+			paciente.setDatosCompletos(datos.get(0), datos.get(1), datos.get(2), 
+					datos.get(3), datos.get(4), datos.get(5), datos.get(6), datos.get(7),
+					datos.get(8), datos.get(9), datos.get(10), datos.get(11));
+			
+			listaPacientes.addPaciente(paciente);
+			
+			rs.close();
+			estatuto.close();
+			conex.desconectar();
+
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			JOptionPane.showMessageDialog(null, "Error al consultar", "Error",
+					JOptionPane.ERROR_MESSAGE);
+		}
 	}
 	
 	public void llenarLista() {
 
 		ConexionLogin conex = new ConexionLogin();
-		
 		
 		try {
 			Statement estatuto = conex.getConnection().createStatement();
@@ -144,7 +193,8 @@ public class Model {
 				
 				listaPacientes.addPaciente(paciente);
 			}
-			listaPacientes.ordenarAlfa();
+			
+			listaPacientes.setOrdenarStrategy(new OrdenarAlfabeticamente());
 			
 			
 			rs.close();
@@ -159,13 +209,20 @@ public class Model {
 		}
 	}
 	
-	
-	public Paciente dummyPaciente(){
-		Paciente p = new Paciente("32", "12", "X", DummyNames[aux], DummySurenames[aux], new Odontograma());
-		aux++;
-		if(aux >= DummyNames.length){
-			aux = 0;
+	public void llenarTabla(JTable tabla, Vector<Vector<String>> datos){
+		for(int i=0; i<datos.size(); i++){
+			for(int j=0; j<datos.get(i).size(); j++){
+				tabla.getModel().setValueAt(datos.get(i).get(j), i, j);
+			}
 		}
-		return p;
+	}
+	
+	public OrdenarStrategy getOrdenamiento(int a){
+		Vector<OrdenarStrategy> ordenes = new Vector<OrdenarStrategy>();
+		ordenes.add(new OrdenarAlfabeticamente());
+		ordenes.add(new OrdenarPorNombre());
+		ordenes.add(new OrdenarPorDni());
+		
+		return ordenes.get(a);
 	}
 }

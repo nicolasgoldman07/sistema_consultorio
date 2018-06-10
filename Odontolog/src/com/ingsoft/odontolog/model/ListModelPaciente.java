@@ -13,6 +13,7 @@ public class ListModelPaciente extends AbstractListModel {
 	
 	private ArrayList<Paciente> listaPaciente = new ArrayList<Paciente>();
 	private static final ListModelPaciente INSTANCE = new ListModelPaciente();
+	private OrdenarStrategy formaDeOrdenar;
 	
 	public static ListModelPaciente getInstance() {
         return INSTANCE;
@@ -23,17 +24,26 @@ public class ListModelPaciente extends AbstractListModel {
 	public void addPaciente(Paciente nuevoPaciente){
 		listaPaciente.add(nuevoPaciente);
 		this.fireIntervalAdded(this, getSize(), getSize()+1);
+		fireContentsChanged(this, getSize(), getSize()+1);
+		
 	}
-	public void removePacienet(Paciente rmPaciente){
+	public void removePaciente(Paciente rmPaciente){
 		listaPaciente.remove(rmPaciente);
+		this.fireIntervalRemoved(this, getSize(), getSize()+1);
 	}
 	
 	public Paciente getPaciente(int index){
 		return listaPaciente.get(index);
 	}
 	
-	public void ordenarAlfa(){
-		listaPaciente.sort(null);
+	public void setOrdenarStrategy(OrdenarStrategy os){
+		formaDeOrdenar = os;
+		formaDeOrdenar.ordenar();
+		fireContentsChanged(this, getSize(), getSize()+1);
+	}
+	
+	public ArrayList<Paciente> getLista(){
+		return listaPaciente;
 	}
 	
 	public int getPacientePorNombre(String name){

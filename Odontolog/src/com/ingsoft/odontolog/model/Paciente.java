@@ -1,5 +1,8 @@
 package com.ingsoft.odontolog.model;
 
+import java.util.HashMap;
+import java.util.Vector;
+
 public class Paciente implements Comparable {
 	
 	private String dni;
@@ -14,7 +17,15 @@ public class Paciente implements Comparable {
 	private String mail;
 	private String direccion;
 	private String grupoSanguineo;
+	
 	private Odontograma historiaC;
+	
+	private CompararStrategy orden;
+	
+	private HashMap<String, String> datos = new HashMap<String, String>();
+	
+	public static String[] campos = {"nombre", "apellido", "dni", "telefono", "e-mail", "direccion", "medico", 
+			"peso", "obra social", "numero OS", "altura", "grupo sanguineo"};
 	
 	public Paciente(){	}
 	
@@ -68,6 +79,10 @@ public class Paciente implements Comparable {
 		return historiaC;
 	}
 	
+	public String getDato(String tipo){
+		return datos.get(tipo);
+	}
+	
 	//Setters
 	public void setNombre(String nom, String ape){
 		this.nombre = nom;
@@ -83,7 +98,8 @@ public class Paciente implements Comparable {
 	public void setHistoriaClinica(Odontograma odonto){
 		this.historiaC = odonto;
 	}
-	public void setDatosCompletos(String nom, String ape, String dni, String tel, String mail, String direc, String med, String peso, String os, String osnum, String alt, String gs){
+	public void setDatosCompletos(String nom, String ape, String dni, String tel, String mail, 
+			String direc, String med, String peso, String os, String osnum, String alt, String gs){
 		this.nombre = nom;
 		this.apellido = ape;
 		this.dni = dni;
@@ -92,16 +108,54 @@ public class Paciente implements Comparable {
 		this.direccion = direc;
 		this.grupoSanguineo = gs;
 		this.medico = med;
-		this.mail = mail;
+		this.mail = mail.toLowerCase();
 		this.peso = peso;
 		this.obraSocial = os;
 		this.obraSocialNum = osnum;
+		
+		this.historiaC = new Odontograma();
+		
+		datos.put(campos[0], this.nombre);
+		datos.put(campos[1], this.apellido);
+		datos.put(campos[2], this.dni);
+		datos.put(campos[3], this.telefono);
+		datos.put(campos[4], this.mail);
+		datos.put(campos[5], this.direccion);
+		datos.put(campos[6], this.medico);
+		datos.put(campos[7], this.peso);
+		datos.put(campos[8], this.obraSocial);
+		datos.put(campos[9], this.obraSocialNum);
+		datos.put(campos[10],this.altura);
+		datos.put(campos[11],this.grupoSanguineo);
+		
+	}
+	
+	public Vector< Vector<String> > getDatosCompletosTabla(){
+		
+		Vector< Vector<String> > datos = new Vector< Vector<String> >();
+		
+		for(int i=0; i<campos.length; i++){
+			datos.addElement(new Vector<String>());
+			datos.get(i).addElement(this.campos[i]);
+			datos.get(i).addElement(this.getDato(campos[i]));
+		}
+		return datos;
+	}
+	
+	public void setCompararBehavior(CompararStrategy comp){
+		orden = comp;
 	}
 
+//	@Override
+//	public int compareTo(Object other) {
+//		Paciente otherPacient = (Paciente) other;
+//		return getNombreCompleto().compareToIgnoreCase(otherPacient.getNombreCompleto());
+//	}
+	
 	@Override
 	public int compareTo(Object other) {
-		Paciente otherPacient = (Paciente) other;
-		return getNombreCompleto().compareToIgnoreCase(otherPacient.getNombreCompleto());
+		return orden.ordenar(this, (Paciente) other);
 	}
+	
 	
 }
