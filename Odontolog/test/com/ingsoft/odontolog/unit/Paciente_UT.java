@@ -1,12 +1,12 @@
 package com.ingsoft.odontolog.unit;
-/*import static org.junit.Assert.*;
+import static org.junit.Assert.*;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 public class Paciente_UT {
-	
+	/*
 	Paciente p1;
 	Paciente p2;
 	
@@ -33,5 +33,5 @@ public class Paciente_UT {
 		Assert.assertEquals(null, p1.getDni());
 		Assert.assertEquals("32", p2.getDni());
 	}
-
-}*/
+*/
+}

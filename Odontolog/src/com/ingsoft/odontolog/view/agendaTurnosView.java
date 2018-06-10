@@ -33,6 +33,7 @@ import java.util.GregorianCalendar;
 import java.util.Calendar;
 import com.toedter.calendar.JDayChooser;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import java.awt.FlowLayout;
@@ -78,6 +79,8 @@ public class agendaTurnosView extends JFrame{
 	private CalendarPanel calendarPanel;
 	private static JTextField fechaSeleccion;
 	private JButton agregarBtn;
+	private JButton nodarBtn;
+	private int rowz;
 	//private Calendar calendario;
 	//private JPanel panel;
 
@@ -175,7 +178,6 @@ public class agendaTurnosView extends JFrame{
 		table.setBorder(new LineBorder(new Color(0, 0, 0)));
 		table.setRowHeight(27);
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-		table.setEnabled(false);
 		table.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 		table.setFont(new Font("Yu Gothic UI Semilight", Font.PLAIN, 16));
 		table.setBackground(SystemColor.activeCaption);
@@ -188,7 +190,7 @@ public class agendaTurnosView extends JFrame{
 				{"9:00", null, null, null, null},
 				{"9:30", null, null, null, null},
 				{"10:00", null, null, null, null},
-				{"8:30", null, null, null, null},
+				{"10:30", null, null, null, null},
 				{"11:00", null, null, null, null},
 				{"11:30", null, null, null, null},
 				{"12:00", null, null, null, null},
@@ -382,7 +384,7 @@ public class agendaTurnosView extends JFrame{
 		modificarBtn.setBorder(null);
 		modificarBtn.setBackground(SystemColor.menu);
 		
-		JButton nodarBtn = new JButton("");
+		nodarBtn = new JButton("");
 		nodarBtn.setIcon(new ImageIcon(agendaTurnosView.class.getResource("/images/unable.png")));
 		nodarBtn.setVerticalAlignment(SwingConstants.BOTTOM);
 		nodarBtn.setHorizontalAlignment(SwingConstants.LEADING);
@@ -446,6 +448,7 @@ public class agendaTurnosView extends JFrame{
 	public void addAgendaListener(ActionListener listenAgenda){
 		backButton.addActionListener(listenAgenda);
 		agregarBtn.addActionListener(listenAgenda);
+		nodarBtn.addActionListener(listenAgenda);
 	}
 	
 	public void addCalendarListener(CalendarListener listenCalendario){
@@ -467,8 +470,13 @@ public class agendaTurnosView extends JFrame{
 		return backButton;
 	}
 	
+	public JButton getNoDarTurnoButton() {
+		return nodarBtn;
+	}
+	
 	public CalendarPanel getCalendario(){
 		return calendarPanel;
 	}
     
+
 }

@@ -29,6 +29,7 @@ import javax.swing.JScrollBar;
 import javax.swing.JTextField;
 import java.awt.Component;
 import javax.swing.border.LineBorder;
+import javax.swing.event.ChangeListener;
 import javax.swing.JTable;
 import javax.swing.JToggleButton;
 import javax.swing.ListModel;
@@ -37,6 +38,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import javax.swing.AbstractListModel;
+import javax.swing.event.ChangeEvent;
 
 public class nuevoTurnoView extends JFrame {
 
@@ -50,6 +52,7 @@ public class nuevoTurnoView extends JFrame {
 	private JComboBox comboBoxOdontologo;
 	private JList listaPacientes;
 	private JComboBox comboBoxDuracion;
+	private JLabel labelDienteSeleccionado;
 
 	/**
 	 * Launch the application.
@@ -74,26 +77,27 @@ public class nuevoTurnoView extends JFrame {
 		setTitle("Agregar");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(nuevoPacienteView.class.getResource("/images/dientesin200.png")));
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(600, 300, 811, 597);
+		setBounds(600, 300, 811, 620);
 		contentPane = new JPanel();
+		contentPane.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		contentPane.setBackground(SystemColor.inactiveCaption);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[] {30, 0, 30, 50, 50, 300};
-		gbl_contentPane.rowHeights = new int[] {50, 30, 30, 30, 0, 30, 0, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 25, 20};
+		gbl_contentPane.rowHeights = new int[] {50, 0, 30, 30, 30, 0, 30, 0, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 25, 20};
 		gbl_contentPane.columnWeights = new double[]{1.0, 0.0, 1.0};
-		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0};
+		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0};
 		contentPane.setLayout(gbl_contentPane);
 		
 		JPanel panelTitulo = new JPanel();
 		panelTitulo.setBackground(SystemColor.textHighlight);
 		GridBagConstraints gbc_panelTitulo = new GridBagConstraints();
-		gbc_panelTitulo.gridwidth = 6;
+		gbc_panelTitulo.gridwidth = 8;
 		gbc_panelTitulo.insets = new Insets(0, 0, 5, 0);
 		gbc_panelTitulo.fill = GridBagConstraints.BOTH;
 		gbc_panelTitulo.gridx = 0;
-		gbc_panelTitulo.gridy = 0;
+		gbc_panelTitulo.gridy = 1;
 		contentPane.add(panelTitulo, gbc_panelTitulo);
 		panelTitulo.setLayout(new BorderLayout(0, 0));
 		
@@ -109,7 +113,7 @@ public class nuevoTurnoView extends JFrame {
 		gbc_lblDiaDelTurno.gridwidth = 3;
 		gbc_lblDiaDelTurno.insets = new Insets(0, 0, 5, 5);
 		gbc_lblDiaDelTurno.gridx = 0;
-		gbc_lblDiaDelTurno.gridy = 2;
+		gbc_lblDiaDelTurno.gridy = 3;
 		contentPane.add(lblDiaDelTurno, gbc_lblDiaDelTurno);
 		
 		JLabel lblDiente = new JLabel("Diente: ");
@@ -119,7 +123,7 @@ public class nuevoTurnoView extends JFrame {
 		gbc_lblDiente.gridwidth = 2;
 		gbc_lblDiente.insets = new Insets(0, 0, 5, 0);
 		gbc_lblDiente.gridx = 4;
-		gbc_lblDiente.gridy = 2;
+		gbc_lblDiente.gridy = 3;
 		contentPane.add(lblDiente, gbc_lblDiente);
 		
 		dateChooser = new JDateChooser();
@@ -132,31 +136,34 @@ public class nuevoTurnoView extends JFrame {
 		gbc_dateChooser.insets = new Insets(0, 0, 5, 5);
 		gbc_dateChooser.fill = GridBagConstraints.BOTH;
 		gbc_dateChooser.gridx = 0;
-		gbc_dateChooser.gridy = 3;
+		gbc_dateChooser.gridy = 4;
 		contentPane.add(dateChooser, gbc_dateChooser);
 		
 		sliderDiente = new JSlider();
+		sliderDiente.setPaintLabels(true);
+		sliderDiente.addChangeListener(new SliderListener());
+		sliderDiente.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		sliderDiente.setPaintTicks(true);
 		sliderDiente.setSnapToTicks(true);
-		sliderDiente.setMajorTickSpacing(1);
+		sliderDiente.setMajorTickSpacing(10);
 		sliderDiente.setMinorTickSpacing(1);
 		sliderDiente.setMinimum(11);
 		sliderDiente.setMaximum(85);
 		GridBagConstraints gbc_sliderDiente = new GridBagConstraints();
 		gbc_sliderDiente.gridwidth = 2;
-		gbc_sliderDiente.fill = GridBagConstraints.HORIZONTAL;
+		gbc_sliderDiente.fill = GridBagConstraints.BOTH;
 		gbc_sliderDiente.insets = new Insets(0, 0, 5, 0);
 		gbc_sliderDiente.gridx = 4;
-		gbc_sliderDiente.gridy = 3;
+		gbc_sliderDiente.gridy = 4;
 		contentPane.add(sliderDiente, gbc_sliderDiente);
 		
-		JLabel labelDienteSeleccionado = new JLabel("11 (Incisivo central derecho adulto)");
-		labelDienteSeleccionado.setFont(new Font("Yu Gothic UI Semilight", Font.PLAIN, 10));
+		labelDienteSeleccionado = new JLabel("Numero de diente: " + String.valueOf((int) sliderDiente.getValue()));
+		labelDienteSeleccionado.setFont(new Font("Yu Gothic UI Semilight", Font.PLAIN, 17));
 		GridBagConstraints gbc_labelDienteSeleccionado = new GridBagConstraints();
 		gbc_labelDienteSeleccionado.gridwidth = 2;
 		gbc_labelDienteSeleccionado.insets = new Insets(0, 0, 5, 0);
 		gbc_labelDienteSeleccionado.gridx = 4;
-		gbc_labelDienteSeleccionado.gridy = 4;
+		gbc_labelDienteSeleccionado.gridy = 5;
 		contentPane.add(labelDienteSeleccionado, gbc_labelDienteSeleccionado);
 		
 		JLabel lblHorario = new JLabel("Horario: ");
@@ -166,7 +173,7 @@ public class nuevoTurnoView extends JFrame {
 		gbc_lblHorario.gridwidth = 3;
 		gbc_lblHorario.insets = new Insets(0, 0, 5, 5);
 		gbc_lblHorario.gridx = 0;
-		gbc_lblHorario.gridy = 6;
+		gbc_lblHorario.gridy = 7;
 		contentPane.add(lblHorario, gbc_lblHorario);
 		
 		JLabel lblOdontologo = new JLabel("Odontologo: ");
@@ -176,7 +183,7 @@ public class nuevoTurnoView extends JFrame {
 		gbc_lblOdontologo.gridwidth = 2;
 		gbc_lblOdontologo.insets = new Insets(0, 0, 5, 0);
 		gbc_lblOdontologo.gridx = 4;
-		gbc_lblOdontologo.gridy = 6;
+		gbc_lblOdontologo.gridy = 7;
 		contentPane.add(lblOdontologo, gbc_lblOdontologo);
 		
 		comboBoxHoriarios = new JComboBox();
@@ -187,7 +194,7 @@ public class nuevoTurnoView extends JFrame {
 		gbc_comboBoxHoriarios.insets = new Insets(0, 0, 5, 5);
 		gbc_comboBoxHoriarios.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBoxHoriarios.gridx = 0;
-		gbc_comboBoxHoriarios.gridy = 8;
+		gbc_comboBoxHoriarios.gridy = 9;
 		contentPane.add(comboBoxHoriarios, gbc_comboBoxHoriarios);
 		
 		comboBoxOdontologo = new JComboBox();
@@ -198,7 +205,7 @@ public class nuevoTurnoView extends JFrame {
 		gbc_comboBoxOdontologo.insets = new Insets(0, 0, 5, 0);
 		gbc_comboBoxOdontologo.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBoxOdontologo.gridx = 4;
-		gbc_comboBoxOdontologo.gridy = 8;
+		gbc_comboBoxOdontologo.gridy = 9;
 		contentPane.add(comboBoxOdontologo, gbc_comboBoxOdontologo);
 		
 		JLabel lblDuracionDelTurno = new JLabel("Duracion del turno (minutos): ");
@@ -208,7 +215,7 @@ public class nuevoTurnoView extends JFrame {
 		gbc_lblDuracionDelTurno.gridwidth = 3;
 		gbc_lblDuracionDelTurno.insets = new Insets(0, 0, 5, 5);
 		gbc_lblDuracionDelTurno.gridx = 0;
-		gbc_lblDuracionDelTurno.gridy = 10;
+		gbc_lblDuracionDelTurno.gridy = 11;
 		contentPane.add(lblDuracionDelTurno, gbc_lblDuracionDelTurno);
 		
 		JLabel lblPaciente = new JLabel("Paciente:");
@@ -218,7 +225,7 @@ public class nuevoTurnoView extends JFrame {
 		gbc_lblPaciente.gridwidth = 2;
 		gbc_lblPaciente.insets = new Insets(0, 0, 5, 0);
 		gbc_lblPaciente.gridx = 4;
-		gbc_lblPaciente.gridy = 10;
+		gbc_lblPaciente.gridy = 11;
 		contentPane.add(lblPaciente, gbc_lblPaciente);
 		
 		comboBoxDuracion = new JComboBox();
@@ -229,7 +236,7 @@ public class nuevoTurnoView extends JFrame {
 		gbc_comboBoxDuracion.insets = new Insets(0, 0, 5, 5);
 		gbc_comboBoxDuracion.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBoxDuracion.gridx = 0;
-		gbc_comboBoxDuracion.gridy = 11;
+		gbc_comboBoxDuracion.gridy = 12;
 		contentPane.add(comboBoxDuracion, gbc_comboBoxDuracion);
 		
 		textField = new JTextField();
@@ -240,7 +247,7 @@ public class nuevoTurnoView extends JFrame {
 		gbc_textField.insets = new Insets(0, 0, 5, 0);
 		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textField.gridx = 4;
-		gbc_textField.gridy = 11;
+		gbc_textField.gridy = 12;
 		contentPane.add(textField, gbc_textField);
 		
 		listaPacientes = new JList();
@@ -248,10 +255,10 @@ public class nuevoTurnoView extends JFrame {
 		GridBagConstraints gbc_listaPacientes = new GridBagConstraints();
 		gbc_listaPacientes.insets = new Insets(0, 0, 5, 0);
 		gbc_listaPacientes.gridwidth = 2;
-		gbc_listaPacientes.gridheight = 7;
+		gbc_listaPacientes.gridheight = 6;
 		gbc_listaPacientes.fill = GridBagConstraints.BOTH;
 		gbc_listaPacientes.gridx = 4;
-		gbc_listaPacientes.gridy = 12;
+		gbc_listaPacientes.gridy = 13;
 		contentPane.add(listaPacientes, gbc_listaPacientes);
 		
 		JLabel lblTratamiento = new JLabel("Tratamiento:");
@@ -261,7 +268,7 @@ public class nuevoTurnoView extends JFrame {
 		gbc_lblTratamiento.gridwidth = 3;
 		gbc_lblTratamiento.insets = new Insets(0, 0, 5, 5);
 		gbc_lblTratamiento.gridx = 0;
-		gbc_lblTratamiento.gridy = 13;
+		gbc_lblTratamiento.gridy = 14;
 		contentPane.add(lblTratamiento, gbc_lblTratamiento);
 		
 		comboBoxTratamiento = new JComboBox();
@@ -272,7 +279,7 @@ public class nuevoTurnoView extends JFrame {
 		gbc_comboBoxTratamiento.insets = new Insets(0, 0, 5, 5);
 		gbc_comboBoxTratamiento.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBoxTratamiento.gridx = 0;
-		gbc_comboBoxTratamiento.gridy = 14;
+		gbc_comboBoxTratamiento.gridy = 15;
 		contentPane.add(comboBoxTratamiento, gbc_comboBoxTratamiento);
 		
 		confirmarTurnoBtn = new JButton("");
@@ -285,7 +292,7 @@ public class nuevoTurnoView extends JFrame {
 		gbc_confirmarTurnoBtn.fill = GridBagConstraints.VERTICAL;
 		gbc_confirmarTurnoBtn.insets = new Insets(0, 0, 5, 5);
 		gbc_confirmarTurnoBtn.gridx = 1;
-		gbc_confirmarTurnoBtn.gridy = 16;
+		gbc_confirmarTurnoBtn.gridy = 17;
 		contentPane.add(confirmarTurnoBtn, gbc_confirmarTurnoBtn);
 		
 		JLabel lblConfirmarTurno = new JLabel("Confirmar Turno");
@@ -294,7 +301,7 @@ public class nuevoTurnoView extends JFrame {
 		GridBagConstraints gbc_lblConfirmarTurno = new GridBagConstraints();
 		gbc_lblConfirmarTurno.insets = new Insets(0, 0, 5, 5);
 		gbc_lblConfirmarTurno.gridx = 1;
-		gbc_lblConfirmarTurno.gridy = 17;
+		gbc_lblConfirmarTurno.gridy = 18;
 		contentPane.add(lblConfirmarTurno, gbc_lblConfirmarTurno);
 		
 		JPanel panel = new JPanel();
@@ -307,9 +314,6 @@ public class nuevoTurnoView extends JFrame {
 		lblAgregarNuevoPaciente.setFont(new Font("Yu Gothic UI Semilight", Font.BOLD, 16));
 		panel.add(lblAgregarNuevoPaciente, BorderLayout.CENTER);
 	}
-	
-	
-	
 
 	public void addConfirmarTurnoListener (ActionListener listenConfirmar) {
 		confirmarTurnoBtn.addActionListener(listenConfirmar);
@@ -356,5 +360,17 @@ public class nuevoTurnoView extends JFrame {
 		listaPacientes.setModel(modelo);
 	}
 	
-	
+	class SliderListener implements ChangeListener{
+		public void stateChanged (ChangeEvent e) {
+			JSlider source = (JSlider)e.getSource();
+			try {
+				if (!source.getValueIsAdjusting()) {
+					String diente = "Numero de diente: " + String.valueOf((int) source.getValue());
+					labelDienteSeleccionado.setText(diente);
+				}
+			} catch (NullPointerException exc) {
+			
+			}
+		}
+	}
 }
