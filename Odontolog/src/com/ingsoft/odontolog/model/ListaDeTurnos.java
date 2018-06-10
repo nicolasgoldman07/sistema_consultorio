@@ -101,10 +101,22 @@ public class ListaDeTurnos{
 					}
 					
 				}catch(Exception ex){
-					System.out.println("NO BRODI");
+					
 				}
 			}
 		}
+		return vector_datos;
+	}
+	
+	public Vector<Vector<String>> getTratamientosPorPaciente(String paciente){
+		Vector<Vector<String>> vector_datos = new Vector<Vector<String>>();
+		
+		for(int i=0; i<listaTurnos.size(); i++){
+			if(listaTurnos.get(i).getDato("paciente").equals(paciente)){
+				vector_datos.add(listaTurnos.get(i).getDatosCompletosTabla());
+			}	
+		}
+		
 		return vector_datos;
 	}
 

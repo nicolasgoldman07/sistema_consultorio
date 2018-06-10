@@ -41,6 +41,13 @@ public class Turno implements Comparable{
 		return datos.get(tipo);
 	}
 	
+	public Vector<String> getTratamientoTabla(){
+		Vector<String> vector_datos = new Vector<String>();
+		vector_datos.addElement(tratamiento);
+		vector_datos.addElement(Tratamientos.getPrecioDeTratamiento(tratamiento));
+		return vector_datos;
+	}
+	
 	public Vector<String> getDatosCompletosTabla(){
 		Vector<String> vector_datos = new Vector<String>();
 		
