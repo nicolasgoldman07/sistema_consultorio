@@ -173,7 +173,7 @@ public class agendaTurnosView extends JFrame{
 		
 		table = new JTable();
 		table.setBorder(new LineBorder(new Color(0, 0, 0)));
-		table.setRowHeight(32);
+		table.setRowHeight(27);
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		table.setEnabled(false);
 		table.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
@@ -181,6 +181,8 @@ public class agendaTurnosView extends JFrame{
 		table.setBackground(SystemColor.activeCaption);
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
+				{"7:00", null, null, null, null},
+				{"7:30", null, null, null, null},
 				{"8:00", null, null, null, null},
 				{"8:30", null, null, null, null},
 				{"9:00", null, null, null, null},
@@ -207,9 +209,13 @@ public class agendaTurnosView extends JFrame{
 				{"19:30", null, null, null, null},
 				{"20:00", null, null, null, null},
 				{"20:30", null, null, null, null},
+				{"21:00", null, null, null, null},
+				{"21:30", null, null, null, null},
+				{"22:00", null, null, null, null},
+				{"22:30", null, null, null, null},
 			},
 			new String[] {
-				"Horario", "Paciente", "Arreglo", "Diente", "Observaciones"
+				"Horario", "Paciente", "Arreglo", "Diente", "Odontologo"
 			}
 		) {
 			boolean[] columnEditables = new boolean[] {
