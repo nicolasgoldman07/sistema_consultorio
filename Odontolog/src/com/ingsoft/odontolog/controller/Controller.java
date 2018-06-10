@@ -20,6 +20,7 @@ import com.ingsoft.odontolog.model.ListModelPaciente;
 import com.ingsoft.odontolog.model.ListaDeTurnos;
 import com.ingsoft.odontolog.model.Model;
 import com.ingsoft.odontolog.model.Paciente;
+import com.ingsoft.odontolog.model.SubjectDB;
 import com.ingsoft.odontolog.view.View;
 
 public class Controller {
@@ -42,6 +43,9 @@ public class Controller {
 
 		mModel.llenarLista();
 		mModel.llenarListaDeTurnos();
+		
+		SubjectDB checkDB = new SubjectDB();
+		checkDB.addObserver(mModel);
 
 	}
 

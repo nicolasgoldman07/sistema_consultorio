@@ -1,4 +1,4 @@
-package com.ingsoft.odontolog.controller;
+package com.ingsoft.odontolog.model;
 
 public interface Observer {
 	public void update();
