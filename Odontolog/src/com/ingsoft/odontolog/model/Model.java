@@ -22,7 +22,7 @@ import com.ingsoft.odontolog.model.sql.ConexionPacientes;
 import com.ingsoft.odontolog.model.sql.ConexionTurnos;
 
 
-public class Model {
+public class Model implements Observer{
 	
 	private ConexionLogin con = null;
 	private PreparedStatement pst = null;
@@ -43,7 +43,6 @@ public class Model {
 	public Model(){
 		
 	}
-	
 	
 	public boolean checkLogin(String usr, String pass){
 		sqlLoginCommand = "select * from user where username=? and password=?";
@@ -162,7 +161,6 @@ public class Model {
 			
 			for (int i = 1; i < 13; i++){
 				datos.addElement(String.valueOf(rs.getObject(i)).toUpperCase());	
-				System.out.println("AGREGO: "+String.valueOf(rs.getObject(i)).toUpperCase());
 			}
 		
 			paciente.setDatosCompletos(datos.get(0), datos.get(1), datos.get(2), 
@@ -362,5 +360,13 @@ public class Model {
 		}
 		precioTotal = String.format("%.2f", p);
 		return precioTotal;
+	}
+
+
+	@Override
+	public void update() {
+		this.añadirUltimoALista();
+		JOptionPane.showMessageDialog(null, "Se ha añadido un paciente a la base de datos", "Warning",
+				JOptionPane.INFORMATION_MESSAGE);
 	}
 }
