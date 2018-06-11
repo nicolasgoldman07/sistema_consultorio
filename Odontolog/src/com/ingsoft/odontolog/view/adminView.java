@@ -23,8 +23,6 @@ import javax.swing.table.DefaultTableModel;
 
 import javax.swing.table.JTableHeader;
 
-import com.ingsoft.odontolog.model.sql.PacienteDAO;
-
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.ListModel;

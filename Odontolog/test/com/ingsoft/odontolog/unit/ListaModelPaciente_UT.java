@@ -23,39 +23,31 @@ public class ListaModelPaciente_UT {
 	
 	@Test
 	public void test_addPaciente() {
-		Assert.assertEquals(0, lista.getSize());
+		int size = lista.getSize();
 		lista.addPaciente(p1);
-		Assert.assertEquals(1, lista.getSize());
+		Assert.assertEquals(size+1, lista.getSize());
 		
 		lista.removePaciente(p1);
-		Assert.assertEquals(0, lista.getSize());
+		Assert.assertEquals(size, lista.getSize());
 	}
 
 	@Test
 	public void test_getElementAt() {
-		Assert.assertEquals(0, lista.getSize());
+		int size = lista.getSize();
 		lista.addPaciente(p1);
-		Assert.assertEquals(1, lista.getSize());
-		Assert.assertEquals(p1.getNombreCompleto(), lista.getElementAt(0));
-		
-		lista.removePaciente(p1);
-		Assert.assertEquals(0, lista.getSize());
+		Assert.assertEquals(size+1, lista.getSize());
+		Assert.assertEquals(p1.getNombreCompleto(), lista.getElementAt(size));
 	}
 	
-	@Test (expected = Exception.class)
+	@Test 
 	public void test_getPaciente() {
-		Assert.assertEquals(0, lista.getSize());
+		int size = lista.getSize();
+		
 		lista.addPaciente(p3);
-		Assert.assertEquals(1, lista.getSize());
 		
-		Assert.assertEquals(0, lista.getPacientePorNombre(p3.getNombreCompleto()));
+		Assert.assertEquals(size, lista.getPacientePorNombre(p3.getNombreCompleto()));
 		
-		Assert.assertEquals(p3, lista.getPaciente(0));
-		
-		lista.getPaciente(5);
-		
-		lista.removePaciente(p3);
-		Assert.assertEquals(0, lista.getSize());
+		Assert.assertEquals(p3, lista.getPaciente(size));
 	}
 
 }
