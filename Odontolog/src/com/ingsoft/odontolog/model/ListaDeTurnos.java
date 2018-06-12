@@ -63,43 +63,63 @@ public class ListaDeTurnos{
 	public Vector<Vector<String>> getTurnosPorDia(String fecha){
 		Vector<Vector<String>> vector_datos = new Vector<Vector<String>>();
 		
+		int primero = 0;
+		Vector<Integer> indices = new Vector<Integer>();
+		int blancos = 0;
+		
 		for(int i=0; i<listaTurnos.size(); i++){
 			if(listaTurnos.get(i).getDato(Turno.campos[6]).equals(fecha)){
-				
+				indices.add(i);
+			}
+		}
+		
+		for(int j=0; j<indices.size(); j++){
+			
+				int i = indices.get(j);
+			
 				String esta_hor = listaTurnos.get(i).getDato("horario");
 				
-				if(i==0){
+				if(primero==0){
 					int dif = getDiferenciaDeHorarios("07:00", esta_hor);
 					System.out.println("LA DIFERENCIA ES: "+String.valueOf(dif));
+					System.out.println("EL PRIMER TURNO ES DE: "+listaTurnos.get(i).getDato("paciente")+ "/ A LAS: "+listaTurnos.get(i).getDato("horario"));
 					for(int k=0; k<dif; k++){
 						vector_datos.add(vector_blanco);
+						blancos++;
 					}
 				}
+				
+				primero++;
 				
 				//Agrego los turnos para determinado dia
 				vector_datos.add(listaTurnos.get(i).getDatosCompletosTabla());
 				
 				//Agrego Espacios para la duracion del Turno
 				int espacios = Integer.valueOf(listaTurnos.get(i).getDato("duracion"))/30; 
-				for(int j=0; j<espacios; j++){
+				for(int k=0; k<espacios; k++){
 					vector_datos.add(vector_vacio);
 				}
 				
 				try{
-					String prox_hor = listaTurnos.get(i+1).getDato("horario");
-					
+					String prox_hor = listaTurnos.get(indices.get(j+1)).getDato("horario");
 					
 					int index = getDiferenciaDeHorarios(esta_hor, prox_hor);
+					index = (index+blancos) - (vector_datos.size()-primero) - 1;
+					
+					System.out.println("INDEX: "+String.valueOf(index));
 					
 					for(int k=0; k<index; k++){
 						vector_datos.add(vector_blanco);
+						blancos++;
 					}
 					
 				}catch(Exception ex){
 					
 				}
+				
+				System.out.println("++TURNO ES DE: "+listaTurnos.get(i).getDato("paciente")+ "/ A LAS: "+listaTurnos.get(i).getDato("horario"));
 			}
-		}
+		
 		return vector_datos;
 	}
 	
