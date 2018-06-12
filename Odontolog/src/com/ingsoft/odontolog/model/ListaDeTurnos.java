@@ -72,52 +72,40 @@ public class ListaDeTurnos{
 				indices.add(i);
 			}
 		}
-		
 		for(int j=0; j<indices.size(); j++){
-			
 				int i = indices.get(j);
-			
 				String esta_hor = listaTurnos.get(i).getDato("horario");
 				
 				if(primero==0){
 					int dif = getDiferenciaDeHorarios("07:00", esta_hor);
-					System.out.println("LA DIFERENCIA ES: "+String.valueOf(dif));
-					System.out.println("EL PRIMER TURNO ES DE: "+listaTurnos.get(i).getDato("paciente")+ "/ A LAS: "+listaTurnos.get(i).getDato("horario"));
 					for(int k=0; k<dif; k++){
 						vector_datos.add(vector_blanco);
 						blancos++;
 					}
 				}
-				
 				primero++;
 				
 				//Agrego los turnos para determinado dia
 				vector_datos.add(listaTurnos.get(i).getDatosCompletosTabla());
-				
 				//Agrego Espacios para la duracion del Turno
 				int espacios = Integer.valueOf(listaTurnos.get(i).getDato("duracion"))/30; 
 				for(int k=0; k<espacios; k++){
 					vector_datos.add(vector_vacio);
 				}
-				
+				//Agrego Espacios en blanco hasta el próximo turno
 				try{
 					String prox_hor = listaTurnos.get(indices.get(j+1)).getDato("horario");
 					
 					int index = getDiferenciaDeHorarios(esta_hor, prox_hor);
 					index = (index+blancos) - (vector_datos.size()-primero) - 1;
 					
-					System.out.println("INDEX: "+String.valueOf(index));
-					
 					for(int k=0; k<index; k++){
 						vector_datos.add(vector_blanco);
 						blancos++;
 					}
-					
 				}catch(Exception ex){
-					
+					//Esta en el último turno
 				}
-				
-				System.out.println("++TURNO ES DE: "+listaTurnos.get(i).getDato("paciente")+ "/ A LAS: "+listaTurnos.get(i).getDato("horario"));
 			}
 		
 		return vector_datos;
@@ -125,13 +113,11 @@ public class ListaDeTurnos{
 	
 	public Vector<Vector<String>> getTratamientosPorPaciente(String paciente){
 		Vector<Vector<String>> vector_datos = new Vector<Vector<String>>();
-		
 		for(int i=0; i<listaTurnos.size(); i++){
 			if(listaTurnos.get(i).getDato("paciente").equals(paciente)){
 				vector_datos.add(listaTurnos.get(i).getTratamientoTabla());
 			}	
 		}
-		
 		return vector_datos;
 	}
 

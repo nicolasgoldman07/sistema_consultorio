@@ -9,6 +9,5 @@ public class Main {
 		Model theModel = new Model();
     
 		Controller theController = new Controller(theView, theModel);
-		
 	}
 }

@@ -61,11 +61,11 @@ public class Controller {
 				mView.login.clearLogin();
 				mView.newMenu();
 				mView.menu.addMenuListeners(new menuListener());
-				
 			}
 		}
 	}
 	
+	//Menu Listeners
 	class menuListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -157,23 +157,38 @@ public class Controller {
 	//Nuevo Turno Listener
 	class ConfirmarTurnoListener implements ActionListener{
 		public void actionPerformed (ActionEvent e) {
-			String fecha, horario, tratamiento, diente, odontologo, paciente;
-			int duracion;
-			fecha = mView.nuevoTurno.getFecha();
-			horario = mView.nuevoTurno.getHorario();
-			duracion = mView.nuevoTurno.getDuracion();
-			tratamiento = mView.nuevoTurno.getTratamiento();
-			diente = mView.nuevoTurno.getDiente();
-			odontologo = mView.nuevoTurno.getOdontologo();
 			
-			try{
-				paciente = mView.nuevoTurno.getPaciente();
-				if (mModel.addTurnoDB(fecha, horario, tratamiento, duracion, diente, odontologo, paciente)){
-					mView.nuevoTurno.setVisible(false);
+			Object source = e.getSource();
+			
+			if(source.equals(mView.nuevoTurno.getConfirmarBtn())){
+				String fecha, horario, tratamiento, diente, odontologo, paciente;
+				int duracion;
+				fecha = mView.nuevoTurno.getFecha();
+				horario = mView.nuevoTurno.getHorario();
+				duracion = mView.nuevoTurno.getDuracion();
+				tratamiento = mView.nuevoTurno.getTratamiento();
+				diente = mView.nuevoTurno.getDiente();
+				odontologo = mView.nuevoTurno.getOdontologo();
+				
+				try{
+					paciente = mView.nuevoTurno.getPaciente();
+					if (mModel.addTurnoDB(fecha, horario, tratamiento, duracion, diente, odontologo, paciente)){
+						mView.nuevoTurno.setVisible(false);
+						listaTurnos.Ordenar();
+						mModel.llenarTablaTurnos(mView.agenda.getTabla(), listaTurnos.getTurnosPorDia(fechaSeleccionada));
+					}
+				}catch(Exception ex){
+					JOptionPane.showMessageDialog(null, "No se ha seleccionado un paciente", "Error", JOptionPane.ERROR_MESSAGE);
 				}
-			}catch(Exception ex){
-				JOptionPane.showMessageDialog(null, "No se ha seleccionado un paciente", "Error", JOptionPane.ERROR_MESSAGE);
 			}
+			
+			if(source.equals(mView.nuevoTurno.getBusquedaField())){
+				String aux = mView.nuevoTurno.getBusquedaField().getText();
+				int index = listaPacientes.getPacientePorNombre(aux);
+				mView.nuevoTurno.getListaDeNombres().setSelectedValue(listaPacientes.getElementAt(index), false);
+				mView.nuevoTurno.getListaDeNombres().setSelectionBackground(Color.GREEN);
+			}
+			
 		}
 	}
 	
@@ -202,6 +217,10 @@ public class Controller {
             mView.agenda.getFechaSeleccion().setText(fechaSeleccionada);
             
             mModel.llenarTablaTurnos(mView.agenda.getTabla(), listaTurnos.getTurnosPorDia(fechaSeleccionada));
+        }
+        
+        public void setTabla(LocalDate newDate){
+        	
         }
 
         @Override
