@@ -173,7 +173,7 @@ public class historiaClinicaView extends JFrame {
 		tablaDatos.setRowSelectionAllowed(false);
 		tablaDatos.setModel(new DefaultTableModel(
 			new Object[][] {
-				{new String("ALGO"), new String("ALGO")},
+				{null, null},
 				{null, null},
 				{null, null},
 				{null, null},

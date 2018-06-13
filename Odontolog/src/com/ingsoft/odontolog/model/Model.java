@@ -18,8 +18,6 @@ import javax.swing.table.TableModel;
 
 
 import com.ingsoft.odontolog.model.sql.ConexionLogin;
-import com.ingsoft.odontolog.model.sql.ConexionPacientes;
-import com.ingsoft.odontolog.model.sql.ConexionTurnos;
 
 
 public class Model implements Observer{
@@ -30,8 +28,8 @@ public class Model implements Observer{
 	private String sqlLoginCommand;
 	private String sqlAddingCommand;
 	private String sqlTurnosCommand;
-	private ConexionPacientes conP;
-	private ConexionTurnos conT;
+	private ConexionLogin conP;
+	private ConexionLogin conT;
 	
 	
 	private int aux = 0;
@@ -103,7 +101,7 @@ public class Model implements Observer{
 		sqlAddingCommand = "INSERT INTO pacientes (nombre, apellido, dni, telefono, mail, direccion,"
 				+ " medicoCabecera, peso, obraSocial, numOS, altura, factorSang) "
 				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)" ;
-		conP = new ConexionPacientes();
+		conP = new ConexionLogin();
 		try{
 			pst = conP.getConnection().prepareStatement(sqlAddingCommand);
 			pst.setString(1, nom);
@@ -136,7 +134,7 @@ public class Model implements Observer{
 	
 	public void removePacienteDB(String id){
 		String rmCommand = "DELETE FROM pacientes WHERE dni = '"+id+"' ";
-		conP = new ConexionPacientes();
+		conP = new ConexionLogin();
 		
 		try{
 			Statement estatuto = conP.getConnection().createStatement();
@@ -187,7 +185,7 @@ public class Model implements Observer{
 		sqlTurnosCommand = "INSERT INTO turnos (fecha, horario, tratamiento, diente, "
 				+ "odontologo, paciente, duracion) "
 				+ "VALUES (?, ?, ?, ?, ?, ?, ?)" ;
-		conT = new ConexionTurnos();
+		conT = new ConexionLogin();
 		try {
 			pst = conT.getConnection().prepareStatement(sqlTurnosCommand);
 			pst.setString(1, date);

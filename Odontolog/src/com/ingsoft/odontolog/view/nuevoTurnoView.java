@@ -43,7 +43,7 @@ import javax.swing.event.ChangeEvent;
 public class nuevoTurnoView extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField;
+	private JTextField busquedaField;
 	private JButton confirmarTurnoBtn;
 	private JDateChooser dateChooser;
 	private JComboBox comboBoxHoriarios;
@@ -54,25 +54,7 @@ public class nuevoTurnoView extends JFrame {
 	private JComboBox comboBoxDuracion;
 	private JLabel labelDienteSeleccionado;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					nuevoTurnoView frame = new nuevoTurnoView();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
-	/**
-	 * Create the frame.
-	 */
 	public nuevoTurnoView() {
 		setTitle("Agregar");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(nuevoPacienteView.class.getResource("/images/dientesin200.png")));
@@ -239,16 +221,16 @@ public class nuevoTurnoView extends JFrame {
 		gbc_comboBoxDuracion.gridy = 12;
 		contentPane.add(comboBoxDuracion, gbc_comboBoxDuracion);
 		
-		textField = new JTextField();
-		textField.setText("\"B\u00FAsqueda\"");
-		textField.setFont(new Font("Yu Gothic UI Semilight", Font.ITALIC, 15));
+		busquedaField = new JTextField();
+		busquedaField.setText("\"B\u00FAsqueda\"");
+		busquedaField.setFont(new Font("Yu Gothic UI Semilight", Font.ITALIC, 15));
 		GridBagConstraints gbc_textField = new GridBagConstraints();
 		gbc_textField.gridwidth = 2;
 		gbc_textField.insets = new Insets(0, 0, 5, 0);
 		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textField.gridx = 4;
 		gbc_textField.gridy = 12;
-		contentPane.add(textField, gbc_textField);
+		contentPane.add(busquedaField, gbc_textField);
 		
 		listaPacientes = new JList();
 		listaPacientes.setFont(new Font("Yu Gothic UI Semilight", Font.PLAIN, 16));
@@ -318,10 +300,19 @@ public class nuevoTurnoView extends JFrame {
 
 	public void addConfirmarTurnoListener (ActionListener listenConfirmar) {
 		confirmarTurnoBtn.addActionListener(listenConfirmar);
+		busquedaField.addActionListener(listenConfirmar);
+	}
+	
+	public JButton getConfirmarBtn(){
+		return confirmarTurnoBtn;
 	}
 	
 	public JDateChooser getDateChooser(){
 		return dateChooser;
+	}
+	
+	public JList getListaDeNombres(){
+		return listaPacientes;
 	}
 	
 	public String getFecha() {
@@ -359,6 +350,10 @@ public class nuevoTurnoView extends JFrame {
 	
 	public void iniciarLista(ListModel modelo){
 		listaPacientes.setModel(modelo);
+	}
+	
+	public JTextField getBusquedaField(){
+		return busquedaField;
 	}
 	
 	class SliderListener implements ChangeListener{
